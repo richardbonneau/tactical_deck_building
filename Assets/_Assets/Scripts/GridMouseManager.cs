@@ -21,8 +21,8 @@ public class GridMouseManager : MonoBehaviour
 
             if(Physics.Raycast(ray, out hit)) {
             Transform objectHit = hit.transform;
-            mapSelector.transform.position = hit.point;
+            mapSelector.transform.position = new Vector3(Mathf.Round(hit.point.x),mapSelector.transform.position.y,Mathf.Round(hit.point.z));
             print(hit.point);
-        } else mapSelector.transform.position = new Vector3(999,999,999);
+        } else mapSelector.transform.position = new Vector3(999,mapSelector.transform.position.y,999);
     }
 }
