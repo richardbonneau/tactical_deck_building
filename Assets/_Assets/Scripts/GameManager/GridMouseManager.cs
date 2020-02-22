@@ -17,6 +17,33 @@ public class GridMouseManager : MonoBehaviour
         playerAgent = player.GetComponent<NavMeshAgent>();
     }
 
+    void Pathfinder(){
+        // Nodes that we want to calculate the F cost of
+        List<Vector3> openNodes = new <Vector3>();
+        // Nodes that have already been evaluated
+        List<Vector3> closedNodes = new <Vector3>();
+        bool pathFound = false;
+
+        openNodes.add(player.transform.position);
+
+        while(!pathFound){
+            Vector3 lowestCostNode;
+            foreach(Vector3 node in openNodes){
+                
+            }
+        }
+        // foreach(Vector3 neighbour in neighbourList){
+
+        // }
+    }
+    int GetDistance(Vector3 nodeA, Vector3 NodeB){
+        int changingCoordinates = 0;
+        if(nodeA.x == nodeB.x) changingCoordinates++;
+        if(nodeA.z == nodeB.z) changingCoordinates++;
+        if(changingCoordinates == 1) return 10;
+        else if(changingCoordinates == 2) return 14
+    }
+
     // Update is called once per frame
     void Update()
     {
