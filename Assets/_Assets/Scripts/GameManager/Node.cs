@@ -13,7 +13,6 @@ public class Node
     // Distance from End Node
     public int hCost;
     // gCost + hCost
-    public int fCost;
     public Node parent;
 
     // Put in place some kind of collider detection
@@ -25,6 +24,11 @@ public class Node
         worldPosition = _worldPosition;
         walkable = _walkable;
         
+    }
+    public int fCost {
+        get {
+            return gCost + hCost;
+        }
     }
 
 

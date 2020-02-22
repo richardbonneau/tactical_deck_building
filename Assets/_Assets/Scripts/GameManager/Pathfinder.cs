@@ -31,51 +31,73 @@ public class Pathfinder : MonoBehaviour
         List<Node> openNodes = new List<Node>();
         // Nodes that have already been evaluated
         List<Node> closedNodes = new List<Node>();
-        bool pathFound = false;
+    
         
-        Node playerNode = grid.NodeFromWorldPoint(startPos);
-        print("player "+playerNode.x + " "+playerNode.z);
+        Node startNode = grid.NodeFromWorldPoint(startPos);
         Node targetNode = grid.NodeFromWorldPoint(endPos);
-        print("player "+targetNode.x + " "+targetNode.z);
-        
-        // List<Node> neighbours = GetNeighbours(playerNode);
+        bool test = true;
+        openNodes.Add(startNode);
+        while(openNodes.Count > 0){
+            Node lowestCostNode = openNodes[0];
+            foreach(Node node in openNodes){
+                if(node.fCost <= lowestCostNode.fCost && node.hCost < lowestCostNode.hCost) {
+                    lowestCostNode = node;
+                    }
+            }
+            openNodes.Remove(lowestCostNode);
+            closedNodes.Add(lowestCostNode);
+            print("lowestCostNode == targetNode "+lowestCostNode.x +" "+targetNode.x);
+            if(lowestCostNode == targetNode){
+                RetracePath(startNode, targetNode);
+                print("found path");
+                return;
+            }
 
-
-
-        // openNodes.Add(playerNode);
-        // while(!pathFound){
-        //     Node lowestCostNode = playerNode;
-        //     foreach(Node node in openNodes){
-        //         if(lowestCostNode.fCost < node.fCost) {
-        //             lowestCostNode = node;
-        //             closedNodes.Remove(node);
-        //             openNodes.Add(node);
-        //             }
-        //     }
-
-        // }
-        // foreach(Vector3 neighbour in neighbourList){
-        // }
+            List<Node> neighbours = grid.GetNeighbours(lowestCostNode);
+            foreach(Node neighbour in neighbours){
+                if(!neighbour.walkable || closedNodes.Contains(neighbour)){
+                    continue;
+                }
+                int newCostToNeighbour = lowestCostNode.gCost + GetDistance(lowestCostNode, neighbour);
+                bool openNodesListContainsNeighbour = openNodes.Contains(neighbour);
+                if(newCostToNeighbour < neighbour.gCost || !openNodesListContainsNeighbour){
+                    neighbour.gCost = newCostToNeighbour;
+                    neighbour.hCost = GetDistance(neighbour, targetNode);
+                    neighbour.parent = lowestCostNode;
+                    if(!openNodesListContainsNeighbour){
+                        openNodes.Add(neighbour);
+                    }
+                }
+            }
+            
+test = false;
+        }
     }
 
-	// int GetDistance(Node nodeA, Node nodeB) {
-	// 	int dstX = Mathf.Abs(nodeA.x - nodeB.x);
-	// 	int dstY = Mathf.Abs(nodeA.y - nodeB.y);
+    void RetracePath(Node startNode, Node endNode){
+        List<Node> path = new List<Node>();
+        Node currentNode = endNode;
 
-	// 	if (dstX > dstY)
-	// 		return 14*dstY + 10* (dstX-dstY);
-	// 	return 14*dstX + 10 * (dstY-dstX);
-	// }
+        while (currentNode != startNode){
+            path.Add(currentNode);
+            currentNode = currentNode.parent;
+        }
+        path.Reverse();
 
-    // public List<Node> GetNeighbours(Node node){
-    //     List<Node> neighbours = new List<Node>();
+        // Send path wherever you need it
+        print(path);
+    }
 
-    //     for (int x = -1; x <= 1; x++) {
-	// 	    for (int y = -1; y <= 1; y++) {
-	// 		if (x == 0 && y == 0) continue;
-    //         }
-    //     }
-    // }
+	int GetDistance(Node nodeA, Node nodeB) {
+		int dstX = Mathf.Abs(nodeA.x - nodeB.x);
+		int dstZ = Mathf.Abs(nodeA.z - nodeB.z);
+
+		if (dstX > dstZ)
+			return 14*dstZ + 10* (dstX-dstZ);
+		return 14*dstX + 10 * (dstZ-dstX);
+	}
+
+
 
     // Update is called once per frame
     void Update()
