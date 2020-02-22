@@ -4,14 +4,19 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class GridMouseManager : MonoBehaviour
+public class Pathfinder : MonoBehaviour
 {
     public Camera camera;
     public GameObject mapSelector;
     public GameObject player;
     PlayerStatus playerstatus;
     NavMeshAgent playerAgent;
-    // Start is called before the first frame update
+    GridCreator grid;
+    
+
+    void Awake(){
+        grid = GetComponent<GridCreator>();
+    }
     void Start()
     {
         playerstatus = GetComponent<PlayerStatus>();
@@ -19,7 +24,8 @@ public class GridMouseManager : MonoBehaviour
         
     }
 
-    void Pathfinder(Vector3 startPos,Vector3 endPos){
+    void FindPath(Vector3 startPos,Vector3 endPos){
+        print("find path method");
     
         // Nodes that we want to calculate the F cost of
         List<Node> openNodes = new List<Node>();
@@ -27,8 +33,10 @@ public class GridMouseManager : MonoBehaviour
         List<Node> closedNodes = new List<Node>();
         bool pathFound = false;
         
-        // Node playerNode = new Node(startPos.x,startPos.z);
-        // Node targetNode = new Node(endPos.x,endPos.z);
+        Node playerNode = grid.NodeFromWorldPoint(startPos);
+        print("player "+playerNode.x + " "+playerNode.z);
+        Node targetNode = grid.NodeFromWorldPoint(endPos);
+        print("player "+targetNode.x + " "+targetNode.z);
         
         // List<Node> neighbours = GetNeighbours(playerNode);
 
@@ -80,7 +88,8 @@ public class GridMouseManager : MonoBehaviour
             mapSelector.transform.position = snappedCoordinates;
             // print(snappedCoordinates);
             if (Input.GetMouseButtonDown(0)) {
-                Pathfinder(player.transform.position, snappedCoordinates);
+                print("mouse btn down");
+                FindPath(player.transform.position, snappedCoordinates);
 
                 // playerAgent.destination=snappedCoordinates;
                 // playerstatus.currentCoordinates = snappedCoordinates;
