@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class GridMouseManager : MonoBehaviour
 {
     public Camera camera;
@@ -15,34 +16,41 @@ public class GridMouseManager : MonoBehaviour
     {
         playerstatus = GetComponent<PlayerStatus>();
         playerAgent = player.GetComponent<NavMeshAgent>();
+        Pathfinder();
     }
 
     void Pathfinder(){
+    
         // Nodes that we want to calculate the F cost of
-        List<Vector3> openNodes = new <Vector3>();
+        List<GridNode> openNodes = new List<GridNode>();
         // Nodes that have already been evaluated
-        List<Vector3> closedNodes = new <Vector3>();
+        List<GridNode> closedNodes = new List<GridNode>();
         bool pathFound = false;
+        
+        GridNode playerNode = new GridNode(player.transform.position.x,player.transform.position.z);
+        print(playerNode.x);
+        openNodes.Add(playerNode);
+        
 
-        openNodes.add(player.transform.position);
-
-        while(!pathFound){
-            Vector3 lowestCostNode;
-            foreach(Vector3 node in openNodes){
+        // while(!pathFound){
+        //     Vector3 lowestCostNode;
+        //     foreach(Vector3 node in openNodes){
                 
-            }
-        }
+        //     }
+        // }
+
+        
         // foreach(Vector3 neighbour in neighbourList){
 
         // }
     }
-    int GetDistance(Vector3 nodeA, Vector3 NodeB){
-        int changingCoordinates = 0;
-        if(nodeA.x == nodeB.x) changingCoordinates++;
-        if(nodeA.z == nodeB.z) changingCoordinates++;
-        if(changingCoordinates == 1) return 10;
-        else if(changingCoordinates == 2) return 14
-    }
+    // int GetDistance(Vector3 nodeA, Vector3 nodeB){
+    //     int changingCoordinates = 0;
+    //     if(nodeA.x == nodeB.x) changingCoordinates++;
+    //     if(nodeA.z == nodeB.z) changingCoordinates++;
+    //     if(changingCoordinates == 1) return 10;
+    //     else if(changingCoordinates == 2) return 14;
+    // }
 
     // Update is called once per frame
     void Update()
