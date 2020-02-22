@@ -45,4 +45,20 @@ public class GridCreator : MonoBehaviour
         }
         return neighbours;
     }
+    
+
+    public List<Node> path;
+	void OnDrawGizmos() {
+		// Gizmos.DrawWireCube(transform.position,new Vector3(gridSizeX.x,1,gridSizeZ.y));
+
+		if (grid != null) {
+			foreach (Node n in grid) {
+				Gizmos.color = (n.walkable)?Color.white:Color.red;
+				if (path != null)
+					if (path.Contains(n))
+						Gizmos.color = Color.black;
+				Gizmos.DrawCube(n.worldPosition, Vector3.one * (1000-.1f));
+			}
+		}
+	}
 }

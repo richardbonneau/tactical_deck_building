@@ -69,8 +69,6 @@ public class Pathfinder : MonoBehaviour
                     }
                 }
             }
-            
-test = false;
         }
     }
 
@@ -85,7 +83,12 @@ test = false;
         path.Reverse();
 
         // Send path wherever you need it
-        print(path);
+        MoveAgent(path);
+    }
+
+    void MoveAgent(List<Node> path){
+        playerAgent.destination = path[0].worldPosition;
+        grid.path = path;
     }
 
 	int GetDistance(Node nodeA, Node nodeB) {
