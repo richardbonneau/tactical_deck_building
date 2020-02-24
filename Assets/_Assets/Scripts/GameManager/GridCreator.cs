@@ -8,6 +8,7 @@ public class GridCreator : MonoBehaviour
     public int gridSizeX = 20;
     public int gridSizeZ = 20;
     Node[,] grid;
+    public List<Node> path;
 
     void Awake() {
         CreateGrid();
@@ -47,8 +48,9 @@ public class GridCreator : MonoBehaviour
     }
     
 
-    public List<Node> path;
+    
 	void OnDrawGizmos() {
+        print("path "+path);
 		// Gizmos.DrawWireCube(transform.position,new Vector3(gridSizeX.x,1,gridSizeZ.y));
 
 		if (grid != null) {

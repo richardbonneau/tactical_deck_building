@@ -8,19 +8,23 @@ public class Pathfinder : MonoBehaviour
 {
     public Camera camera;
     public GameObject mapSelector;
-    public GameObject player;
-    PlayerStatus playerstatus;
+    PlayerStatus playerStatus;
     NavMeshAgent playerAgent;
     GridCreator grid;
+    List<GameObject> pathView = new List<GameObject>();
+
+    public GameObject pathIndicator;
     
 
     void Awake(){
         grid = GetComponent<GridCreator>();
+        playerStatus = transform.parent.GetChild(1).GetComponent<PlayerStatus>();
+        playerAgent = playerStatus.player.GetComponent<NavMeshAgent>();
     }
     void Start()
     {
-        playerstatus = GetComponent<PlayerStatus>();
-        playerAgent = player.GetComponent<NavMeshAgent>();
+        
+        
         
     }
 
@@ -49,7 +53,7 @@ public class Pathfinder : MonoBehaviour
             print("lowestCostNode == targetNode "+lowestCostNode.x +" "+targetNode.x);
             if(lowestCostNode == targetNode){
                 RetracePath(startNode, targetNode);
-                print("found path");
+                playerStatus.playerNode = lowestCostNode;
                 return;
             }
 
@@ -83,13 +87,36 @@ public class Pathfinder : MonoBehaviour
         path.Reverse();
 
         // Send path wherever you need it
-        MoveAgent(path);
+         print("before coroutine");
+        // StartCoroutine(MoveAgent(path));
+        foreach (GameObject sphere in pathView){
+            Destroy(sphere);
+        }
+        foreach(Node node in path){
+            GameObject p = Instantiate(pathIndicator, node.worldPosition, Quaternion.identity);
+            pathView.Add(p);
+        }
     }
 
-    void MoveAgent(List<Node> path){
-        playerAgent.destination = path[0].worldPosition;
-        grid.path = path;
+    IEnumerator MoveAgent(List<Node> path){
+        while(true){
+                
+        yield return new WaitForSeconds(0.01f);
+
+// print("in move agent "+path[0].worldPosition + " 1:"+(path[0].worldPosition.x != playerStatus.player.transform.position.x)+" 2:" +(path[0].worldPosition.z != playerStatus.player.transform.position.z));
+        // print("path[0].worldPosition.x "+ path[0].worldPosition.x+ " != " + "playerStatus.player.transform.position.x "+ playerStatus.player.transform.position.x+ "&& "+ "path[0].worldPosition.z "+path[0].worldPosition.z+ "!= "+ "playerStatus.player.transform.position.z "+playerStatus.player.transform.position.z);
+        if(path.Count == 0) print("path list empty");
+        else if(path[0].worldPosition.x != playerStatus.player.transform.position.x && path[0].worldPosition.z != playerStatus.player.transform.position.z){
+            print("movin");
+            playerStatus.player.transform.position = path[0].worldPosition;
+            // playerAgent.destination = path[0].worldPosition;
+        } else if(path.Count != 0)path.RemoveAt(0);
+       
+        }
     }
+        
+    //     // grid.path = path;
+    // }
 
 	int GetDistance(Node nodeA, Node nodeB) {
 		int dstX = Mathf.Abs(nodeA.x - nodeB.x);
@@ -99,6 +126,7 @@ public class Pathfinder : MonoBehaviour
 			return 14*dstZ + 10* (dstX-dstZ);
 		return 14*dstX + 10 * (dstZ-dstX);
 	}
+
 
 
 
@@ -114,7 +142,7 @@ public class Pathfinder : MonoBehaviour
             // print(snappedCoordinates);
             if (Input.GetMouseButtonDown(0)) {
                 print("mouse btn down");
-                FindPath(player.transform.position, snappedCoordinates);
+                FindPath(playerStatus.playerNode.worldPosition, snappedCoordinates);
 
                 // playerAgent.destination=snappedCoordinates;
                 // playerstatus.currentCoordinates = snappedCoordinates;

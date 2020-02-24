@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class PlayerStatus : MonoBehaviour
 {
+    GridCreator gridScript;
     public int remainingMovements = 5;
-    public Vector3 currentCoordinates;
+    public Node playerNode;
+    public GameObject player; 
     // if more than one vector is changed, its a diagonal movement, therefore it costs 2
-
+    void Start(){
+        gridScript = transform.parent.GetChild(0).GetComponent<GridCreator>();
+        playerNode = gridScript.NodeFromWorldPoint(player.transform.position);
+    }
 }
