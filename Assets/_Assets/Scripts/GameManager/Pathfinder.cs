@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+
 
 
 public class Pathfinder : MonoBehaviour
@@ -9,17 +9,19 @@ public class Pathfinder : MonoBehaviour
     public Camera camera;
     public GameObject mapSelector;
     PlayerStatus playerStatus;
-    NavMeshAgent playerAgent;
+
     GridCreator grid;
     List<GameObject> pathView = new List<GameObject>();
 
     public GameObject pathIndicator;
+
+    bool availableMovementsGridShown = false;
     
 
     void Awake(){
         grid = GetComponent<GridCreator>();
         playerStatus = transform.parent.GetChild(1).GetComponent<PlayerStatus>();
-        playerAgent = playerStatus.player.GetComponent<NavMeshAgent>();
+
     }
     void Start()
     {
@@ -28,7 +30,7 @@ public class Pathfinder : MonoBehaviour
         
     }
 
-    void FindPath(Vector3 startPos,Vector3 endPos){
+    List<Node> FindPath(Vector3 startPos,Vector3 endPos){
         print("find path method");
     
         // Nodes that we want to calculate the F cost of
@@ -52,9 +54,16 @@ public class Pathfinder : MonoBehaviour
             closedNodes.Add(lowestCostNode);
             print("lowestCostNode == targetNode "+lowestCostNode.x +" "+targetNode.x);
             if(lowestCostNode == targetNode){
-                RetracePath(startNode, targetNode);
-                playerStatus.playerNode = lowestCostNode;
-                return;
+                List<Node> path = new List<Node>();
+                Node currentNode = targetNode;
+                while (currentNode != startNode){
+                    path.Add(currentNode);
+                    currentNode = currentNode.parent;
+                }
+                path.Reverse();
+
+                // playerStatus.playerNode = lowestCostNode;
+                return path;
             }
 
             List<Node> neighbours = grid.GetNeighbours(lowestCostNode);
@@ -74,29 +83,27 @@ public class Pathfinder : MonoBehaviour
                 }
             }
         }
+        print("return empty list");
+        return new List<Node>();
     }
 
-    void RetracePath(Node startNode, Node endNode){
-        List<Node> path = new List<Node>();
-        Node currentNode = endNode;
 
-        while (currentNode != startNode){
-            path.Add(currentNode);
-            currentNode = currentNode.parent;
-        }
-        path.Reverse();
 
-        // Send path wherever you need it
-         print("before coroutine");
-        // StartCoroutine(MoveAgent(path));
-        foreach (GameObject sphere in pathView){
-            Destroy(sphere);
-        }
-        foreach(Node node in path){
-            GameObject p = Instantiate(pathIndicator, node.worldPosition, Quaternion.identity);
-            pathView.Add(p);
-        }
-    }
+    // void RetracePath(Node startNode, Node endNode){
+     
+
+
+
+    //     playerStatus.player.transform.position = path[path.Count-1].worldPosition;
+    //     foreach (GameObject sphere in pathView){
+    //         Destroy(sphere);
+    //     }
+    //     foreach(Node node in path){
+    //         GameObject p = Instantiate(pathIndicator, node.worldPosition, Quaternion.identity);
+    //         pathView.Add(p);
+    //     }
+        
+    // }
 
     IEnumerator MoveAgent(List<Node> path){
         while(true){
@@ -109,7 +116,7 @@ public class Pathfinder : MonoBehaviour
         else if(path[0].worldPosition.x != playerStatus.player.transform.position.x && path[0].worldPosition.z != playerStatus.player.transform.position.z){
             print("movin");
             playerStatus.player.transform.position = path[0].worldPosition;
-            // playerAgent.destination = path[0].worldPosition;
+
         } else if(path.Count != 0)path.RemoveAt(0);
        
         }
@@ -133,6 +140,26 @@ public class Pathfinder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!availableMovementsGridShown){
+            int maxMove = 2;
+            for(int x= -maxMove;x<=maxMove; x++){
+                for(int z = -maxMove; z<=maxMove;z++){
+                    if(x == 0 && z == 0) continue;
+                    List<Node> path = FindPath(playerStatus.playerNode.worldPosition, new Vector3(x,0,z));
+                    if(path.Count <= 2) {
+                        print("instantiate go");
+                        GameObject p = Instantiate(pathIndicator, new Vector3(x,0,z), Quaternion.identity);
+                        pathView.Add(p);
+                    }
+                }
+            }
+            availableMovementsGridShown = true;
+        }
+
+
+
+
+        // click
             RaycastHit hit;
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
             if(Physics.Raycast(ray, out hit)) {
@@ -142,9 +169,9 @@ public class Pathfinder : MonoBehaviour
             // print(snappedCoordinates);
             if (Input.GetMouseButtonDown(0)) {
                 print("mouse btn down");
-                FindPath(playerStatus.playerNode.worldPosition, snappedCoordinates);
+                // FindPath(playerStatus.playerNode.worldPosition, snappedCoordinates);
 
-                // playerAgent.destination=snappedCoordinates;
+
                 // playerstatus.currentCoordinates = snappedCoordinates;
                 // I need an array of destinations that the agent will go through one by one
             }
@@ -154,28 +181,3 @@ public class Pathfinder : MonoBehaviour
     }
 }
 
-
-
-
-
-
-// Off combat Movements 
-
-    // void Update()
-    // {
-    //         RaycastHit hit;
-    //         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-    //         if(Physics.Raycast(ray, out hit)) {
-    //         Vector3 snappedCoordinates =new Vector3(Mathf.Round(hit.point.x),mapSelector.transform.position.y,Mathf.Round(hit.point.z));
-    //         Transform objectHit = hit.transform;
-    //         mapSelector.transform.position = snappedCoordinates;
-    //         print(snappedCoordinates);
-    //         if (Input.GetMouseButtonDown(0)) {
-    //             playerAgent.destination=snappedCoordinates;
-    //             playerstatus.currentCoordinates = snappedCoordinates;
-    //             // I need an array of destinations that the agent will go through one by one
-    //         }
-            
-    //     } else mapSelector.transform.position = new Vector3(999,mapSelector.transform.position.y,999);
-        
-    // }
