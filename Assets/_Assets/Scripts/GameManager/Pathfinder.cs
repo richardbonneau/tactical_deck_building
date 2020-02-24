@@ -52,7 +52,7 @@ public class Pathfinder : MonoBehaviour
             }
             openNodes.Remove(lowestCostNode);
             closedNodes.Add(lowestCostNode);
-            print("lowestCostNode == targetNode "+lowestCostNode.x +" "+targetNode.x);
+
             if(lowestCostNode == targetNode){
                 List<Node> path = new List<Node>();
                 Node currentNode = targetNode;
@@ -130,8 +130,8 @@ public class Pathfinder : MonoBehaviour
 		int dstZ = Mathf.Abs(nodeA.z - nodeB.z);
 
 		if (dstX > dstZ)
-			return 14*dstZ + 10* (dstX-dstZ);
-		return 14*dstX + 10 * (dstZ-dstX);
+			return 20*dstZ + 10* (dstX-dstZ);
+		return 20*dstX + 10 * (dstZ-dstX);
 	}
 
 
@@ -141,12 +141,15 @@ public class Pathfinder : MonoBehaviour
     void Update()
     {
         if(!availableMovementsGridShown){
-            int maxMove = 2;
-            for(int x= -maxMove;x<=maxMove; x++){
-                for(int z = -maxMove; z<=maxMove;z++){
-                    if(x == 0 && z == 0) continue;
+            int maxMove = 5;
+            int playerPosX = Mathf.RoundToInt(playerStatus.playerNode.worldPosition.x);
+            int playerPosZ = Mathf.RoundToInt(playerStatus.playerNode.worldPosition.z);
+            for(int x= playerPosX-maxMove;x<= playerPosX+maxMove; x++){
+                for(int z = playerPosZ-maxMove; z<=playerPosZ+maxMove;z++){
+                    if(x == playerPosX && z == playerPosZ) continue;
                     List<Node> path = FindPath(playerStatus.playerNode.worldPosition, new Vector3(x,0,z));
-                    if(path.Count <= 2) {
+                    print(x+" "+z+" pathcount :"+path.Count);
+                    if(path[path.Count-1].gCost <= maxMove*10) {
                         print("instantiate go");
                         GameObject p = Instantiate(pathIndicator, new Vector3(x,0,z), Quaternion.identity);
                         pathView.Add(p);
@@ -169,8 +172,11 @@ public class Pathfinder : MonoBehaviour
             // print(snappedCoordinates);
             if (Input.GetMouseButtonDown(0)) {
                 print("mouse btn down");
-                // FindPath(playerStatus.playerNode.worldPosition, snappedCoordinates);
-
+                List<Node> path = FindPath(playerStatus.playerNode.worldPosition, snappedCoordinates);
+                foreach(Node node in path){
+                    GameObject p = Instantiate(pathIndicator, node.worldPosition, Quaternion.identity);
+                    pathView.Add(p);
+                }
 
                 // playerstatus.currentCoordinates = snappedCoordinates;
                 // I need an array of destinations that the agent will go through one by one
