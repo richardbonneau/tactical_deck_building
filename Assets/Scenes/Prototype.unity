@@ -181,6 +181,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 1679711832}
   mapSelector: {fileID: 172057272}
+  pathIndicator: {fileID: 2129745948548961580, guid: 0a517a0dc54b2454691185b277cb1d56,
+    type: 3}
 --- !u!1 &37053920
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,28 +324,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8957634527364403519}
   m_PrefabAsset: {fileID: 0}
---- !u!195 &439429595
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439429594}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!4 &766089117 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4362264027587702, guid: f923d13d00af49f4c888dd5f62f0835e,
@@ -488,7 +468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362264027587702, guid: f923d13d00af49f4c888dd5f62f0835e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.9707751
+      value: -9.029224
       objectReference: {fileID: 0}
     - target: {fileID: 4362264027587702, guid: f923d13d00af49f4c888dd5f62f0835e, type: 3}
       propertyPath: m_LocalRotation.x
@@ -998,7 +978,7 @@ PrefabInstance:
     - target: {fileID: 1978554006365611522, guid: 3da5cc308e9dfaa4883b2381fe5d3a21,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1978554006365611522, guid: 3da5cc308e9dfaa4883b2381fe5d3a21,
         type: 3}
@@ -1008,7 +988,7 @@ PrefabInstance:
     - target: {fileID: 1978554006365611522, guid: 3da5cc308e9dfaa4883b2381fe5d3a21,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1978554006365611522, guid: 3da5cc308e9dfaa4883b2381fe5d3a21,
         type: 3}
