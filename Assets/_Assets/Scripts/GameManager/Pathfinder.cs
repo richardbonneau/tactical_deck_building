@@ -128,8 +128,8 @@ public class Pathfinder : MonoBehaviour
 		int dstZ = Mathf.Abs(nodeA.z - nodeB.z);
 
 		if (dstX > dstZ)
-			return 20*dstZ + 10* (dstX-dstZ);
-		return 20*dstX + 10 * (dstZ-dstX);
+			return 14*dstZ + 10* (dstX-dstZ);
+		return 14*dstX + 10 * (dstZ-dstX);
 	}
 
 

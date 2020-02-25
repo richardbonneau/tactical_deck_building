@@ -13,13 +13,13 @@ public class GridCreator : MonoBehaviour
     void Awake() {
         CreateGrid();
     }
+    
 
     void CreateGrid(){
         grid = new Node[gridSizeX+1, gridSizeZ+1];
 
         for (int x= 0; x<=gridSizeX; x++){
             for(int z=0;z<=gridSizeZ; z++){
-                // TODO: bool walkable = something something
                 bool walkable = true;
                 grid[x,z] = new Node(x,z,new Vector3(gridSpawnPoint.x + x,0,gridSpawnPoint.z + z),walkable);  
             }
