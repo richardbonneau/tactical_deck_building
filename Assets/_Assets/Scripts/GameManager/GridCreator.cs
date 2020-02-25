@@ -7,6 +7,7 @@ public class GridCreator : MonoBehaviour
     Vector3 gridSpawnPoint = new Vector3(-10,0,-10);
     public int gridSizeX = 20;
     public int gridSizeZ = 20;
+    Node outOfBounds = new Node(999,999,new Vector3(999,999,999),false);
     Node[,] grid;
     public List<Node> path;
 
@@ -27,8 +28,12 @@ public class GridCreator : MonoBehaviour
     }
 
     public Node NodeFromWorldPoint(Vector3 worldPosition){
+ 
         int x = Mathf.RoundToInt(worldPosition.x - gridSpawnPoint.x);
         int z = Mathf.RoundToInt(worldPosition.z - gridSpawnPoint.z);
+        if(x < 0 || z < 0 || x*z < 1) return outOfBounds;
+        if(x < 0 || z< 0 || grid.Length < x*z)print("worldPosition :"+worldPosition);
+        print("worldPosition :"+worldPosition+ "X,Z:"+x+z+" grid length:"+grid.Length+" x*z:"+(x*z));
         return grid[x,z];
     }
 

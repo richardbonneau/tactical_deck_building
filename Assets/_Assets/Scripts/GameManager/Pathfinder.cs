@@ -147,7 +147,7 @@ public class Pathfinder : MonoBehaviour
                     if(x == playerPosX && z == playerPosZ) continue;
                     List<Node> path = FindPath(playerStatus.playerNode.worldPosition, new Vector3(x,0,z));
                     // print(x+" "+z+" pathcount :"+path.Count);
-                    if(path[path.Count-1].gCost <= maxMove* 10) {
+                    if(path.Count > 0 && path[path.Count-1].gCost <= maxMove* 10) {
                         print("instantiate gameobject");
                         GameObject p = Instantiate(moveGridIndicator, new Vector3(x,0,z), Quaternion.identity);
                         gridView.Add(p);
