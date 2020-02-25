@@ -186,9 +186,7 @@ public class Pathfinder : MonoBehaviour
                         GameObject p = Instantiate(movePathIndicator, node.worldPosition, Quaternion.identity);
                         pathView.Add(p);
                     }
-            
-                }
-              
+                }  
             }
          print("node not found");
                  lastCalculatedMovePath = mouseSelectWorldPosition;
