@@ -26,15 +26,10 @@ public class Pathfinder : MonoBehaviour
         playerStatus = transform.parent.GetChild(1).GetComponent<PlayerStatus>();
 
     }
-    void Start()
-    {
-        
-        
-        
-    }
+
 
     List<Node> FindPath(Vector3 startPos,Vector3 endPos){
-        print("find path method");
+        // print("find path method");
     
         // Nodes that we want to calculate the F cost of
         List<Node> openNodes = new List<Node>();
@@ -151,9 +146,9 @@ public class Pathfinder : MonoBehaviour
                 for(int z = playerPosZ-maxMove; z<=playerPosZ+maxMove;z++){
                     if(x == playerPosX && z == playerPosZ) continue;
                     List<Node> path = FindPath(playerStatus.playerNode.worldPosition, new Vector3(x,0,z));
-                    print(x+" "+z+" pathcount :"+path.Count);
-                    if(path[path.Count-1].gCost <= maxMove*10) {
-                        print("instantiate go");
+                    // print(x+" "+z+" pathcount :"+path.Count);
+                    if(path[path.Count-1].gCost <= maxMove* 10) {
+                        print("instantiate gameobject");
                         GameObject p = Instantiate(moveGridIndicator, new Vector3(x,0,z), Quaternion.identity);
                         gridView.Add(p);
                     }
@@ -170,49 +165,40 @@ public class Pathfinder : MonoBehaviour
         RaycastHit hit;
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out hit)) {
-        Vector3 snappedCoordinates = new Vector3(Mathf.Round(hit.point.x),mapSelector.transform.position.y,Mathf.Round(hit.point.z));
+        Vector3 mouseSelectWorldPosition = new Vector3(Mathf.Round(hit.point.x),mapSelector.transform.position.y,Mathf.Round(hit.point.z));
         Transform objectHit = hit.transform;
-        mapSelector.transform.position = snappedCoordinates;
-        // print("lastCalculatedMovePath != snappedCoordinates "+(lastCalculatedMovePath != snappedCoordinates));
-        if(lastCalculatedMovePath != snappedCoordinates){
+        mapSelector.transform.position = mouseSelectWorldPosition;
+        // print("lastCalculatedMovePath != mouseSelectWorldPosition "+lastCalculatedMovePath +" "+mouseSelectWorldPosition);
+        if(lastCalculatedMovePath != mouseSelectWorldPosition){
             print("calculating");
             foreach (GameObject indicator in pathView){
-                
                 Destroy(indicator);
             }
             pathView = new List<GameObject>();
-            List<Node> path = FindPath(playerStatus.playerNode.worldPosition, snappedCoordinates);
+            List<Node> path = FindPath(playerStatus.playerNode.worldPosition, mouseSelectWorldPosition);
+            print(path);
+            
             foreach(GameObject gridSquare in gridView ){
-                // print("gridSquare.transform.position "+(typeof(gridSquare.transform.position))+" "+(typeof(path[path.Count-1].worldPosition)));
-                // print(gridSquare.transform.position.x == path[path.Count-1].worldPosition.x && gridSquare.transform.position.z == path[path.Count-1].worldPosition.z);
-                // print("pgridSquare.transform.position "+gridSquare.transform.position +"path[path.Count-1].worldPosition "+ path[path.Count-1].worldPosition );
-                if(pathView.Count != 0 && gridSquare.transform.position == path[path.Count-1].worldPosition){
+                if(path.Count != 0 && gridSquare.transform.position == path[path.Count-1].worldPosition){
                     print("node found in grid");
                     // print("instantiating path objs "+path.Count);
                     foreach(Node node in path){
                         GameObject p = Instantiate(movePathIndicator, node.worldPosition, Quaternion.identity);
                         pathView.Add(p);
-                        return;
                     }
+            
                 }
-                return;
+              
             }
-     
-
-
-            
-                
-                   
-            
-                
-            
-        lastCalculatedMovePath = snappedCoordinates;
+         print("node not found");
+                 lastCalculatedMovePath = mouseSelectWorldPosition;
+                return;
         }
-        // print(snappedCoordinates);
+        // print(mouseSelectWorldPosition);
         if (Input.GetMouseButtonDown(0)) {
             print("mouse btn down");
 
-            // playerstatus.currentCoordinates = snappedCoordinates;
+            // playerstatus.currentCoordinates = mouseSelectWorldPosition;
             // I need an array of destinations that the agent will go through one by one
             }   
             
