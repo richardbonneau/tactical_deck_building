@@ -5,23 +5,36 @@ using UnityEngine;
 public class GridCreator : MonoBehaviour
 {
     Vector3 gridSpawnPoint = new Vector3(-10,0,-10);
-    public int gridSizeX = 20;
-    public int gridSizeZ = 20;
-    Node outOfBounds = new Node(999,999,new Vector3(999,999,999),false);
+    public int gridSizeX = 19;
+    public int gridSizeZ = 19;
+    Node outOfBounds = new Node(0,0,new Vector3(0,10,0),false);
     Node[,] grid;
     public List<Node> path;
+    public GameObject obstacleFinder;
+    public int currentObstacleFinderX = 0;
+    public int currentObstacleFinderZ = 0;
 
     void Awake() {
         CreateGrid();
     }
+    void FixedUpdate(){
+        while(currentObstacleFinderX < grid.GetLength(0)){
+            while(currentObstacleFinderZ < grid.GetLength(1)){
+                print("world pos "+grid[currentObstacleFinderX,currentObstacleFinderZ].worldPosition);
+                obstacleFinder.transform.position = grid[currentObstacleFinderX,currentObstacleFinderZ].worldPosition;
+                currentObstacleFinderZ++;
+            };
+            currentObstacleFinderX++;
+        };
+    }
     
 
     void CreateGrid(){
-        grid = new Node[gridSizeX+1, gridSizeZ+1];
-
-        for (int x= 0; x<=gridSizeX; x++){
-            for(int z=0;z<=gridSizeZ; z++){
+        grid = new Node[gridSizeX, gridSizeZ];
+        for (int x= 0; x<gridSizeX; x++){
+            for(int z=0;z<gridSizeZ; z++){
                 bool walkable = true;
+                // if(x == 10 && z == 10 || x == 11 && z == 10 || x == 12 && z ==10) walkable = false;
                 grid[x,z] = new Node(x,z,new Vector3(gridSpawnPoint.x + x,0,gridSpawnPoint.z + z),walkable);  
             }
         }
@@ -29,10 +42,7 @@ public class GridCreator : MonoBehaviour
     
     public void ResetAllNodeCosts(){
         foreach(Node node in grid){
-            if(node.hCost != 0)  node.hCost = 0;
-            if(node.gCost != 0)  node.gCost = 0;
-           
-       
+            node.Reset();
         }
     }
 

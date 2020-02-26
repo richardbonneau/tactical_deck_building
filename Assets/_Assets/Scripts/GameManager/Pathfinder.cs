@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 
@@ -45,7 +46,7 @@ public class Pathfinder : MonoBehaviour
             Node lowestCostNode = openNodes[0];
             foreach(Node node in openNodes){
                 
-                if(node.fCost <= lowestCostNode.fCost && node.hCost < lowestCostNode.hCost) {
+            if(node.fCost <= lowestCostNode.fCost && node.hCost < lowestCostNode.hCost) {
                     lowestCostNode = node;
                     }
             }
@@ -60,9 +61,6 @@ public class Pathfinder : MonoBehaviour
                     currentNode = currentNode.parent;
                 }
                 path.Reverse();
-     
-
-                // playerStatus.playerNode = lowestCostNode;
                 return path;
             }
 
@@ -139,6 +137,10 @@ public class Pathfinder : MonoBehaviour
     void Update()
     {
         if(!availableMovementsGridShown){
+            DateTime before = DateTime.Now;
+
+
+            grid.ResetAllNodeCosts();
             foreach(GameObject gridObj in gridView){
                 Destroy(gridObj);
             }
@@ -164,10 +166,13 @@ public class Pathfinder : MonoBehaviour
                         // print("instantiate gameobject");
                         GameObject p = Instantiate(moveGridIndicator, new Vector3(x,0,z), Quaternion.identity);
                         gridView.Add(p);
-                        grid.ResetAllNodeCosts();
+                        // 
                     }
                 }
             }
+            DateTime after = DateTime.Now; 
+            TimeSpan duration = after.Subtract(before);
+            Debug.Log("Duration in milliseconds: " + duration.Milliseconds);
             availableMovementsGridShown = true;
         }
 

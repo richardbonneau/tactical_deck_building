@@ -16,7 +16,7 @@ public class Node
     public Node parent;
 
     // Put in place some kind of collider detection
-    
+
 
     public Node(int _xCoordinates, int _zCoordinates, Vector3 _worldPosition, bool _walkable){
         x = _xCoordinates;
@@ -29,6 +29,11 @@ public class Node
         get {
             return gCost + hCost;
         }
+    }
+
+    public void Reset(){
+        gCost = 0;
+        hCost = 0;
     }
 
 
