@@ -10,6 +10,89 @@ public class GridCreator : MonoBehaviour
     Node outOfBounds = new Node(0,0,new Vector3(0,10,0),false);
     public Node[,] grid;
     public List<Node> path;
+    public List<Vector2> obstaclesCoordinates = new List<Vector2>(){
+new Vector2(1f,17f),
+new Vector2(2f,5f),
+new Vector2(2f,6f),
+new Vector2(2f,7f),
+new Vector2(2f,10f),
+new Vector2(2f,11f),
+new Vector2(2f,12f),
+new Vector2(2f,17f),
+new Vector2(3f,17f),
+new Vector2(4f,17f),
+new Vector2(5f,17f),
+new Vector2(6f,3f),
+new Vector2(6f,4f),
+new Vector2(6f,5f),
+new Vector2(6f,6f),
+new Vector2(6f,7f),
+new Vector2(6f,8f),
+new Vector2(6f,9f),
+new Vector2(7f,3f),
+new Vector2(7f,4f),
+new Vector2(7f,5f),
+new Vector2(7f,6f),
+new Vector2(7f,7f),
+new Vector2(7f,8f),
+new Vector2(7f,9f),
+new Vector2(7f,11f),
+new Vector2(7f,12f),
+new Vector2(7f,17f),
+new Vector2(7f,18f),
+new Vector2(8f,3f),
+new Vector2(8f,4f),
+new Vector2(8f,5f),
+new Vector2(8f,6f),
+new Vector2(8f,7f),
+new Vector2(8f,8f),
+new Vector2(8f,9f),
+new Vector2(8f,10f),
+new Vector2(8f,11f),
+new Vector2(8f,12f),
+new Vector2(8f,16f),
+new Vector2(8f,17f),
+new Vector2(8f,18f),
+new Vector2(9f,10f),
+new Vector2(9f,11f),
+new Vector2(9f,16f),
+new Vector2(9f,17f),
+new Vector2(10f,14f),
+new Vector2(10f,15f),
+new Vector2(10f,16f),
+new Vector2(10f,17f),
+new Vector2(10f,18f),
+new Vector2(10f,19f),
+new Vector2(10f,20f),
+new Vector2(11f,14f),
+new Vector2(11f,15f),
+new Vector2(11f,16f),
+new Vector2(11f,17f),
+new Vector2(11f,18f),
+new Vector2(11f,19f),
+new Vector2(11f,20f),
+new Vector2(12f,14f),
+new Vector2(12f,15f),
+new Vector2(12f,16f),
+new Vector2(12f,17f),
+new Vector2(12f,18f),
+new Vector2(12f,19f),
+new Vector2(12f,20f),
+new Vector2(15f,8f),
+new Vector2(15f,9f),
+new Vector2(15f,10f),
+new Vector2(15f,11f),
+new Vector2(15f,12f),
+new Vector2(15f,13f),
+new Vector2(15f,14f),
+new Vector2(15f,16f),
+new Vector2(15f,17f),
+new Vector2(15f,18f),
+new Vector2(18f,3f),
+new Vector2(18f,4f),
+new Vector2(18f,5f)
+};
+
 
     void Awake() {
         CreateGrid();
@@ -25,6 +108,13 @@ public class GridCreator : MonoBehaviour
         for (int x= 0; x<gridSizeX; x++){
             for(int z=0;z<gridSizeZ; z++){
                 bool walkable = true;
+                foreach(Vector2 obstacleCoord in obstaclesCoordinates){
+                    if(obstacleCoord.x == x && obstacleCoord.y == z){
+                        walkable = false;
+                        // obstaclesCoordinates.Remove(obstacleCoord);
+                    }
+                }
+                
                 // if(x == 10 && z == 10 || x == 11 && z == 10 || x == 12 && z ==10) walkable = false;
                 grid[x,z] = new Node(x,z,new Vector3(gridSpawnPoint.x + x,0,gridSpawnPoint.z + z),walkable);  
             }

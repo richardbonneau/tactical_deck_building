@@ -47,10 +47,11 @@ public class ObstacleFinder : MonoBehaviour
         obstacleCoordinatesList = obstacleCoordinatesList.Distinct().ToList();
         string path = "Assets/_Assets/DevTools/ObstaclesList.txt";
         StreamWriter writer = new StreamWriter(path, true);
+        writer.WriteLine("public List<Vector2> obstaclesCoordinates = new List<Vector2>(){");
         foreach (Vector2 coord in obstacleCoordinatesList){
-            writer.WriteLine(coord.ToString());
+            writer.WriteLine("new Vector2("+coord.x+"f,"+coord.y+"f)"+",");
         }
-        
+              writer.WriteLine("};");
         writer.Close();
         listSaved = true;
     }
