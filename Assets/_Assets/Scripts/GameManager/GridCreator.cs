@@ -28,12 +28,9 @@ public class GridCreator : MonoBehaviour
     }
 
     public Node NodeFromWorldPoint(Vector3 worldPosition){
- 
         int x = Mathf.RoundToInt(worldPosition.x - gridSpawnPoint.x);
         int z = Mathf.RoundToInt(worldPosition.z - gridSpawnPoint.z);
-        if(x < 0 || z < 0 || x*z < 1) return outOfBounds;
-        if(x < 0 || z< 0 || grid.Length < x*z)print("worldPosition :"+worldPosition);
-        print("worldPosition :"+worldPosition+ "X,Z:"+x+z+" grid length:"+grid.Length+" x*z:"+(x*z));
+        if(x < 0 || z < 0 || x > grid.GetLength(0) - 1 || z > grid.GetLength(1) - 1) return outOfBounds;
         return grid[x,z];
     }
 
