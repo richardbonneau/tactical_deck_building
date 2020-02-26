@@ -26,6 +26,15 @@ public class GridCreator : MonoBehaviour
             }
         }
     }
+    
+    public void ResetAllNodeCosts(){
+        foreach(Node node in grid){
+            if(node.hCost != 0)  node.hCost = 0;
+            if(node.gCost != 0)  node.gCost = 0;
+           
+       
+        }
+    }
 
     public Node NodeFromWorldPoint(Vector3 worldPosition){
         int x = Mathf.RoundToInt(worldPosition.x - gridSpawnPoint.x);
@@ -52,7 +61,7 @@ public class GridCreator : MonoBehaviour
 
     
 	void OnDrawGizmos() {
-        print("path "+path);
+        // print("path "+path);
 		// Gizmos.DrawWireCube(transform.position,new Vector3(gridSizeX.x,1,gridSizeZ.y));
 
 		if (grid != null) {

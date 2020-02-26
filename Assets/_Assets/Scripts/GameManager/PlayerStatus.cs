@@ -12,5 +12,6 @@ public class PlayerStatus : MonoBehaviour
     void Start(){
         gridScript = transform.parent.GetChild(0).GetComponent<GridCreator>();
         playerNode = gridScript.NodeFromWorldPoint(player.transform.position);
+        playerNode.walkable = false;
     }
 }
