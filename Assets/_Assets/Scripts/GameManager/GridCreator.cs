@@ -8,24 +8,15 @@ public class GridCreator : MonoBehaviour
     public int gridSizeX = 19;
     public int gridSizeZ = 19;
     Node outOfBounds = new Node(0,0,new Vector3(0,10,0),false);
-    Node[,] grid;
+    public Node[,] grid;
     public List<Node> path;
-    public GameObject obstacleFinder;
-    public int currentObstacleFinderX = 0;
-    public int currentObstacleFinderZ = 0;
 
     void Awake() {
         CreateGrid();
     }
     void FixedUpdate(){
-        while(currentObstacleFinderX < grid.GetLength(0)){
-            while(currentObstacleFinderZ < grid.GetLength(1)){
-                print("world pos "+grid[currentObstacleFinderX,currentObstacleFinderZ].worldPosition);
-                obstacleFinder.transform.position = grid[currentObstacleFinderX,currentObstacleFinderZ].worldPosition;
-                currentObstacleFinderZ++;
-            };
-            currentObstacleFinderX++;
-        };
+        
+    
     }
     
 

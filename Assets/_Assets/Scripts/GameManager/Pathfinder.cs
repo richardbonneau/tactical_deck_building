@@ -146,7 +146,7 @@ public class Pathfinder : MonoBehaviour
             }
             gridView = new List<GameObject>();
             // print("calculating move grid"+ playerStatus.playerNode.worldPosition);
-            int maxMove = 5;
+            int maxMove = playerStatus.remainingMovements;
             int playerPosX = Mathf.RoundToInt(playerStatus.playerNode.worldPosition.x);
             int playerPosZ = Mathf.RoundToInt(playerStatus.playerNode.worldPosition.z);
             // print("x: "+(playerPosX-maxMove)+" to "+(playerPosX+maxMove));
