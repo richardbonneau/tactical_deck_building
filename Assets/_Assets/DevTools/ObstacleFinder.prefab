@@ -123,6 +123,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe84bf279e74b04ebe293848605f2b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentObstacleFinderX: 0
-  currentObstacleFinderZ: 0
-  test: {fileID: 0}
+  obstacleCoordinatesList: []

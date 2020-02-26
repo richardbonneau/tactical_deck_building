@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.IO;
 public class ObstacleFinder : MonoBehaviour
 {
     Node[,] grid;
@@ -11,6 +12,7 @@ public class ObstacleFinder : MonoBehaviour
     bool obstacleScanDone = false;
     bool hitObstacleLastUpdate = false;
     public List<Vector2> obstacleCoordinatesList = new List<Vector2>();
+    bool listSaved = false;
 
     void Awake(){
         gridScript = GameObject.FindWithTag("GameManager").transform.GetChild(0).GetComponent<GridCreator>();
@@ -21,7 +23,6 @@ public class ObstacleFinder : MonoBehaviour
         print("grid:"+gridScript);
     }
     void FixedUpdate(){
-   
        if(!obstacleScanDone) {
        if(!hitObstacleLastUpdate){
            
@@ -40,9 +41,18 @@ public class ObstacleFinder : MonoBehaviour
             hitObstacleLastUpdate = false;
             }
        
-    } else{
+    } else if(!listSaved){
         print("scan done else");
-obstacleCoordinatesList = obstacleCoordinatesList.Distinct().ToList();
+        print(obstacleCoordinatesList);
+        obstacleCoordinatesList = obstacleCoordinatesList.Distinct().ToList();
+        string path = "Assets/_Assets/DevTools/ObstaclesList.txt";
+        StreamWriter writer = new StreamWriter(path, true);
+        foreach (Vector2 coord in obstacleCoordinatesList){
+            writer.WriteLine(coord.ToString());
+        }
+        
+        writer.Close();
+        listSaved = true;
     }
     }
   
