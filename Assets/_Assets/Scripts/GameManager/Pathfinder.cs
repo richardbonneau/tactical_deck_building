@@ -19,6 +19,7 @@ public class Pathfinder : MonoBehaviour
     public GameObject movePathIndicator;
 
     bool availableMovementsGridShown = false;
+    [System.NonSerialized] public bool playerIsAllowedToMove = false;
     bool playerCanMoveToSelectedSpot = false;
     Vector3 lastCalculatedMovePath = new Vector3(999, 999, 999);
 
@@ -150,107 +151,99 @@ public class Pathfinder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!availableMovementsGridShown)
+        if (playerIsAllowedToMove)
         {
-            DateTime before = DateTime.Now;
+            if (!availableMovementsGridShown)
+            {
+                DateTime before = DateTime.Now;
 
 
-            grid.ResetAllNodeCosts();
-            foreach (GameObject gridObj in gridView)
-            {
-                Destroy(gridObj);
-            }
-            gridView = new List<GameObject>();
-            // print("calculating move grid"+ playerStatus.playerNode.worldPosition);
-            int maxMove = playerStatus.remainingMovements;
-            int playerPosX = Mathf.RoundToInt(playerStatus.playerNode.worldPosition.x);
-            int playerPosZ = Mathf.RoundToInt(playerStatus.playerNode.worldPosition.z);
-            // print("x: "+(playerPosX-maxMove)+" to "+(playerPosX+maxMove));
-            // print("z: "+(playerPosZ-maxMove)+" to "+(playerPosZ+maxMove));
-            for (int x = playerPosX - maxMove; x <= playerPosX + maxMove; x++)
-            {
-                for (int z = playerPosZ - maxMove; z <= playerPosZ + maxMove; z++)
+                grid.ResetAllNodeCosts();
+                foreach (GameObject gridObj in gridView)
                 {
-                    if (x == playerPosX && z == playerPosZ) continue;
-                    Node currentNode = grid.NodeFromWorldPoint(new Vector3(x, 0, z));
-                    // print(currentNode.worldPosition);
-                    // print("findpath: "+playerStatus.playerNode.worldPosition+" "+(new Vector3(x,0,z)));
-
-                    List<Node> path = null;
-                    if (currentNode != null) path = FindPath(playerStatus.playerNode.worldPosition, currentNode.worldPosition);
-                    // if(path.Count > 0)print("path first index:"+path[0].worldPosition);
-
-
-                    if (path != null && path.Count > 0 && path[path.Count - 1].gCost <= maxMove * 10)
-                    {
-                        // print("instantiate");
-                        // print("instantiate gameobject");
-                        GameObject p = Instantiate(moveGridIndicator, new Vector3(x, 0, z), Quaternion.identity);
-                        gridView.Add(p);
-                        // 
-                    }
-
+                    Destroy(gridObj);
                 }
-            }
-            DateTime after = DateTime.Now;
-            TimeSpan duration = after.Subtract(before);
-            Debug.Log("Duration in milliseconds: " + duration.Milliseconds);
-            availableMovementsGridShown = true;
-        }
+                gridView = new List<GameObject>();
 
-        // Calculate MoveTo path
+                int maxMove = playerStatus.remainingMovements;
+                int playerPosX = Mathf.RoundToInt(playerStatus.playerNode.worldPosition.x);
+                int playerPosZ = Mathf.RoundToInt(playerStatus.playerNode.worldPosition.z);
 
-        RaycastHit hit;
-        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
-        {
-            Vector3 mouseSelectWorldPosition = new Vector3(Mathf.Round(hit.point.x), mapSelector.transform.position.y, Mathf.Round(hit.point.z));
-            Transform objectHit = hit.transform;
-            mapSelector.transform.position = mouseSelectWorldPosition;
-            // print("lastCalculatedMovePath != mouseSelectWorldPosition "+lastCalculatedMovePath +" "+mouseSelectWorldPosition);
-            if (lastCalculatedMovePath != mouseSelectWorldPosition)
-            {
-                // print("calculating");
-                playerCanMoveToSelectedSpot = false;
-                foreach (GameObject indicator in pathView)
+                for (int x = playerPosX - maxMove; x <= playerPosX + maxMove; x++)
                 {
-                    Destroy(indicator);
-                }
-                pathView = new List<GameObject>();
-                // print(playerStatus.playerNode.worldPosition);
-                // print(mouseSelectWorldPosition);
-                List<Node> path = FindPath(playerStatus.playerNode.worldPosition, mouseSelectWorldPosition);
-                // print(path);
-
-                foreach (GameObject gridSquare in gridView)
-                {
-                    if (path.Count != 0 && gridSquare.transform.position == path[path.Count - 1].worldPosition)
+                    for (int z = playerPosZ - maxMove; z <= playerPosZ + maxMove; z++)
                     {
-                        playerCanMoveToSelectedSpot = true;
-                        // print("node found in grid");
-                        // print("instantiating path objs "+path.Count);
-                        foreach (Node node in path)
+                        if (x == playerPosX && z == playerPosZ) continue;
+                        Node currentNode = grid.NodeFromWorldPoint(new Vector3(x, 0, z));
+
+                        List<Node> path = null;
+                        if (currentNode != null) path = FindPath(playerStatus.playerNode.worldPosition, currentNode.worldPosition);
+
+                        if (path != null && path.Count > 0 && path[path.Count - 1].gCost <= maxMove * 10)
                         {
-                            GameObject p = Instantiate(movePathIndicator, node.worldPosition, Quaternion.identity);
-                            pathView.Add(p);
+                            GameObject p = Instantiate(moveGridIndicator, new Vector3(x, 0, z), Quaternion.identity);
+                            gridView.Add(p);
+                        }
+
+                    }
+                }
+                DateTime after = DateTime.Now;
+                TimeSpan duration = after.Subtract(before);
+                Debug.Log("Duration in milliseconds: " + duration.Milliseconds);
+                availableMovementsGridShown = true;
+            }
+
+            // Calculate MoveTo path
+
+            RaycastHit hit;
+            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+                Vector3 mouseSelectWorldPosition = new Vector3(Mathf.Round(hit.point.x), mapSelector.transform.position.y, Mathf.Round(hit.point.z));
+                Transform objectHit = hit.transform;
+                mapSelector.transform.position = mouseSelectWorldPosition;
+                if (lastCalculatedMovePath != mouseSelectWorldPosition)
+                {
+
+                    playerCanMoveToSelectedSpot = false;
+                    foreach (GameObject indicator in pathView)
+                    {
+                        Destroy(indicator);
+                    }
+                    pathView = new List<GameObject>();
+
+                    List<Node> path = FindPath(playerStatus.playerNode.worldPosition, mouseSelectWorldPosition);
+
+
+                    foreach (GameObject gridSquare in gridView)
+                    {
+                        if (path.Count != 0 && gridSquare.transform.position == path[path.Count - 1].worldPosition)
+                        {
+                            playerCanMoveToSelectedSpot = true;
+
+                            foreach (Node node in path)
+                            {
+                                GameObject p = Instantiate(movePathIndicator, node.worldPosition, Quaternion.identity);
+                                pathView.Add(p);
+                            }
                         }
                     }
+                    lastCalculatedMovePath = mouseSelectWorldPosition;
+                    return;
                 }
-                lastCalculatedMovePath = mouseSelectWorldPosition;
-                return;
-            }
-            if (Input.GetMouseButtonDown(0) && playerCanMoveToSelectedSpot)
-            {
+                if (Input.GetMouseButtonDown(0) && playerCanMoveToSelectedSpot)
+                {
+                    playerStatus.player.transform.position = mouseSelectWorldPosition;
+                    playerStatus.playerNode.walkable = true;
+                    playerStatus.playerNode = grid.NodeFromWorldPoint(mouseSelectWorldPosition);
+                    playerStatus.playerNode.walkable = false;
+                    availableMovementsGridShown = false;
+                }
 
-                playerStatus.player.transform.position = mouseSelectWorldPosition;
-                playerStatus.playerNode.walkable = true;
-                playerStatus.playerNode = grid.NodeFromWorldPoint(mouseSelectWorldPosition);
-                playerStatus.playerNode.walkable = false;
-                availableMovementsGridShown = false;
             }
-
+            else mapSelector.transform.position = new Vector3(999, mapSelector.transform.position.y, 999);
         }
-        else mapSelector.transform.position = new Vector3(999, mapSelector.transform.position.y, 999);
+
 
     }
 }
