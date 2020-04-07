@@ -369,7 +369,7 @@ Transform:
   m_Children:
   - {fileID: 1679711833}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1001 &46626183
 PrefabInstance:
@@ -812,7 +812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce94ab34384adf742b1753faddf1528c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  remainingMovements: 6
+  remainingMovements: 15
   player: {fileID: 439429594}
 --- !u!1001 &865170019
 PrefabInstance:
@@ -1769,7 +1769,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 4d8286f69d93b534ebbbe0f28b6030d0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 4d8286f69d93b534ebbbe0f28b6030d0,
         type: 3}
