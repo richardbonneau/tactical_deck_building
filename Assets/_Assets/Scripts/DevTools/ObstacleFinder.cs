@@ -17,7 +17,6 @@ public class ObstacleFinder : MonoBehaviour
     void Awake()
     {
         gridScript = GameObject.FindWithTag("GameManager").transform.GetChild(0).GetComponent<GridCreator>();
-
     }
     void Start()
     {
@@ -30,13 +29,13 @@ public class ObstacleFinder : MonoBehaviour
         {
             if (!hitObstacleLastUpdate)
             {
-
                 //    print("grid.GetLength(1) "+grid.GetLength(0)+"currentObstacleFinderZ "+currentObstacleFinderZ+" currentObstacleFinderX"+currentObstacleFinderX);
                 if (currentObstacleFinderZ < grid.GetLength(0))
                 {
+                    currentObstacleFinderZ++;
                     transform.position = grid[currentObstacleFinderX, currentObstacleFinderZ].worldPosition;
                     // Instantiate(test, grid[currentObstacleFinderX,currentObstacleFinderZ].worldPosition, Quaternion.identity);
-                    currentObstacleFinderZ++;
+
                 }
                 else if (currentObstacleFinderX < grid.GetLength(1) - 1)
                 {
@@ -48,10 +47,8 @@ public class ObstacleFinder : MonoBehaviour
             else
             {
                 print("obstacle else");
-
                 hitObstacleLastUpdate = false;
             }
-
         }
         else if (!listSaved)
         {
@@ -70,7 +67,6 @@ public class ObstacleFinder : MonoBehaviour
             listSaved = true;
         }
     }
-
 
     // Start is called before the first frame update
     void OnTriggerEnter(Collider col)

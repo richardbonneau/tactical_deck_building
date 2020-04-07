@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6726243389668791819}
   - component: {fileID: 6768013375930530887}
   m_Layer: 0
-  m_Name: SM_Prop_Advertisement_Pillar_01
-  m_TagString: Untagged
+  m_Name: AdvertisementPillar
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

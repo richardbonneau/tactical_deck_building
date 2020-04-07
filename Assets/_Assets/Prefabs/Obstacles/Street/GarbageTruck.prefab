@@ -408,8 +408,8 @@ GameObject:
   - component: {fileID: 8212690523847535481}
   - component: {fileID: 8164546634319618555}
   m_Layer: 0
-  m_Name: SM_Veh_Garbage_01
-  m_TagString: Untagged
+  m_Name: GarbageTruck
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8

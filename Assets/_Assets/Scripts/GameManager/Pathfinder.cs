@@ -42,7 +42,7 @@ public class Pathfinder : MonoBehaviour
         Node startNode = grid.NodeFromWorldPoint(startPos);
         Node targetNode = grid.NodeFromWorldPoint(endPos);
         openNodes.Add(startNode);
-        while (openNodes.Count > 0)
+        while (targetNode != null && openNodes.Count > 0)
         {
             Node lowestCostNode = openNodes[0];
             foreach (Node node in openNodes)
