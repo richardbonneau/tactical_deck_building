@@ -13,30 +13,11 @@ public class GridCreator : MonoBehaviour
 
     public static List<Vector2> obstaclesCoordinates = new List<Vector2>(){
 new Vector2(5f,5f),
-new Vector2(5f,6f),
-new Vector2(5f,7f),
 new Vector2(5f,12f),
-new Vector2(5f,13f),
-new Vector2(5f,14f),
-new Vector2(6f,5f),
-new Vector2(6f,6f),
-new Vector2(6f,7f),
-new Vector2(6f,12f),
-new Vector2(6f,13f),
-new Vector2(6f,14f),
-new Vector2(9f,17f),
-new Vector2(9f,18f),
-new Vector2(9f,19f),
 new Vector2(10f,17f),
-new Vector2(10f,18f),
-new Vector2(10f,19f),
-new Vector2(16f,16f),
-new Vector2(16f,17f),
-new Vector2(16f,18f),
 new Vector2(17f,16f),
-new Vector2(17f,17f),
-new Vector2(17f,18f),
 };
+
 
     void Awake()
     {
