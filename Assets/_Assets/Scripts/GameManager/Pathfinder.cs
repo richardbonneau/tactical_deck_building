@@ -128,7 +128,12 @@ public class Pathfinder : MonoBehaviour
     }
 
 
+    void MoveToNextNode()
+    {
+        playerStatus.player.transform.GetChild(0).LookAt(destination[0].worldPosition);
+        playerStatus.player.transform.position = Vector3.MoveTowards(playerStatus.player.transform.position, destination[0].worldPosition, moveSpeed * Time.deltaTime);
 
+    }
 
     // Update is called once per frame
     void Update()
@@ -138,12 +143,13 @@ public class Pathfinder : MonoBehaviour
             if (destination.Count == 0)
             {
                 playerIsCurrentlyMoving = false;
+                animator.SetBool("isMoving", false);
             }
             else
             {
-                if (destination[0].worldPosition == playerStatus.player.transform.position && destination.Count != 1) destination.RemoveAt(0);
-                playerStatus.player.transform.position = Vector3.MoveTowards(playerStatus.player.transform.position, destination[0].worldPosition, moveSpeed * Time.deltaTime);
 
+                MoveToNextNode();
+                if (destination[0].worldPosition == playerStatus.player.transform.position) destination.RemoveAt(0);
             }
         }
 
@@ -236,6 +242,8 @@ public class Pathfinder : MonoBehaviour
                     // animator.SetFloat("Velocity Z", 1f);
                     // animator.SetFloat("Velocity X", 1f);
                     playerIsCurrentlyMoving = true;
+                    animator.SetBool("isMoving", true);
+
                     playerStatus.playerNode.walkable = true;
                     playerStatus.playerNode = grid.NodeFromWorldPoint(mouseSelectWorldPosition);
                     playerStatus.playerNode.walkable = false;

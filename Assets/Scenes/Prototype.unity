@@ -181,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCam: {fileID: 1679711832}
   mapSelector: {fileID: 172057272}
-  moveSpeed: 1
+  moveSpeed: 5
   moveGridIndicator: {fileID: 2129745948548961580, guid: 0a517a0dc54b2454691185b277cb1d56,
     type: 3}
   movePathIndicator: {fileID: 4387877599061557004, guid: f825e70f007ed3e4fb794d8767ba7cba,
@@ -210,7 +210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 37053920}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 2, y: 13, z: 8}
+  m_LocalPosition: {x: -5, y: 4, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1679711833}
@@ -1102,7 +1102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce94ab34384adf742b1753faddf1528c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  remainingMovements: 6
+  remainingMovements: 11
   player: {fileID: 439429594}
 --- !u!4 &821261757 stripped
 Transform:
@@ -2132,13 +2132,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1679711830}
-  m_LocalRotation: {x: 0.6427876, y: 0, z: 0, w: 0.7660445}
-  m_LocalPosition: {x: 9.50496, y: 5.616597, z: -6.002352}
+  m_LocalRotation: {x: 0.2164396, y: 0, z: 0, w: 0.97629607}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 37053921}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 80, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 25, y: 0, z: 0}
 --- !u!1 &1691612489
 GameObject:
   m_ObjectHideFlags: 0
@@ -2774,7 +2774,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 7ff0cf27ed8e9684b9bdd381bab1f846, type: 2}
+      objectReference: {fileID: 9100000, guid: 3cfaa4e2080695f4cae5f2b65eaa6558, type: 2}
+    - target: {fileID: 2964454037553371408, guid: 3da5cc308e9dfaa4883b2381fe5d3a21,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7466031268755459234, guid: 3da5cc308e9dfaa4883b2381fe5d3a21,
         type: 3}
       propertyPath: m_Name
