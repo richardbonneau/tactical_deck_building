@@ -153,7 +153,7 @@ public class Pathfinder : MonoBehaviour
             }
         }
 
-        if (playerIsAllowedToMove)
+        else if (playerIsAllowedToMove)
         {
             if (!availableMovementsGridShown)
             {
@@ -235,6 +235,11 @@ public class Pathfinder : MonoBehaviour
                 }
                 if (Input.GetMouseButtonDown(0) && playerCanMoveToSelectedSpot)
                 {
+                    foreach (GameObject gridObj in gridView)
+                    {
+                        Destroy(gridObj);
+                    }
+                    gridView = new List<GameObject>();
                     // playerStatus.player.transform.position = mouseSelectWorldPosition;
                     destination = path;
                     // animator.SetBool("Moving", true);
