@@ -10,6 +10,7 @@ public class Pathfinder : MonoBehaviour
     public Camera mainCam;
     public GameObject mapSelector;
     PlayerStatus playerStatus;
+    public int moveSpeed = 1;
 
     GridCreator grid;
     List<GameObject> gridView = new List<GameObject>();
@@ -22,12 +23,16 @@ public class Pathfinder : MonoBehaviour
     [System.NonSerialized] public bool playerIsAllowedToMove = false;
     bool playerCanMoveToSelectedSpot = false;
     Vector3 lastCalculatedMovePath = new Vector3(999, 999, 999);
-
+    bool playerIsCurrentlyMoving = false;
+    List<Node> destination;
+    Animator animator;
+    List<Node> path;
 
     void Awake()
     {
         grid = GetComponent<GridCreator>();
         playerStatus = transform.parent.GetChild(1).GetComponent<PlayerStatus>();
+        animator = playerStatus.player.GetComponentInChildren<Animator>();
     }
 
 
@@ -96,31 +101,11 @@ public class Pathfinder : MonoBehaviour
     }
 
 
-
-    // void RetracePath(Node startNode, Node endNode){
-
-
-
-
-    //     playerStatus.player.transform.position = path[path.Count-1].worldPosition;
-    //     foreach (GameObject sphere in pathView){
-    //         Destroy(sphere);
-    //     }
-    //     foreach(Node node in path){
-    //         GameObject p = Instantiate(pathIndicator, node.worldPosition, Quaternion.identity);
-    //         pathView.Add(p);
-    //     }
-
-    // }
-
     IEnumerator MoveAgent(List<Node> path)
     {
         while (true)
         {
             yield return new WaitForSeconds(0.01f);
-
-            // print("in move agent "+path[0].worldPosition + " 1:"+(path[0].worldPosition.x != playerStatus.player.transform.position.x)+" 2:" +(path[0].worldPosition.z != playerStatus.player.transform.position.z));
-            // print("path[0].worldPosition.x "+ path[0].worldPosition.x+ " != " + "playerStatus.player.transform.position.x "+ playerStatus.player.transform.position.x+ "&& "+ "path[0].worldPosition.z "+path[0].worldPosition.z+ "!= "+ "playerStatus.player.transform.position.z "+playerStatus.player.transform.position.z);
             if (path.Count != 0 && path[0].worldPosition.x != playerStatus.player.transform.position.x && path[0].worldPosition.z != playerStatus.player.transform.position.z)
             {
                 // print("movin");
@@ -131,9 +116,6 @@ public class Pathfinder : MonoBehaviour
 
         }
     }
-
-    //     // grid.path = path;
-    // }
 
     int GetDistance(Node nodeA, Node nodeB)
     {
@@ -151,6 +133,20 @@ public class Pathfinder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (playerIsCurrentlyMoving)
+        {
+            if (destination.Count == 0)
+            {
+                playerIsCurrentlyMoving = false;
+            }
+            else
+            {
+                if (destination[0].worldPosition == playerStatus.player.transform.position && destination.Count != 1) destination.RemoveAt(0);
+                playerStatus.player.transform.position = Vector3.MoveTowards(playerStatus.player.transform.position, destination[0].worldPosition, moveSpeed * Time.deltaTime);
+
+            }
+        }
+
         if (playerIsAllowedToMove)
         {
             if (!availableMovementsGridShown)
@@ -212,7 +208,7 @@ public class Pathfinder : MonoBehaviour
                     }
                     pathView = new List<GameObject>();
 
-                    List<Node> path = FindPath(playerStatus.playerNode.worldPosition, mouseSelectWorldPosition);
+                    path = FindPath(playerStatus.playerNode.worldPosition, mouseSelectWorldPosition);
 
 
                     foreach (GameObject gridSquare in gridView)
@@ -233,7 +229,13 @@ public class Pathfinder : MonoBehaviour
                 }
                 if (Input.GetMouseButtonDown(0) && playerCanMoveToSelectedSpot)
                 {
-                    playerStatus.player.transform.position = mouseSelectWorldPosition;
+                    // playerStatus.player.transform.position = mouseSelectWorldPosition;
+                    destination = path;
+                    // animator.SetBool("Moving", true);
+                    // animator.SetBool("Sprint", true);
+                    // animator.SetFloat("Velocity Z", 1f);
+                    // animator.SetFloat("Velocity X", 1f);
+                    playerIsCurrentlyMoving = true;
                     playerStatus.playerNode.walkable = true;
                     playerStatus.playerNode = grid.NodeFromWorldPoint(mouseSelectWorldPosition);
                     playerStatus.playerNode.walkable = false;
