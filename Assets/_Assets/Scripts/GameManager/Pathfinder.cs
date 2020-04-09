@@ -18,8 +18,7 @@ public class Pathfinder : MonoBehaviour
 
     public ObjectPooler moveGridPool;
 
-    // public ObjectPooler movePathPool;
-    public GameObject movePathIndicator;
+    public ObjectPooler movePathPool;
 
     bool availableMovementsGridShown = false;
     [System.NonSerialized] public bool playerIsAllowedToMove = false;
@@ -224,7 +223,7 @@ public class Pathfinder : MonoBehaviour
                     playerCanMoveToSelectedSpot = false;
                     foreach (GameObject indicator in pathView)
                     {
-                        Destroy(indicator);
+                        indicator.SetActive(false);
                     }
                     pathView = new List<GameObject>();
 
@@ -239,7 +238,12 @@ public class Pathfinder : MonoBehaviour
 
                             foreach (Node node in path)
                             {
-                                GameObject p = Instantiate(movePathIndicator, node.worldPosition, Quaternion.identity);
+                                GameObject p = movePathPool.GetPooledObject();
+                                if (p != null)
+                                {
+                                    p.transform.position = node.worldPosition;
+                                    p.SetActive(true);
+                                }
                                 pathView.Add(p);
                             }
                         }
