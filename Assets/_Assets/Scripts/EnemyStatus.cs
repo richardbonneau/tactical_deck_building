@@ -13,8 +13,9 @@ public class EnemyStatus : MonoBehaviour
 
     public void GetHit()
     {
-        animator.SetTrigger("getHit2");
-        // int randomAttack = Random.Range(1, 4); playerAttackAnim.SetTrigger("Attack"); playerAttackAnim.SetInteger("randomAttack", randomAttack);
+        int randomAnimation = Random.Range(1, 5);
+        animator.SetTrigger("getHit" + randomAnimation);
+
     }
     void Update()
     {
