@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class Node
-    {
+{
     public int x;
     public int z;
     public Vector3 worldPosition;
@@ -18,25 +18,24 @@ public class Node
     // Put in place some kind of collider detection
 
 
-    public Node(int _xCoordinates, int _zCoordinates, Vector3 _worldPosition, bool _walkable){
+    public Node(int _xCoordinates, int _zCoordinates, Vector3 _worldPosition, bool _walkable)
+    {
         x = _xCoordinates;
         z = _zCoordinates;
         worldPosition = _worldPosition;
         walkable = _walkable;
-        
     }
-    public int fCost {
-        get {
+    public int fCost
+    {
+        get
+        {
             return gCost + hCost;
         }
     }
 
-    public void Reset(){
+    public void Reset()
+    {
         gCost = 0;
         hCost = 0;
     }
-
-
-
-    
-    }
+}
