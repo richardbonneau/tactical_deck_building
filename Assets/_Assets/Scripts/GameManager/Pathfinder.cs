@@ -108,7 +108,21 @@ public class Pathfinder : MonoBehaviour
     }
 
 
-    void MoveToNextNode()
+    void EntityCurrentlyMoving()
+    {
+        if (destination.Count == 0)
+        {
+            playerIsCurrentlyMoving = false;
+            animator.SetBool("isMoving", false);
+            removeMovementPath();
+        }
+        else
+        {
+            EntityMoveToNextNode();
+            if (destination[0].worldPosition == playerStatus.player.transform.position) destination.RemoveAt(0);
+        }
+    }
+    void EntityMoveToNextNode()
     {
         playerStatus.player.transform.GetChild(0).LookAt(destination[0].worldPosition);
         playerStatus.player.transform.position = Vector3.MoveTowards(playerStatus.player.transform.position, destination[0].worldPosition, moveSpeed * Time.deltaTime);
@@ -137,27 +151,14 @@ public class Pathfinder : MonoBehaviour
     {
         if (playerIsCurrentlyMoving)
         {
-            if (destination.Count == 0)
-            {
-                playerIsCurrentlyMoving = false;
-                animator.SetBool("isMoving", false);
-                removeMovementPath();
-            }
-            else
-            {
-                MoveToNextNode();
-                if (destination[0].worldPosition == playerStatus.player.transform.position) destination.RemoveAt(0);
-            }
+            EntityCurrentlyMoving();
         }
-
-
 
         else if (playerIsAllowedToMove)
         {
             if (!availableMovementsGridShown)
             {
                 removeMovementGrid();
-
                 int maxMove = playerStatus.remainingMovements;
                 int playerPosX = Mathf.RoundToInt(playerStatus.playerNode.worldPosition.x);
                 int playerPosZ = Mathf.RoundToInt(playerStatus.playerNode.worldPosition.z);
@@ -189,7 +190,6 @@ public class Pathfinder : MonoBehaviour
             }
 
             // Calculate MoveTo path
-
             RaycastHit hit;
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
@@ -199,7 +199,6 @@ public class Pathfinder : MonoBehaviour
                 mapSelector.transform.position = mouseSelectWorldPosition;
                 if (lastCalculatedMovePath != mouseSelectWorldPosition)
                 {
-
                     playerCanMoveToSelectedSpot = false;
                     removeMovementPath();
 
