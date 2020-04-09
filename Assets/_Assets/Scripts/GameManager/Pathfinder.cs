@@ -134,6 +134,16 @@ public class Pathfinder : MonoBehaviour
         playerStatus.player.transform.position = Vector3.MoveTowards(playerStatus.player.transform.position, destination[0].worldPosition, moveSpeed * Time.deltaTime);
 
     }
+    public void removeMovementGrid()
+    {
+        grid.ResetAllNodeCosts();
+        foreach (GameObject gridObj in gridView)
+        {
+            Destroy(gridObj);
+        }
+        gridView = new List<GameObject>();
+        availableMovementsGridShown = false;
+    }
 
     // Update is called once per frame
     void Update()
@@ -160,12 +170,7 @@ public class Pathfinder : MonoBehaviour
                 DateTime before = DateTime.Now;
 
 
-                grid.ResetAllNodeCosts();
-                foreach (GameObject gridObj in gridView)
-                {
-                    Destroy(gridObj);
-                }
-                gridView = new List<GameObject>();
+                removeMovementGrid();
 
                 int maxMove = playerStatus.remainingMovements;
                 int playerPosX = Mathf.RoundToInt(playerStatus.playerNode.worldPosition.x);
@@ -235,11 +240,7 @@ public class Pathfinder : MonoBehaviour
                 }
                 if (Input.GetMouseButtonDown(0) && playerCanMoveToSelectedSpot)
                 {
-                    foreach (GameObject gridObj in gridView)
-                    {
-                        Destroy(gridObj);
-                    }
-                    gridView = new List<GameObject>();
+                    removeMovementGrid();
                     // playerStatus.player.transform.position = mouseSelectWorldPosition;
                     destination = path;
                     // animator.SetBool("Moving", true);

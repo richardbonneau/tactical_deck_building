@@ -12,9 +12,12 @@ public class PlayerMove : MonoBehaviour
     }
     public void EnablePlayerMove()
     {
-        print("pathfinder.playerIsAllowedToMove " + pathfinder.playerIsAllowedToMove);
         if (pathfinder.playerIsAllowedToMove == false) pathfinder.playerIsAllowedToMove = true;
-        else pathfinder.playerIsAllowedToMove = false;
+        else
+        {
+            pathfinder.removeMovementGrid();
+            pathfinder.playerIsAllowedToMove = false;
+        }
     }
 
 }
