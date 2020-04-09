@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class RoundManager : MonoBehaviour
 {
+    public UiManager uiManager;
     public int currentRound = 1;
-    // Start is called before the first frame update
+
     void Start()
     {
-        
+        uiManager.ChangeRoundOnTheUI();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

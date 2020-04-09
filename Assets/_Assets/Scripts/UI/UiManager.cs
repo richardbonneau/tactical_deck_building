@@ -1,15 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class PlayerMove : MonoBehaviour
+public class UiManager : MonoBehaviour
 {
-    Pathfinder pathfinder;
-    public GameObject gridManager;
-    void Start()
-    {
-        pathfinder = gridManager.GetComponent<Pathfinder>();
-    }
+    public RoundManager roundManager;
+    public Pathfinder pathfinder;
+    public TextMeshProUGUI displayRounds;
+
     public void EnablePlayerMove()
     {
         if (pathfinder.playerIsAllowedToMove == false) pathfinder.playerIsAllowedToMove = true;
@@ -23,5 +22,10 @@ public class PlayerMove : MonoBehaviour
     {
 
     }
+    public void ChangeRoundOnTheUI()
+    {
+        displayRounds.text = roundManager.currentRound.ToString();
+    }
+
 
 }
