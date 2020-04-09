@@ -142,6 +142,8 @@ public class Pathfinder : MonoBehaviour
             }
         }
 
+
+
         else if (playerIsAllowedToMove)
         {
             if (!availableMovementsGridShown)
@@ -232,7 +234,6 @@ public class Pathfinder : MonoBehaviour
                     playerStatus.playerNode.walkable = false;
                     availableMovementsGridShown = false;
                 }
-
             }
             else mapSelector.transform.position = new Vector3(999, mapSelector.transform.position.y, 999);
         }
