@@ -39,9 +39,6 @@ public class Pathfinder : MonoBehaviour
 
     List<Node> FindPath(Vector3 startPos, Vector3 endPos)
     {
-        // print("find path method");
-
-
         // Nodes that we want to calculate the F cost of
         List<Node> openNodes = new List<Node>();
         // Nodes that have already been evaluated
@@ -98,7 +95,6 @@ public class Pathfinder : MonoBehaviour
                 }
             }
         }
-        // print("return empty list");
         return new List<Node>();
     }
 
@@ -110,7 +106,6 @@ public class Pathfinder : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
             if (path.Count != 0 && path[0].worldPosition.x != playerStatus.player.transform.position.x && path[0].worldPosition.z != playerStatus.player.transform.position.z)
             {
-                // print("movin");
                 playerStatus.player.transform.position = path[0].worldPosition;
 
             }
@@ -169,9 +164,6 @@ public class Pathfinder : MonoBehaviour
         {
             if (!availableMovementsGridShown)
             {
-                DateTime before = DateTime.Now;
-
-
                 removeMovementGrid();
 
                 int maxMove = playerStatus.remainingMovements;
@@ -202,9 +194,6 @@ public class Pathfinder : MonoBehaviour
 
                     }
                 }
-                DateTime after = DateTime.Now;
-                TimeSpan duration = after.Subtract(before);
-                Debug.Log("Duration in milliseconds: " + duration.Milliseconds);
                 availableMovementsGridShown = true;
             }
 
@@ -254,15 +243,9 @@ public class Pathfinder : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && playerCanMoveToSelectedSpot)
                 {
                     removeMovementGrid();
-                    // playerStatus.player.transform.position = mouseSelectWorldPosition;
                     destination = path;
-                    // animator.SetBool("Moving", true);
-                    // animator.SetBool("Sprint", true);
-                    // animator.SetFloat("Velocity Z", 1f);
-                    // animator.SetFloat("Velocity X", 1f);
                     playerIsCurrentlyMoving = true;
                     animator.SetBool("isMoving", true);
-
                     playerStatus.playerNode.walkable = true;
                     playerStatus.playerNode = grid.NodeFromWorldPoint(mouseSelectWorldPosition);
                     playerStatus.playerNode.walkable = false;
