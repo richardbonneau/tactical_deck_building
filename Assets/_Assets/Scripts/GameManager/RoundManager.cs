@@ -11,5 +11,10 @@ public class RoundManager : MonoBehaviour
     {
         uiManager.ChangeRoundOnTheUI();
     }
+    public void NextRound()
+    {
+        currentRound++;
+        uiManager.ChangeRoundOnTheUI();
+    }
 
 }

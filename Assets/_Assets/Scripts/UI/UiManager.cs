@@ -26,6 +26,10 @@ public class UiManager : MonoBehaviour
     {
         displayRounds.text = roundManager.currentRound.ToString();
     }
+    public void NextRound()
+    {
+        roundManager.NextRound();
+    }
 
 
 }
