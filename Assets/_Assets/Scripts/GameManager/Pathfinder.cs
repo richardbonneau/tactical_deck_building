@@ -16,7 +16,9 @@ public class Pathfinder : MonoBehaviour
     List<GameObject> gridView = new List<GameObject>();
     List<GameObject> pathView = new List<GameObject>();
 
-    public GameObject moveGridIndicator;
+    public ObjectPooler moveGridPool;
+
+    // public ObjectPooler movePathPool;
     public GameObject movePathIndicator;
 
     bool availableMovementsGridShown = false;
@@ -39,6 +41,7 @@ public class Pathfinder : MonoBehaviour
     List<Node> FindPath(Vector3 startPos, Vector3 endPos)
     {
         // print("find path method");
+
 
         // Nodes that we want to calculate the F cost of
         List<Node> openNodes = new List<Node>();
@@ -139,7 +142,7 @@ public class Pathfinder : MonoBehaviour
         grid.ResetAllNodeCosts();
         foreach (GameObject gridObj in gridView)
         {
-            Destroy(gridObj);
+            gridObj.SetActive(false);
         }
         gridView = new List<GameObject>();
         availableMovementsGridShown = false;
@@ -188,7 +191,13 @@ public class Pathfinder : MonoBehaviour
 
                         if (path != null && path.Count > 0 && path[path.Count - 1].gCost <= maxMove * 10)
                         {
-                            GameObject p = Instantiate(moveGridIndicator, new Vector3(x, 0, z), Quaternion.identity);
+                            GameObject p = moveGridPool.GetPooledObject();
+                            if (p != null)
+                            {
+                                p.transform.position = new Vector3(x, 0, z);
+                                p.SetActive(true);
+                            }
+                            // GameObject p = Instantiate(moveGridIndicator, new Vector3(x, 0, z), Quaternion.identity);
                             gridView.Add(p);
                         }
 
