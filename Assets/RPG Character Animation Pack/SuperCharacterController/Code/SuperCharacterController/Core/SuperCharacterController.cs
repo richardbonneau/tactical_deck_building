@@ -18,22 +18,22 @@ public class SuperCharacterController : MonoBehaviour
     QueryTriggerInteraction triggerInteraction;
 
     [SerializeField]
-    bool fixedTimeStep;
+    bool fixedTimeStep = false;
 
     [SerializeField]
-    int fixedUpdatesPerSecond;
+    int fixedUpdatesPerSecond = 0;
 
     [SerializeField]
-    bool clampToMovingGround;
+    bool clampToMovingGround = false;
 
     [SerializeField]
-    bool debugSpheres;
+    bool debugSpheres = false;
 
     [SerializeField]
-    bool debugGrounding;
+    bool debugGrounding = false;
 
     [SerializeField]
-    bool debugPushbackMesssages;
+    bool debugPushbackMesssages = false;
 
     /// <summary>
     /// Describes the Transform of the object we are standing on as well as it's CollisionType, as well
@@ -71,7 +71,7 @@ public class SuperCharacterController : MonoBehaviour
     public LayerMask Walkable;
 
     [SerializeField]
-    Collider ownCollider;
+    Collider ownCollider = null;
 
     [SerializeField]
     public float radius = 0.5f;
@@ -344,15 +344,15 @@ public class SuperCharacterController : MonoBehaviour
                 Vector3 position = SpherePosition(sphere);
                 Vector3 contactPoint;
                 bool contactPointSuccess = SuperCollider.ClosestPointOnSurface(col, position, radius, out contactPoint);
-                
+
                 if (!contactPointSuccess)
                 {
                     return;
                 }
-                                            
+
                 if (debugPushbackMesssages)
                     DebugDraw.DrawMarker(contactPoint, 2.0f, Color.cyan, 0.0f, false);
-                    
+
                 Vector3 v = contactPoint - position;
                 if (v != Vector3.zero)
                 {
@@ -414,7 +414,7 @@ public class SuperCharacterController : MonoBehaviour
 
                     collisionData.Add(collision);
                 }
-            }            
+            }
         }
 
         PopIgnoredColliders();
@@ -862,7 +862,7 @@ public class SuperCharacterController : MonoBehaviour
 
                 secondaryOrigin += Math3d.ProjectVectorOnPlane(controller.up, v2).normalized * horizontal + controller.up * vertical;
             }
-            
+
             if (Physics.Raycast(secondaryOrigin, controller.down, out hit, Mathf.Infinity, walkable, triggerInteraction))
             {
                 // Remove the tolerance from the distance travelled
