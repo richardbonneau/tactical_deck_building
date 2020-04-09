@@ -36,7 +36,6 @@ public class Pathfinder : MonoBehaviour
         animator = playerStatus.player.GetComponentInChildren<Animator>();
     }
 
-
     List<Node> FindPath(Vector3 startPos, Vector3 endPos)
     {
         // Nodes that we want to calculate the F cost of
@@ -98,22 +97,6 @@ public class Pathfinder : MonoBehaviour
         return new List<Node>();
     }
 
-
-    IEnumerator MoveAgent(List<Node> path)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(0.01f);
-            if (path.Count != 0 && path[0].worldPosition.x != playerStatus.player.transform.position.x && path[0].worldPosition.z != playerStatus.player.transform.position.z)
-            {
-                playerStatus.player.transform.position = path[0].worldPosition;
-
-            }
-            else if (path.Count != 0) path.RemoveAt(0);
-
-        }
-    }
-
     int GetDistance(Node nodeA, Node nodeB)
     {
         int dstX = Mathf.Abs(nodeA.x - nodeB.x);
@@ -129,7 +112,6 @@ public class Pathfinder : MonoBehaviour
     {
         playerStatus.player.transform.GetChild(0).LookAt(destination[0].worldPosition);
         playerStatus.player.transform.position = Vector3.MoveTowards(playerStatus.player.transform.position, destination[0].worldPosition, moveSpeed * Time.deltaTime);
-
     }
     public void removeMovementGrid()
     {
@@ -188,7 +170,6 @@ public class Pathfinder : MonoBehaviour
                                 p.transform.position = new Vector3(x, 0, z);
                                 p.SetActive(true);
                             }
-                            // GameObject p = Instantiate(moveGridIndicator, new Vector3(x, 0, z), Quaternion.identity);
                             gridView.Add(p);
                         }
 
@@ -255,8 +236,6 @@ public class Pathfinder : MonoBehaviour
             }
             else mapSelector.transform.position = new Vector3(999, mapSelector.transform.position.y, 999);
         }
-
-
     }
 }
 

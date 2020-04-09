@@ -19,5 +19,9 @@ public class PlayerMove : MonoBehaviour
             pathfinder.playerIsAllowedToMove = false;
         }
     }
+    public void EnablePlayerAttack()
+    {
+
+    }
 
 }
