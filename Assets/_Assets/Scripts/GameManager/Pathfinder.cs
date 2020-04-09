@@ -123,6 +123,14 @@ public class Pathfinder : MonoBehaviour
         gridView = new List<GameObject>();
         availableMovementsGridShown = false;
     }
+    void removeMovementPath()
+    {
+        foreach (GameObject indicator in pathView)
+        {
+            indicator.SetActive(false);
+        }
+        pathView = new List<GameObject>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -133,10 +141,10 @@ public class Pathfinder : MonoBehaviour
             {
                 playerIsCurrentlyMoving = false;
                 animator.SetBool("isMoving", false);
+                removeMovementPath();
             }
             else
             {
-
                 MoveToNextNode();
                 if (destination[0].worldPosition == playerStatus.player.transform.position) destination.RemoveAt(0);
             }
@@ -193,11 +201,7 @@ public class Pathfinder : MonoBehaviour
                 {
 
                     playerCanMoveToSelectedSpot = false;
-                    foreach (GameObject indicator in pathView)
-                    {
-                        indicator.SetActive(false);
-                    }
-                    pathView = new List<GameObject>();
+                    removeMovementPath();
 
                     path = FindPath(playerStatus.playerNode.worldPosition, mouseSelectWorldPosition);
 
@@ -226,6 +230,8 @@ public class Pathfinder : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && playerCanMoveToSelectedSpot)
                 {
                     removeMovementGrid();
+
+                    playerIsAllowedToMove = false;
                     destination = path;
                     playerIsCurrentlyMoving = true;
                     animator.SetBool("isMoving", true);
