@@ -36,7 +36,10 @@ public class UiManager : MonoBehaviour
             GameObject found = enemies.Find(enemy => enemy.transform.position.x == node.worldPosition.x && enemy.transform.position.z == node.worldPosition.z);
             if (found != null)
             {
+                int randomAnimation = Random.Range(1, 5);
+                found.GetComponent<Animator>().SetTrigger("getHit" + randomAnimation);
                 player.transform.LookAt(found.transform.position);
+
                 found.GetComponent<EnemyStatus>().health = found.GetComponent<EnemyStatus>().health - 5;
                 playerAnimator.SetTrigger("Attack");
             }
