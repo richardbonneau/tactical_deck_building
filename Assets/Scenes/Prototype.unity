@@ -434,6 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a7e10195f43bc4eaf82fceb065a462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesManager: {fileID: 1568278394}
   uiManager: {fileID: 1612067042}
   currentRound: 1
   playerPhaseDone: 0
@@ -2326,14 +2327,14 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 9.3
   m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 0.5
-  m_VerticalDamping: 0.5
+  m_HorizontalDamping: 1.5
+  m_VerticalDamping: 1.5
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_DeadZoneWidth: 0.13
-  m_DeadZoneHeight: 0.16
-  m_SoftZoneWidth: 0.27
-  m_SoftZoneHeight: 0.34
+  m_DeadZoneWidth: 0.15
+  m_DeadZoneHeight: 0.15
+  m_SoftZoneWidth: 0.81
+  m_SoftZoneHeight: 0.72
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -3647,7 +3648,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.015625}
   m_AnchorMax: {x: 0.3303873, y: 0.015625}
-  m_AnchoredPosition: {x: -18.243958, y: 43.875}
+  m_AnchoredPosition: {x: -18.243896, y: 43.875}
   m_SizeDelta: {x: -64, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1726141930
@@ -4120,6 +4121,7 @@ MonoBehaviour:
   isDead: 0
   enemiesManager: {fileID: 1568278394}
   currentlyDoingTurn: 0
+  currentlyDoingAnAction: 0
   turnDone: 0
 --- !u!114 &2005240413
 MonoBehaviour:
