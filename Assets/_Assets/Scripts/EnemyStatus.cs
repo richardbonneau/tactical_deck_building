@@ -6,7 +6,9 @@ public class EnemyStatus : MonoBehaviour
 {
     public int health = 10;
     public int allowedMovement = 10;
+    public bool isDead = false;
     Animator animator;
+    public EnemiesManager enemiesManager;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -20,9 +22,13 @@ public class EnemyStatus : MonoBehaviour
     }
     void Update()
     {
-        if (health <= 0)
+        if (!isDead && health <= 0)
         {
+            print(enemiesManager.activeEnemies.Count);
+            isDead = true;
             animator.SetBool("isDead", true);
+            enemiesManager.activeEnemies.Remove(this.gameObject);
+            print(enemiesManager.activeEnemies.Count);
         }
 
     }

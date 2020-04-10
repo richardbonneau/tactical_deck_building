@@ -235,6 +235,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 940551928968212945}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &166642504 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 940551929104937622, guid: 528a6f790d240cd4184313a8371ab908,
+    type: 3}
+  m_PrefabInstance: {fileID: 940551928968212945}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &172057272 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 4d8286f69d93b534ebbbe0f28b6030d0,
@@ -1866,7 +1872,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 910883729}
-  m_LocalRotation: {x: -0.40740535, y: -0.17817183, z: 0.08096757, w: -0.8920313}
+  m_LocalRotation: {x: -0.46222383, y: -0.10783273, z: 0.056331277, w: -0.87837815}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1892,7 +1898,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
+  m_LookAt: {fileID: 166642504}
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
@@ -3298,7 +3304,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1679711830}
-  m_LocalRotation: {x: -0.40740538, y: -0.17817183, z: 0.08096758, w: -0.8920313}
+  m_LocalRotation: {x: -0.46222383, y: -0.10783273, z: 0.056331277, w: -0.87837815}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3821,6 +3827,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   allowedMovement: 10
+  isDead: 0
+  enemiesManager: {fileID: 1568278394}
 --- !u!114 &2005240413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4451,7 +4459,7 @@ PrefabInstance:
     - target: {fileID: 940551929104937622, guid: 528a6f790d240cd4184313a8371ab908,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 940551929104937622, guid: 528a6f790d240cd4184313a8371ab908,
         type: 3}

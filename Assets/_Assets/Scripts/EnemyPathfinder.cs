@@ -44,7 +44,6 @@ public class EnemyPathfinder : MonoBehaviour
     {
         if (destination.Count == 0)
         {
-            print("destination count is 0");
             isCurrentlyMoving = false;
             canMoveToSelectedSpot = false;
             animator.SetBool("isMoving", false);
@@ -82,6 +81,7 @@ public class EnemyPathfinder : MonoBehaviour
     }
     void Update()
     {
+        if (!enemyStatus.isDead)
         {
             if (isCurrentlyMoving)
             {
