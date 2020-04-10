@@ -124,7 +124,7 @@ public class Pathfinder : MonoBehaviour
     }
     void EntityMoveToNextNode()
     {
-        playerStatus.player.transform.GetChild(0).LookAt(destination[0].worldPosition);
+        playerStatus.player.transform.LookAt(destination[0].worldPosition);
         playerStatus.player.transform.position = Vector3.MoveTowards(playerStatus.player.transform.position, destination[0].worldPosition, moveSpeed * Time.deltaTime);
     }
     public void removeMovementGrid()
