@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyPathfinder : MonoBehaviour
 {
 
+    public GameObject player;
     public Camera mainCam;
     public GameObject mapSelector;
     Node enemyNode;
@@ -19,14 +20,13 @@ public class EnemyPathfinder : MonoBehaviour
     public ObjectPooler moveGridPool;
 
     public ObjectPooler movePathPool;
-
+    Vector3 lastCalculatedMovePath = new Vector3(0, 20, 0);
     bool availableMovementsGridShown = false;
     [System.NonSerialized] public bool enemyIsAllowedToMove = false;
     bool canMoveToSelectedSpot = false;
-    Vector3 lastCalculatedMovePath = new Vector3(0, 20, 0);
     List<Node> destination;
     EnemyStatus enemyStatus;
-    List<Node> path;
+    List<Node> path = new List<Node>();
 
     void Awake()
     {
@@ -121,57 +121,102 @@ public class EnemyPathfinder : MonoBehaviour
                 }
 
                 // Calculate MoveTo path
-                RaycastHit hit;
-                Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit))
+                if (!canMoveToSelectedSpot)
                 {
-                    Vector3 mouseSelectWorldPosition = new Vector3(Mathf.Round(hit.point.x), mapSelector.transform.position.y, Mathf.Round(hit.point.z));
-                    Transform objectHit = hit.transform;
-                    mapSelector.transform.position = mouseSelectWorldPosition;
-                    if (lastCalculatedMovePath != mouseSelectWorldPosition)
+                    // player position needs to be the closest neighbour node, and NOT the player node itself. that node is an OBSTACLE
+                    // What neighbouring node do we want to go to?
+                    List<Node> neighbouringPlayerNodes = grid.GetNeighbours(grid.NodeFromWorldPoint(player.transform.position));
+                    int pathCount = 9999;
+                    foreach (Node node in neighbouringPlayerNodes)
                     {
-                        canMoveToSelectedSpot = false;
-                        removeMovementPath();
+                        List<Node> temporaryPath = grid.FindPath(this.transform.position, node.worldPosition);
+                        print(temporaryPath.Count);
 
-                        path = grid.FindPath(this.transform.position, mouseSelectWorldPosition);
-
-
-                        foreach (GameObject gridSquare in gridView)
+                        if (temporaryPath.Count != 0 && temporaryPath.Count < pathCount)
                         {
-                            if (path.Count != 0 && gridSquare.transform.position == path[path.Count - 1].worldPosition)
-                            {
-                                canMoveToSelectedSpot = true;
-
-                                foreach (Node node in path)
-                                {
-                                    GameObject p = movePathPool.GetPooledObject();
-                                    if (p != null)
-                                    {
-                                        p.transform.position = node.worldPosition;
-                                        p.SetActive(true);
-                                    }
-                                    pathView.Add(p);
-                                }
-                            }
+                            path = temporaryPath;
+                            pathCount = path.Count;
                         }
-                        lastCalculatedMovePath = mouseSelectWorldPosition;
-                        return;
-                    }
-                    if (Input.GetMouseButtonDown(0) && canMoveToSelectedSpot)
-                    {
-                        removeMovementGrid();
 
-                        isAllowedToMove = false;
-                        destination = path;
-                        isCurrentlyMoving = true;
-                        animator.SetBool("isMoving", true);
-                        enemyNode.walkable = true;
-                        enemyNode = grid.NodeFromWorldPoint(mouseSelectWorldPosition);
-                        enemyNode.walkable = false;
-                        availableMovementsGridShown = false;
                     }
+                    canMoveToSelectedSpot = true;
+                    return;
                 }
-                else mapSelector.transform.position = new Vector3(0, 20, 0);
+
+                else if (canMoveToSelectedSpot)
+                {
+                    print("path.Count" + path.Count);
+                    removeMovementGrid();
+                    isAllowedToMove = false;
+                    destination = path;
+                    isCurrentlyMoving = true;
+                    animator.SetBool("isMoving", true);
+                    enemyNode.walkable = true;
+                    enemyNode = path[path.Count - 1];
+                    enemyNode.walkable = false;
+                }
+
+
+
+                // if (canMoveToSelectedSpot)
+                // {
+                //     print("canmoveto selectedspot");
+                //     removeMovementGrid();
+                //     isAllowedToMove = false;
+                //     destination = path;
+                //     isCurrentlyMoving = true;
+                //     animator.SetBool("isMoving", true);
+                //     enemyNode.walkable = true;
+                //     enemyNode = grid.NodeFromWorldPoint(playerPosition);
+                //     enemyNode.walkable = false;
+                //     availableMovementsGridShown = false;
+                // }
+
+                // if (lastCalculatedMovePath != playerPosition)
+                // {
+                //     canMoveToSelectedSpot = false;
+                //     removeMovementPath();
+
+
+                //     path = grid.FindPath(this.transform.position, playerPosition);
+                //     print("path" + path.Count);
+                //     foreach (GameObject gridSquare in gridView)
+                //     {
+                //         // print(gridSquare.transform.position == path[path.Count - 1].worldPosition);
+                //         if (path.Count != 0 && gridSquare.transform.position == path[path.Count - 1].worldPosition)
+                //         {
+                //             canMoveToSelectedSpot = true;
+
+                //             foreach (Node node in path)
+                //             {
+                //                 GameObject p = movePathPool.GetPooledObject();
+                //                 if (p != null)
+                //                 {
+                //                     p.transform.position = node.worldPosition;
+                //                     p.SetActive(true);
+                //                 }
+                //                 pathView.Add(p);
+                //             }
+                //         }
+                //     }
+                //     lastCalculatedMovePath = playerPosition;
+                //     return;
+                // }
+                // if (canMoveToSelectedSpot)
+                // {
+                //     print("canmoveto selectedspot");
+                //     removeMovementGrid();
+                //     isAllowedToMove = false;
+                //     destination = path;
+                //     isCurrentlyMoving = true;
+                //     animator.SetBool("isMoving", true);
+                //     enemyNode.walkable = true;
+                //     enemyNode = grid.NodeFromWorldPoint(playerPosition);
+                //     enemyNode.walkable = false;
+                //     availableMovementsGridShown = false;
+                // }
+
+                // else mapSelector.transform.position = new Vector3(0, 20, 0);
             }
         }
     }

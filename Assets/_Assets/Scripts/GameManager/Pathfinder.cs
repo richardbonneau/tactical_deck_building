@@ -127,9 +127,11 @@ public class Pathfinder : MonoBehaviour
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
-                Vector3 mouseSelectWorldPosition = new Vector3(Mathf.Round(hit.point.x), mapSelector.transform.position.y, Mathf.Round(hit.point.z));
+                Vector3 mouseSelectWorldPosition = new Vector3(Mathf.Round(hit.point.x), 0, Mathf.Round(hit.point.z));
                 Transform objectHit = hit.transform;
                 mapSelector.transform.position = mouseSelectWorldPosition;
+                // print((lastCalculatedMovePath != mouseSelectWorldPosition).ToString() + "lastCalculatedMovePath" + lastCalculatedMovePath + "mouseSelectWorldPosition " + mouseSelectWorldPosition);
+
                 if (lastCalculatedMovePath != mouseSelectWorldPosition)
                 {
                     playerCanMoveToSelectedSpot = false;
@@ -137,7 +139,7 @@ public class Pathfinder : MonoBehaviour
 
                     path = grid.FindPath(player.transform.position, mouseSelectWorldPosition);
 
-
+                    print("path" + path.Count);
                     foreach (GameObject gridSquare in gridView)
                     {
                         if (path.Count != 0 && gridSquare.transform.position == path[path.Count - 1].worldPosition)
@@ -162,7 +164,6 @@ public class Pathfinder : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && playerCanMoveToSelectedSpot)
                 {
                     removeMovementGrid();
-
                     playerIsAllowedToMove = false;
                     destination = path;
                     playerIsCurrentlyMoving = true;
@@ -170,7 +171,7 @@ public class Pathfinder : MonoBehaviour
                     playerStatus.playerNode.walkable = true;
                     playerStatus.playerNode = grid.NodeFromWorldPoint(mouseSelectWorldPosition);
                     playerStatus.playerNode.walkable = false;
-                    availableMovementsGridShown = false;
+
                 }
             }
             else mapSelector.transform.position = new Vector3(0, 20, 0);

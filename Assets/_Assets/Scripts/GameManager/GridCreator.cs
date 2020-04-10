@@ -61,9 +61,9 @@ new Vector2(17f,16f),
             }
             openNodes.Remove(lowestCostNode);
             closedNodes.Add(lowestCostNode);
-
             if (lowestCostNode == targetNode)
             {
+
                 List<Node> path = new List<Node>();
                 Node currentNode = targetNode;
                 while (currentNode != startNode)
@@ -96,6 +96,7 @@ new Vector2(17f,16f),
                 }
             }
         }
+
         return new List<Node>();
     }
 

@@ -181,6 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCam: {fileID: 1679711832}
   mapSelector: {fileID: 172057272}
+  player: {fileID: 166642502}
   moveSpeed: 5
   moveGridPool: {fileID: 302137857}
   movePathPool: {fileID: 302137858}
@@ -1758,7 +1759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce94ab34384adf742b1753faddf1528c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  remainingMovements: 11
+  allowedMovement: 11
   player: {fileID: 166642502}
 --- !u!4 &821261757 stripped
 Transform:
@@ -3186,6 +3187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesManager: {fileID: 1568278394}
+  singleEnemy: {fileID: 2005240409}
   attackZoneObj: {fileID: 6708772009220706435, guid: 8288c4b36823dd140a84c2dbb3737dd8,
     type: 3}
   gridCreator: {fileID: 34158121}
@@ -3818,6 +3820,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  allowedMovement: 10
+--- !u!114 &2005240413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005240409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cdeebc26ab57b4aa9e70859743121e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 166642502}
+  mainCam: {fileID: 1679711832}
+  mapSelector: {fileID: 172057272}
+  isAllowedToMove: 0
+  moveSpeed: 4
+  grid: {fileID: 34158121}
+  moveGridPool: {fileID: 302137857}
+  movePathPool: {fileID: 302137858}
 --- !u!1001 &2031842659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4428,7 +4451,7 @@ PrefabInstance:
     - target: {fileID: 940551929104937622, guid: 528a6f790d240cd4184313a8371ab908,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 940551929104937622, guid: 528a6f790d240cd4184313a8371ab908,
         type: 3}
@@ -4438,7 +4461,7 @@ PrefabInstance:
     - target: {fileID: 940551929104937622, guid: 528a6f790d240cd4184313a8371ab908,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 940551929104937622, guid: 528a6f790d240cd4184313a8371ab908,
         type: 3}
