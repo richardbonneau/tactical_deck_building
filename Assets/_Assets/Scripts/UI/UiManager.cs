@@ -5,6 +5,9 @@ using TMPro;
 
 public class UiManager : MonoBehaviour
 {
+    public EnemiesManager enemiesManager;
+    public GameObject attackZoneObj;
+    public GridCreator gridCreator;
     public RoundManager roundManager;
     public Pathfinder pathfinder;
     public GameObject player;
@@ -26,7 +29,20 @@ public class UiManager : MonoBehaviour
     }
     public void EnablePlayerAttack()
     {
-        playerAnimator.SetTrigger("Attack");
+        List<GameObject> enemies = enemiesManager.activeEnemies;
+        List<Node> neighboursNodes = gridCreator.GetNeighbours(gridCreator.NodeFromWorldPoint(player.transform.position));
+        foreach (Node node in neighboursNodes)
+        {
+            GameObject found = enemies.Find(enemy => enemy.transform.position.x == node.worldPosition.x && enemy.transform.position.z == node.worldPosition.z);
+            if (found != null)
+            {
+                player.transform.GetChild(0).LookAt(found.transform.position);
+                playerAnimator.SetTrigger("Attack");
+            }
+
+            // Instantiate(attackZoneObj, node.worldPosition, Quaternion.identity);
+        }
+
     }
     public void ChangeRoundOnTheUI()
     {
