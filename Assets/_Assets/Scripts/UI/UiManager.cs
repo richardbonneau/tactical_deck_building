@@ -57,5 +57,10 @@ public class UiManager : MonoBehaviour
         roundManager.NextRound();
     }
 
+    public void singleEnemyMoveToPlayer()
+    {
+
+    }
+
 
 }
