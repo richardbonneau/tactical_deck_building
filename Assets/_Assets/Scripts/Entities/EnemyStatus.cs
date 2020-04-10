@@ -12,9 +12,9 @@ public class EnemyStatus : MonoBehaviour
     public EnemiesManager enemiesManager;
     EnemyPathfinder enemyPathfinder;
     public bool currentlyDoingTurn = false;
-    bool currentlyDoingAnAction = false;
+    public bool currentlyDoingAnAction = false;
     public bool turnDone = false;
-    List<string> actions = new List<string>() { "move", "attack" };
+    List<string> actions = new List<string>() { "move", "move" };
     int currentAction = 0;
 
     void Start()
@@ -27,11 +27,15 @@ public class EnemyStatus : MonoBehaviour
         int randomAnimation = Random.Range(1, 5);
         animator.SetTrigger("getHit" + randomAnimation);
     }
-    void NextAction()
+    public void NextAction()
     {
         currentAction++;
-        // if action array is empty, end this enemys turn
-        // otherwise get the next action into currentAction var
+    }
+    void TurnDone()
+    {
+        turnDone = true;
+        currentlyDoingAnAction = false;
+        currentlyDoingTurn = false;
     }
     void MoveAction()
     {
@@ -48,11 +52,16 @@ public class EnemyStatus : MonoBehaviour
                 animator.SetBool("isDead", true);
                 enemiesManager.activeEnemies.Remove(this.gameObject);
             }
-            else if (currentlyDoingTurn && !currentlyDoingAnAction)
+            if (currentlyDoingTurn)
             {
-                if (actions[currentAction] == "move") MoveAction();
+                if (currentAction > actions.Count - 1) TurnDone();
+                else if (!currentlyDoingAnAction)
+                {
+                    if (actions[currentAction] == "move") MoveAction();
 
+                }
             }
+
         }
     }
 }

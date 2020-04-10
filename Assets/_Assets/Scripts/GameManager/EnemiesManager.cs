@@ -14,12 +14,16 @@ public class EnemiesManager : MonoBehaviour
 
     void Start()
     {
-
         foreach (GameObject enemy in activeEnemies)
         {
             Node node = gridCreator.NodeFromWorldPoint(enemy.transform.position);
             node.walkable = false;
         }
+    }
+    public void NextRound()
+    {
+        allEnemiesTurnsDone = false;
+        currentEnemyTurn = 0;
     }
     void NextEnemyTurn()
     {
@@ -28,6 +32,7 @@ public class EnemiesManager : MonoBehaviour
         activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
         activeEnemyStatus.currentlyDoingTurn = true;
     }
+
     void Update()
     {
         if (roundManager.playerPhaseDone && !roundManager.enemiesPhaseDone && activeEnemies.Count > 0)
@@ -37,7 +42,8 @@ public class EnemiesManager : MonoBehaviour
             {
                 if (currentEnemyTurn > activeEnemies.Count - 1)
                 {
-                    allEnemiesTurnsDone = true;
+                    print("all enemies done");
+                    roundManager.enemiesPhaseDone = true;
                     return;
                 }
                 NextEnemyTurn();

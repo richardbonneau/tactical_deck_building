@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RoundManager : MonoBehaviour
 {
+    public EnemiesManager enemiesManager;
     public UiManager uiManager;
     public int currentRound = 1;
     public bool playerPhaseDone = false;
@@ -26,6 +27,10 @@ public class RoundManager : MonoBehaviour
     {
         currentRound++;
         uiManager.ChangeRoundOnTheUI();
+        playerPhaseDone = false;
+        enemiesPhaseDone = false;
+        enemiesManager.NextRound();
+
     }
 
 }

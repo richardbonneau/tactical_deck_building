@@ -42,11 +42,15 @@ public class EnemyPathfinder : MonoBehaviour
     {
         if (movesMade >= enemyStatus.allowedMovement || destination.Count == 0)
         {
+            print("here?");
             isCurrentlyMoving = false;
             canMoveToSelectedSpot = false;
             animator.SetBool("isMoving", false);
             path = new List<Node>();
             movesMade = 0;
+
+            enemyStatus.NextAction();
+            enemyStatus.currentlyDoingAnAction = false;
         }
         else
         {
