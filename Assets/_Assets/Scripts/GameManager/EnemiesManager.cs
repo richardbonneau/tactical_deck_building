@@ -6,14 +6,42 @@ public class EnemiesManager : MonoBehaviour
 {
     public GridCreator gridCreator;
     public List<GameObject> activeEnemies;
-
+    public RoundManager roundManager;
+    int currentEnemyTurn = -1;
+    public bool allEnemiesTurnsDone = false;
+    GameObject activeEnemy;
+    EnemyStatus activeEnemyStatus;
 
     void Start()
     {
+
         foreach (GameObject enemy in activeEnemies)
         {
             Node node = gridCreator.NodeFromWorldPoint(enemy.transform.position);
             node.walkable = false;
+        }
+    }
+    void NextEnemyTurn()
+    {
+        currentEnemyTurn++;
+        activeEnemy = activeEnemies[currentEnemyTurn];
+        activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
+        activeEnemyStatus.currentlyDoingTurn = true;
+    }
+    void Update()
+    {
+        if (roundManager.playerPhaseDone && !roundManager.enemiesPhaseDone && activeEnemies.Count > 0)
+        {
+            if (activeEnemyStatus == null) NextEnemyTurn();
+            else if (activeEnemyStatus.turnDone)
+            {
+                if (currentEnemyTurn > activeEnemies.Count - 1)
+                {
+                    allEnemiesTurnsDone = true;
+                    return;
+                }
+                NextEnemyTurn();
+            }
         }
     }
 }

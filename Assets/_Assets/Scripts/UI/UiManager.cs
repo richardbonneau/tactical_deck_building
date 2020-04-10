@@ -19,6 +19,10 @@ public class UiManager : MonoBehaviour
     {
         playerAnimator = player.GetComponentInChildren<Animator>();
     }
+    void Start()
+    {
+        print("start UiManager");
+    }
     public void EnablePlayerMove()
     {
         if (pathfinder.playerIsAllowedToMove == false) pathfinder.playerIsAllowedToMove = true;
@@ -67,6 +71,10 @@ public class UiManager : MonoBehaviour
             enemyPathfinder.removeMovementGrid();
             enemyPathfinder.isAllowedToMove = false;
         }
+    }
+    public void EndTurn()
+    {
+        roundManager.PlayerPhaseIsDone();
     }
 
 
