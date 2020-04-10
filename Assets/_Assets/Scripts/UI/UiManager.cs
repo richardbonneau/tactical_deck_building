@@ -6,6 +6,7 @@ using TMPro;
 public class UiManager : MonoBehaviour
 {
     public EnemiesManager enemiesManager;
+    public GameObject singleEnemy;
     public GameObject attackZoneObj;
     public GridCreator gridCreator;
     public RoundManager roundManager;
@@ -59,7 +60,13 @@ public class UiManager : MonoBehaviour
 
     public void singleEnemyMoveToPlayer()
     {
-
+        EnemyPathfinder enemyPathfinder = singleEnemy.GetComponent<EnemyPathfinder>();
+        if (!enemyPathfinder.isAllowedToMove) enemyPathfinder.isAllowedToMove = true;
+        else
+        {
+            enemyPathfinder.removeMovementGrid();
+            enemyPathfinder.isAllowedToMove = false;
+        }
     }
 
 

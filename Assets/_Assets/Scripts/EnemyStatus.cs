@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyStatus : MonoBehaviour
 {
     public int health = 10;
+    public int allowedMovement = 10;
     Animator animator;
     void Start()
     {

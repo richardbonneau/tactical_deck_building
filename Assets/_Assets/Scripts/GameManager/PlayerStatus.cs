@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerStatus : MonoBehaviour
 {
     GridCreator gridScript;
-    public int remainingMovements = 5;
+    public int allowedMovement = 5;
     public Node playerNode;
-    public GameObject player; 
+    public GameObject player;
     // if more than one vector is changed, its a diagonal movement, therefore it costs 2
-    void Start(){
+    void Start()
+    {
         gridScript = transform.parent.GetChild(0).GetComponent<GridCreator>();
         playerNode = gridScript.NodeFromWorldPoint(player.transform.position);
         playerNode.walkable = false;

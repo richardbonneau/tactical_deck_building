@@ -38,6 +38,76 @@ new Vector2(17f,16f),
         CreateGrid();
     }
 
+    public List<Node> FindPath(Vector3 startPos, Vector3 endPos)
+    {
+        // Nodes that we want to calculate the F cost of
+        List<Node> openNodes = new List<Node>();
+        // Nodes that have already been evaluated
+        List<Node> closedNodes = new List<Node>();
+
+        Node startNode = NodeFromWorldPoint(startPos);
+        Node targetNode = NodeFromWorldPoint(endPos);
+        openNodes.Add(startNode);
+        while (targetNode != null && openNodes.Count > 0)
+        {
+            Node lowestCostNode = openNodes[0];
+            foreach (Node node in openNodes)
+            {
+
+                if (node.fCost <= lowestCostNode.fCost && node.hCost < lowestCostNode.hCost)
+                {
+                    lowestCostNode = node;
+                }
+            }
+            openNodes.Remove(lowestCostNode);
+            closedNodes.Add(lowestCostNode);
+
+            if (lowestCostNode == targetNode)
+            {
+                List<Node> path = new List<Node>();
+                Node currentNode = targetNode;
+                while (currentNode != startNode)
+                {
+                    path.Add(currentNode);
+                    currentNode = currentNode.parent;
+                }
+                path.Reverse();
+                return path;
+            }
+
+            List<Node> neighbours = GetNeighbours(lowestCostNode);
+            foreach (Node neighbour in neighbours)
+            {
+                if (!neighbour.walkable || closedNodes.Contains(neighbour))
+                {
+                    continue;
+                }
+                int newCostToNeighbour = lowestCostNode.gCost + GetDistance(lowestCostNode, neighbour);
+                bool openNodesListContainsNeighbour = openNodes.Contains(neighbour);
+                if (newCostToNeighbour < neighbour.gCost || !openNodesListContainsNeighbour)
+                {
+                    neighbour.gCost = newCostToNeighbour;
+                    neighbour.hCost = GetDistance(neighbour, targetNode);
+                    neighbour.parent = lowestCostNode;
+                    if (!openNodesListContainsNeighbour)
+                    {
+                        openNodes.Add(neighbour);
+                    }
+                }
+            }
+        }
+        return new List<Node>();
+    }
+
+    int GetDistance(Node nodeA, Node nodeB)
+    {
+        int dstX = Mathf.Abs(nodeA.x - nodeB.x);
+        int dstZ = Mathf.Abs(nodeA.z - nodeB.z);
+
+        if (dstX > dstZ)
+            return 14 * dstZ + 10 * (dstX - dstZ);
+        return 14 * dstX + 10 * (dstZ - dstX);
+    }
 
     void CreateGrid()
     {

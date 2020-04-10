@@ -37,76 +37,8 @@ public class Pathfinder : MonoBehaviour
         animator = player.GetComponent<Animator>();
     }
 
-    List<Node> FindPath(Vector3 startPos, Vector3 endPos)
-    {
-        // Nodes that we want to calculate the F cost of
-        List<Node> openNodes = new List<Node>();
-        // Nodes that have already been evaluated
-        List<Node> closedNodes = new List<Node>();
 
-        Node startNode = grid.NodeFromWorldPoint(startPos);
-        Node targetNode = grid.NodeFromWorldPoint(endPos);
-        openNodes.Add(startNode);
-        while (targetNode != null && openNodes.Count > 0)
-        {
-            Node lowestCostNode = openNodes[0];
-            foreach (Node node in openNodes)
-            {
 
-                if (node.fCost <= lowestCostNode.fCost && node.hCost < lowestCostNode.hCost)
-                {
-                    lowestCostNode = node;
-                }
-            }
-            openNodes.Remove(lowestCostNode);
-            closedNodes.Add(lowestCostNode);
-
-            if (lowestCostNode == targetNode)
-            {
-                List<Node> path = new List<Node>();
-                Node currentNode = targetNode;
-                while (currentNode != startNode)
-                {
-                    path.Add(currentNode);
-                    currentNode = currentNode.parent;
-                }
-                path.Reverse();
-                return path;
-            }
-
-            List<Node> neighbours = grid.GetNeighbours(lowestCostNode);
-            foreach (Node neighbour in neighbours)
-            {
-                if (!neighbour.walkable || closedNodes.Contains(neighbour))
-                {
-                    continue;
-                }
-                int newCostToNeighbour = lowestCostNode.gCost + GetDistance(lowestCostNode, neighbour);
-                bool openNodesListContainsNeighbour = openNodes.Contains(neighbour);
-                if (newCostToNeighbour < neighbour.gCost || !openNodesListContainsNeighbour)
-                {
-                    neighbour.gCost = newCostToNeighbour;
-                    neighbour.hCost = GetDistance(neighbour, targetNode);
-                    neighbour.parent = lowestCostNode;
-                    if (!openNodesListContainsNeighbour)
-                    {
-                        openNodes.Add(neighbour);
-                    }
-                }
-            }
-        }
-        return new List<Node>();
-    }
-
-    int GetDistance(Node nodeA, Node nodeB)
-    {
-        int dstX = Mathf.Abs(nodeA.x - nodeB.x);
-        int dstZ = Mathf.Abs(nodeA.z - nodeB.z);
-
-        if (dstX > dstZ)
-            return 14 * dstZ + 10 * (dstX - dstZ);
-        return 14 * dstX + 10 * (dstZ - dstX);
-    }
 
 
     void EntityCurrentlyMoving()
@@ -160,7 +92,7 @@ public class Pathfinder : MonoBehaviour
             if (!availableMovementsGridShown)
             {
                 removeMovementGrid();
-                int maxMove = playerStatus.remainingMovements;
+                int maxMove = playerStatus.allowedMovement;
                 int playerPosX = Mathf.RoundToInt(player.transform.position.x);
                 int playerPosZ = Mathf.RoundToInt(player.transform.position.z);
 
@@ -172,7 +104,7 @@ public class Pathfinder : MonoBehaviour
                         Node currentNode = grid.NodeFromWorldPoint(new Vector3(x, 0, z));
 
                         List<Node> path = null;
-                        if (currentNode != null) path = FindPath(player.transform.position, currentNode.worldPosition);
+                        if (currentNode != null) path = grid.FindPath(player.transform.position, currentNode.worldPosition);
 
                         if (path != null && path.Count > 0 && path[path.Count - 1].gCost <= maxMove * 10)
                         {
@@ -203,7 +135,7 @@ public class Pathfinder : MonoBehaviour
                     playerCanMoveToSelectedSpot = false;
                     removeMovementPath();
 
-                    path = FindPath(player.transform.position, mouseSelectWorldPosition);
+                    path = grid.FindPath(player.transform.position, mouseSelectWorldPosition);
 
 
                     foreach (GameObject gridSquare in gridView)
@@ -241,7 +173,7 @@ public class Pathfinder : MonoBehaviour
                     availableMovementsGridShown = false;
                 }
             }
-            else mapSelector.transform.position = new Vector3(999, mapSelector.transform.position.y, 999);
+            else mapSelector.transform.position = new Vector3(0, 20, 0);
         }
     }
 }
