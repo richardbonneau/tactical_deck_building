@@ -10,6 +10,7 @@ public class Pathfinder : MonoBehaviour
     public Camera mainCam;
     public GameObject mapSelector;
     PlayerStatus playerStatus;
+    public GameObject player;
     public int moveSpeed = 1;
 
     GridCreator grid;
@@ -23,7 +24,7 @@ public class Pathfinder : MonoBehaviour
     bool availableMovementsGridShown = false;
     [System.NonSerialized] public bool playerIsAllowedToMove = false;
     bool playerCanMoveToSelectedSpot = false;
-    Vector3 lastCalculatedMovePath = new Vector3(999, 999, 999);
+    Vector3 lastCalculatedMovePath = new Vector3(0, 20, 0);
     bool playerIsCurrentlyMoving = false;
     List<Node> destination;
     Animator animator;
@@ -33,7 +34,7 @@ public class Pathfinder : MonoBehaviour
     {
         grid = GetComponent<GridCreator>();
         playerStatus = transform.parent.GetChild(1).GetComponent<PlayerStatus>();
-        animator = playerStatus.player.GetComponentInChildren<Animator>();
+        animator = player.GetComponent<Animator>();
     }
 
     List<Node> FindPath(Vector3 startPos, Vector3 endPos)
@@ -119,13 +120,13 @@ public class Pathfinder : MonoBehaviour
         else
         {
             EntityMoveToNextNode();
-            if (destination[0].worldPosition == playerStatus.player.transform.position) destination.RemoveAt(0);
+            if (destination[0].worldPosition == player.transform.position) destination.RemoveAt(0);
         }
     }
     void EntityMoveToNextNode()
     {
-        playerStatus.player.transform.LookAt(destination[0].worldPosition);
-        playerStatus.player.transform.position = Vector3.MoveTowards(playerStatus.player.transform.position, destination[0].worldPosition, moveSpeed * Time.deltaTime);
+        player.transform.LookAt(destination[0].worldPosition);
+        player.transform.position = Vector3.MoveTowards(player.transform.position, destination[0].worldPosition, moveSpeed * Time.deltaTime);
     }
     public void removeMovementGrid()
     {
@@ -160,8 +161,8 @@ public class Pathfinder : MonoBehaviour
             {
                 removeMovementGrid();
                 int maxMove = playerStatus.remainingMovements;
-                int playerPosX = Mathf.RoundToInt(playerStatus.playerNode.worldPosition.x);
-                int playerPosZ = Mathf.RoundToInt(playerStatus.playerNode.worldPosition.z);
+                int playerPosX = Mathf.RoundToInt(player.transform.position.x);
+                int playerPosZ = Mathf.RoundToInt(player.transform.position.z);
 
                 for (int x = playerPosX - maxMove; x <= playerPosX + maxMove; x++)
                 {
@@ -171,7 +172,7 @@ public class Pathfinder : MonoBehaviour
                         Node currentNode = grid.NodeFromWorldPoint(new Vector3(x, 0, z));
 
                         List<Node> path = null;
-                        if (currentNode != null) path = FindPath(playerStatus.playerNode.worldPosition, currentNode.worldPosition);
+                        if (currentNode != null) path = FindPath(player.transform.position, currentNode.worldPosition);
 
                         if (path != null && path.Count > 0 && path[path.Count - 1].gCost <= maxMove * 10)
                         {
@@ -202,7 +203,7 @@ public class Pathfinder : MonoBehaviour
                     playerCanMoveToSelectedSpot = false;
                     removeMovementPath();
 
-                    path = FindPath(playerStatus.playerNode.worldPosition, mouseSelectWorldPosition);
+                    path = FindPath(player.transform.position, mouseSelectWorldPosition);
 
 
                     foreach (GameObject gridSquare in gridView)
