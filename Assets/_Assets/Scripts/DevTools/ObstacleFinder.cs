@@ -34,7 +34,7 @@ public class ObstacleFinder : MonoBehaviour
                 {
                     currentObstacleFinderZ++;
                     transform.position = grid[currentObstacleFinderX, currentObstacleFinderZ].worldPosition;
-                    // Instantiate(test, grid[currentObstacleFinderX,currentObstacleFinderZ].worldPosition, Quaternion.identity);
+
 
                 }
                 else if (currentObstacleFinderX < grid.GetLength(1) - 1)
