@@ -27,6 +27,7 @@ public class EnemyPathfinder : MonoBehaviour
     List<Node> destination;
     EnemyStatus enemyStatus;
     List<Node> path = new List<Node>();
+    int movesMade = 0;
 
     void Awake()
     {
@@ -35,24 +36,26 @@ public class EnemyPathfinder : MonoBehaviour
     }
     void Start()
     {
-
         enemyNode = grid.NodeFromWorldPoint(this.transform.position);
-
     }
-
     void EntityCurrentlyMoving()
     {
-        if (destination.Count == 0)
+        if (movesMade >= enemyStatus.allowedMovement || destination.Count == 0)
         {
             isCurrentlyMoving = false;
             canMoveToSelectedSpot = false;
             animator.SetBool("isMoving", false);
             path = new List<Node>();
+            movesMade = 0;
         }
         else
         {
             EntityMoveToNextNode();
-            if (destination[0].worldPosition == this.transform.position) destination.RemoveAt(0);
+            if (destination[0].worldPosition == this.transform.position)
+            {
+                movesMade++;
+                destination.RemoveAt(0);
+            }
         }
     }
     void EntityMoveToNextNode()

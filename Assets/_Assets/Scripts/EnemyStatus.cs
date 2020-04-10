@@ -13,12 +13,10 @@ public class EnemyStatus : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-
     public void GetHit()
     {
         int randomAnimation = Random.Range(1, 5);
         animator.SetTrigger("getHit" + randomAnimation);
-
     }
     void Update()
     {

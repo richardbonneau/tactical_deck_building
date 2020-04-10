@@ -33,7 +33,7 @@ public class Pathfinder : MonoBehaviour
     void Awake()
     {
         grid = GetComponent<GridCreator>();
-        playerStatus = transform.parent.GetChild(1).GetComponent<PlayerStatus>();
+        playerStatus = player.GetComponent<PlayerStatus>();
         animator = player.GetComponent<Animator>();
     }
 
