@@ -46,7 +46,6 @@ public class EnemiesManager : MonoBehaviour
         {
             if (activeEnemyStatus.turnDone)
             {
-                print("currentEnemyTurn > activeEnemies.Count - 1"+currentEnemyTurn+" > "+(activeEnemies.Count - 1).ToString());
                 if (currentEnemyTurn > activeEnemies.Count - 1)
                 {
                     print("all enemies done");

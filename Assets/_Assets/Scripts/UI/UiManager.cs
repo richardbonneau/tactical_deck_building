@@ -48,8 +48,6 @@ public class UiManager : MonoBehaviour
                 found.GetComponent<EnemyStatus>().health = found.GetComponent<EnemyStatus>().health - 5;
                 playerAnimator.SetTrigger("Attack");
             }
-
-            // Instantiate(attackZoneObj, node.worldPosition, Quaternion.identity);
         }
 
     }

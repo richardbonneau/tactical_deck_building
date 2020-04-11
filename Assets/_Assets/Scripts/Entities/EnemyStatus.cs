@@ -14,7 +14,11 @@ public class EnemyStatus : MonoBehaviour
     public bool currentlyDoingTurn = false;
     public bool currentlyDoingAnAction = false;
     public bool turnDone = false;
-    List<string> actions = new List<string>() { "move", "move" };
+
+    public string[,] actions = new string[2, 2] {
+    {"move", "2"},
+    {"move","1"}
+    };
     int currentAction = 0;
 
     void Start()
@@ -40,8 +44,11 @@ public class EnemyStatus : MonoBehaviour
     }
     void MoveAction()
     {
+        int moveSpeed = int.Parse(actions[currentAction,1]);
+        allowedMovement = moveSpeed;
         currentlyDoingAnAction = true;
         enemyPathfinder.isAllowedToMove = true;
+   
     }
     void Update()
     {
@@ -55,10 +62,10 @@ public class EnemyStatus : MonoBehaviour
             }
             if (currentlyDoingTurn)
             {
-                if (currentAction > actions.Count - 1) TurnDone();
+                if (currentAction > actions.GetLength(0) - 1) TurnDone();
                 else if (!currentlyDoingAnAction)
                 {
-                    if (actions[currentAction] == "move") MoveAction();
+                    if (actions[currentAction,0] == "move") MoveAction();
 
                 }
             }
