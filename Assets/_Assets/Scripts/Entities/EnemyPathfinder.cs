@@ -7,7 +7,6 @@ public class EnemyPathfinder : MonoBehaviour
 
     public GameObject player;
     public Camera mainCam;
-    public GameObject mapSelector;
     Node enemyNode;
     Animator animator;
     bool isCurrentlyMoving = false;

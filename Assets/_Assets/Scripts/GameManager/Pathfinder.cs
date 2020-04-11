@@ -138,7 +138,6 @@ public class Pathfinder : MonoBehaviour
 
                     path = grid.FindPath(player.transform.position, mouseSelectWorldPosition);
 
-                    print("path" + path.Count);
                     foreach (GameObject gridSquare in gridView)
                     {
                         if (path.Count != 0 && gridSquare.transform.position == path[path.Count - 1].worldPosition)

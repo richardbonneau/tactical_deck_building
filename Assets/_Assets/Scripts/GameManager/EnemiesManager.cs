@@ -46,13 +46,10 @@ public class EnemiesManager : MonoBehaviour
 
     void Update()
     {
-        print("activeEnemyStatus.turnDone     " + activeEnemyStatus.turnDone);
         if (roundManager.playerPhaseDone && !roundManager.enemiesPhaseDone && activeEnemies.Count > 0)
         {
             if (activeEnemyStatus.turnDone)
             {
-                print("active enemy turn done");
-
                 if (currentEnemyTurn + 1 > activeEnemies.Count - 1)
                 {
                     print("all enemies done");

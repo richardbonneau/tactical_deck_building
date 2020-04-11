@@ -39,7 +39,7 @@ new Vector2(17f,16f),
     }
     void Start()
     {
-        print("start GridCreator");
+
     }
 
     public List<Node> FindPath(Vector3 startPos, Vector3 endPos)

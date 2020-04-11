@@ -82,10 +82,7 @@ public class EnemyStatus : MonoBehaviour
     }
     void Update()
     {
-        // print(currentlyDoingTurn);
-        // print(currentAction);
-        // print(currentlyDoingAnAction);
-        // print("-----");
+
         if (!isDead)
         {
             if (health <= 0)
