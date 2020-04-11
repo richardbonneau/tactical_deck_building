@@ -23,15 +23,21 @@ public class UiManager : MonoBehaviour
     }
     void Start()
     {
-        print("start UiManager");
+
     }
-    void Update(){
-        if(!roundManager.playerPhaseDone && !roundManager.enemiesPhaseDone){
+    void Update()
+    {
+
+        if (!roundManager.playerPhaseDone && !roundManager.enemiesPhaseDone)
+        {
 
             debugCanvas.SetActive(true);
-        } else{ 
+        }
+        else
+        {
 
-            debugCanvas.SetActive(false);}
+            debugCanvas.SetActive(false);
+        }
     }
     public void EnablePlayerMove()
     {
@@ -57,7 +63,7 @@ public class UiManager : MonoBehaviour
                 player.transform.LookAt(found.transform.position);
 
                 found.GetComponent<EnemyStatus>().health = found.GetComponent<EnemyStatus>().health - 5;
-               
+
                 return;
             }
         }
@@ -83,9 +89,7 @@ public class UiManager : MonoBehaviour
     }
     public void EndTurn()
     {
-        roundManager.PlayerPhaseIsDone();
+        roundManager.playerPhaseDone = true;
         enemiesManager.BeginEnemyPhase();
     }
-
-
 }

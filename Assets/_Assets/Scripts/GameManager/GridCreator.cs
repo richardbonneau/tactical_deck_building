@@ -179,8 +179,6 @@ new Vector2(17f,16f),
 
     void OnDrawGizmos()
     {
-        // print("path "+path);
-        // Gizmos.DrawWireCube(transform.position,new Vector3(gridSizeX.x,1,gridSizeZ.y));
 
         if (grid != null)
         {

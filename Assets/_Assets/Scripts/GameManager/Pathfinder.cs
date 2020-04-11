@@ -130,7 +130,6 @@ public class Pathfinder : MonoBehaviour
                 Vector3 mouseSelectWorldPosition = new Vector3(Mathf.Round(hit.point.x), 0, Mathf.Round(hit.point.z));
                 Transform objectHit = hit.transform;
                 mapSelector.transform.position = mouseSelectWorldPosition;
-                // print((lastCalculatedMovePath != mouseSelectWorldPosition).ToString() + "lastCalculatedMovePath" + lastCalculatedMovePath + "mouseSelectWorldPosition " + mouseSelectWorldPosition);
 
                 if (lastCalculatedMovePath != mouseSelectWorldPosition)
                 {

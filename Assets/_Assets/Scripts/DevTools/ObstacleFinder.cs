@@ -21,7 +21,6 @@ public class ObstacleFinder : MonoBehaviour
     void Start()
     {
         grid = gridScript.grid;
-        print("grid:" + gridScript);
     }
     void FixedUpdate()
     {
@@ -29,7 +28,7 @@ public class ObstacleFinder : MonoBehaviour
         {
             if (!hitObstacleLastUpdate)
             {
-                //    print("grid.GetLength(1) "+grid.GetLength(0)+"currentObstacleFinderZ "+currentObstacleFinderZ+" currentObstacleFinderX"+currentObstacleFinderX);
+
                 if (currentObstacleFinderZ < grid.GetLength(0))
                 {
                     currentObstacleFinderZ++;
@@ -46,14 +45,12 @@ public class ObstacleFinder : MonoBehaviour
             }
             else
             {
-                print("obstacle else");
                 hitObstacleLastUpdate = false;
             }
         }
         else if (!listSaved)
         {
-            print("scan done else");
-            print(obstacleCoordinatesList);
+
             obstacleCoordinatesList = obstacleCoordinatesList.Distinct().ToList();
             string path = "Assets/_Assets/DevTools/ObstaclesList.txt";
             StreamWriter writer = new StreamWriter(path, true);

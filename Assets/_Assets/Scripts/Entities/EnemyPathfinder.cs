@@ -42,7 +42,6 @@ public class EnemyPathfinder : MonoBehaviour
     {
         if (movesMade >= enemyStatus.allowedMovement || destination.Count == 0)
         {
-            print("here?");
             isCurrentlyMoving = false;
             canMoveToSelectedSpot = false;
             animator.SetBool("isMoving", false);
@@ -136,7 +135,6 @@ public class EnemyPathfinder : MonoBehaviour
                     // player position needs to be the closest neighbour node, and NOT the player node itself. that node is an OBSTACLE
                     // What neighbouring node do we want to go to?
                     List<Node> neighbouringPlayerNodes = grid.GetNeighbours(grid.NodeFromWorldPoint(player.transform.position));
-                    print("(player.transform.position)" + (player.transform.position));
                     int pathCount = 9999;
                     foreach (Node node in neighbouringPlayerNodes)
                     {
@@ -154,7 +152,6 @@ public class EnemyPathfinder : MonoBehaviour
 
                 else if (canMoveToSelectedSpot)
                 {
-                    print("path.Count" + path.Count);
                     removeMovementGrid();
                     isAllowedToMove = false;
                     destination = path;

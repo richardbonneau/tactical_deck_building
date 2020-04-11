@@ -24,6 +24,10 @@ public class EnemiesManager : MonoBehaviour
     {
         allEnemiesTurnsDone = false;
         currentEnemyTurn = 0;
+        foreach (GameObject enemy in activeEnemies)
+        {
+            enemy.GetComponent<EnemyStatus>().NextRound();
+        }
     }
     void NextEnemyTurn()
     {
@@ -32,8 +36,8 @@ public class EnemiesManager : MonoBehaviour
         activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
         activeEnemyStatus.currentlyDoingTurn = true;
     }
-    public void BeginEnemyPhase(){
-        print("begin phase");
+    public void BeginEnemyPhase()
+    {
         currentEnemyTurn = 0;
         activeEnemy = activeEnemies[currentEnemyTurn];
         activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
@@ -42,14 +46,16 @@ public class EnemiesManager : MonoBehaviour
 
     void Update()
     {
+        print("activeEnemyStatus.turnDone     " + activeEnemyStatus.turnDone);
         if (roundManager.playerPhaseDone && !roundManager.enemiesPhaseDone && activeEnemies.Count > 0)
         {
             if (activeEnemyStatus.turnDone)
             {
-                if (currentEnemyTurn > activeEnemies.Count - 1)
+                print("active enemy turn done");
+
+                if (currentEnemyTurn + 1 > activeEnemies.Count - 1)
                 {
                     print("all enemies done");
-                    roundManager.enemiesPhaseDone = true;
                     roundManager.NextRound();
                     return;
                 }

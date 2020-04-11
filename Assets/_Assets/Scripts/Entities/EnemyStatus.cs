@@ -38,6 +38,10 @@ public class EnemyStatus : MonoBehaviour
     {
         currentAction++;
     }
+    public void NextRound()
+    {
+        turnDone = false;
+    }
     void TurnDone()
     {
         currentAction = 0;
@@ -47,16 +51,18 @@ public class EnemyStatus : MonoBehaviour
     }
     void MoveAction()
     {
-        int moveSpeed = int.Parse(actions[currentAction,1]);
+        int moveSpeed = int.Parse(actions[currentAction, 1]);
         allowedMovement = moveSpeed;
         currentlyDoingAnAction = true;
         enemyPathfinder.isAllowedToMove = true;
     }
-    void EmptyAction(){
+    void EmptyAction()
+    {
 
     }
-    void MeleeAttackAction(){
-    currentlyDoingAnAction = true;
+    void MeleeAttackAction()
+    {
+        currentlyDoingAnAction = true;
         // List<GameObject> enemies = enemiesManager.activeEnemies;
         List<Node> neighboursNodes = gridCreator.GetNeighbours(gridCreator.NodeFromWorldPoint(this.transform.position));
         foreach (Node node in neighboursNodes)
@@ -67,8 +73,8 @@ public class EnemyStatus : MonoBehaviour
                 int randomAnimation = Random.Range(1, 5);
                 player.GetComponent<Animator>().SetTrigger("getHit" + randomAnimation);
                 this.transform.LookAt(player.transform.position);
-                player.GetComponent<PlayerStatus>().health = player.GetComponent<PlayerStatus>().health - int.Parse(actions[currentAction,1]);
-                
+                player.GetComponent<PlayerStatus>().health = player.GetComponent<PlayerStatus>().health - int.Parse(actions[currentAction, 1]);
+
             }
         }
         currentlyDoingAnAction = false;
@@ -76,6 +82,10 @@ public class EnemyStatus : MonoBehaviour
     }
     void Update()
     {
+        // print(currentlyDoingTurn);
+        // print(currentAction);
+        // print(currentlyDoingAnAction);
+        // print("-----");
         if (!isDead)
         {
             if (health <= 0)
@@ -89,9 +99,9 @@ public class EnemyStatus : MonoBehaviour
                 if (currentAction > actions.GetLength(0) - 1) TurnDone();
                 else if (!currentlyDoingAnAction)
                 {
-                    
-                    if (actions[currentAction,0] == "move") MoveAction();
-                    else if(actions[currentAction, 0] == "meleeAttack") MeleeAttackAction();
+
+                    if (actions[currentAction, 0] == "move") MoveAction();
+                    else if (actions[currentAction, 0] == "meleeAttack") MeleeAttackAction();
 
                 }
             }
