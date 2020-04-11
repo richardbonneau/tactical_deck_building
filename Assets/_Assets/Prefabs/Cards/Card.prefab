@@ -256,6 +256,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c80f7dcdd9a284abbe99cb66a5ada6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentToReturnTo: {fileID: 0}
+  placeholder: {fileID: 2881557790958940421, guid: a71613a2e5dcc4a45b4528b7ed9e037a,
+    type: 3}
 --- !u!114 &4607082018008836273
 MonoBehaviour:
   m_ObjectHideFlags: 0
