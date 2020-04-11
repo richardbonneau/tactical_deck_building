@@ -5,6 +5,8 @@ using TMPro;
 
 public class UiManager : MonoBehaviour
 {
+    public GameObject debugCanvas;
+    bool debugCanvasIsActive = false;
     public EnemiesManager enemiesManager;
     public GameObject singleEnemy;
     public GameObject attackZoneObj;
@@ -22,6 +24,14 @@ public class UiManager : MonoBehaviour
     void Start()
     {
         print("start UiManager");
+    }
+    void Update(){
+        if(!roundManager.playerPhaseDone && !roundManager.enemiesPhaseDone){
+
+            debugCanvas.SetActive(true);
+        } else{ 
+
+            debugCanvas.SetActive(false);}
     }
     public void EnablePlayerMove()
     {

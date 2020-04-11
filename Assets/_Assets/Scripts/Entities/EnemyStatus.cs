@@ -56,7 +56,6 @@ public class EnemyStatus : MonoBehaviour
 
     }
     void MeleeAttackAction(){
-        print("begining --------------------------");
     currentlyDoingAnAction = true;
         // List<GameObject> enemies = enemiesManager.activeEnemies;
         List<Node> neighboursNodes = gridCreator.GetNeighbours(gridCreator.NodeFromWorldPoint(this.transform.position));
@@ -72,7 +71,6 @@ public class EnemyStatus : MonoBehaviour
                 
             }
         }
-        print("end --------------------------");
         currentlyDoingAnAction = false;
         NextAction();
     }

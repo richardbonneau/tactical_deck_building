@@ -50,6 +50,7 @@ public class EnemiesManager : MonoBehaviour
                 {
                     print("all enemies done");
                     roundManager.enemiesPhaseDone = true;
+                    roundManager.NextRound();
                     return;
                 }
                 else NextEnemyTurn();
