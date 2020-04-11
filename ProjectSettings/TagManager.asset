@@ -7,6 +7,7 @@ TagManager:
   - GameManager
   - Obstacle
   - Enemy
+  - GridManager
   layers:
   - Default
   - TransparentFX

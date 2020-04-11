@@ -10,9 +10,9 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public GameObject placeholderPrefab;
     [System.NonSerialized] public GameObject placeholder;
 
+    public bool willPlayCard = false;
     public void OnBeginDrag(PointerEventData eventData)
     {
-        print("begin drag");
         placeholder = Instantiate(placeholderPrefab, this.transform.position, Quaternion.identity);
         placeholder.transform.SetParent(this.transform.parent);
         placeholder.transform.SetSiblingIndex(this.transform.GetSiblingIndex());
@@ -26,8 +26,8 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     {
         this.transform.position = eventData.position;
 
+        if (placeholderParent == null) return;
         if (placeholder.transform.parent != placeholderParent) placeholder.transform.SetParent(placeholderParent);
-
         int newSiblingIndex = placeholderParent.childCount;
         for (int i = 0; i < placeholderParent.childCount; i++)
         {
@@ -43,6 +43,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     }
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (willPlayCard) GetComponent<CardAbilities>().PlayCard();
         this.transform.SetParent(parentToReturnTo);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         this.transform.SetSiblingIndex(placeholder.transform.GetSiblingIndex());

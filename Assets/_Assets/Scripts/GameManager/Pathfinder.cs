@@ -11,8 +11,9 @@ public class Pathfinder : MonoBehaviour
     public GameObject mapSelector;
     PlayerStatus playerStatus;
     public GameObject player;
-    public int moveSpeed = 1;
+    int moveSpeed = 4;
 
+    public int maxMove = 10;
     GridCreator grid;
     List<GameObject> gridView = new List<GameObject>();
     List<GameObject> pathView = new List<GameObject>();
@@ -92,7 +93,7 @@ public class Pathfinder : MonoBehaviour
             if (!availableMovementsGridShown)
             {
                 removeMovementGrid();
-                int maxMove = playerStatus.allowedMovement;
+
                 int playerPosX = Mathf.RoundToInt(player.transform.position.x);
                 int playerPosZ = Mathf.RoundToInt(player.transform.position.z);
 

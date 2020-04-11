@@ -9,23 +9,21 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     {
         if (eventData.pointerDrag == null) return;
 
-
-        print("eventData.pointerDrag" + eventData.pointerDrag);
-        eventData.pointerDrag.GetComponent<Draggable>().placeholderParent = this.transform;
+        Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
+        d.placeholderParent = this.transform;
+        d.willPlayCard = false;
         // eventData.pointerDrag.GetComponent<Draggable>().placeholder.transform.SetParent(eventData.pointerDrag);
     }
     public void OnPointerExit(PointerEventData eventData)
     {
         if (eventData.pointerDrag == null) return;
-
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
-        if (d.placeholderParent == this.transform) d.placeholderParent = d.parentToReturnTo;
-
+        d.willPlayCard = true;
+        d.placeholderParent = null;
     }
     public void OnDrop(PointerEventData eventData)
     {
         if (eventData.pointerDrag == null) return;
-
         eventData.pointerDrag.GetComponent<Draggable>().parentToReturnTo = this.transform;
     }
 }

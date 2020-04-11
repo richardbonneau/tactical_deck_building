@@ -7,7 +7,6 @@ public class GridCreator : MonoBehaviour
     Vector3 gridSpawnPoint = new Vector3(-10, 0, -10);
     public int gridSizeX = 20;
     public int gridSizeZ = 20;
-    Node outOfBounds = new Node(0, 0, new Vector3(999, 999, 999), false);
     public Node[,] grid;
     public List<Node> path;
 
