@@ -7,7 +7,7 @@ public class EnemiesManager : MonoBehaviour
     public GridCreator gridCreator;
     public List<GameObject> activeEnemies;
     public RoundManager roundManager;
-    int currentEnemyTurn = -1;
+    int currentEnemyTurn = 0;
     public bool allEnemiesTurnsDone = false;
     GameObject activeEnemy;
     EnemyStatus activeEnemyStatus;
@@ -32,21 +32,28 @@ public class EnemiesManager : MonoBehaviour
         activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
         activeEnemyStatus.currentlyDoingTurn = true;
     }
+    public void BeginEnemyPhase(){
+        print("begin phase");
+        currentEnemyTurn = 0;
+        activeEnemy = activeEnemies[currentEnemyTurn];
+        activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
+        activeEnemyStatus.currentlyDoingTurn = true;
+    }
 
     void Update()
     {
         if (roundManager.playerPhaseDone && !roundManager.enemiesPhaseDone && activeEnemies.Count > 0)
         {
-            if (activeEnemyStatus == null) NextEnemyTurn();
-            else if (activeEnemyStatus.turnDone)
+            if (activeEnemyStatus.turnDone)
             {
+                print("currentEnemyTurn > activeEnemies.Count - 1"+currentEnemyTurn+" > "+(activeEnemies.Count - 1).ToString());
                 if (currentEnemyTurn > activeEnemies.Count - 1)
                 {
                     print("all enemies done");
                     roundManager.enemiesPhaseDone = true;
                     return;
                 }
-                NextEnemyTurn();
+                else NextEnemyTurn();
             }
         }
     }

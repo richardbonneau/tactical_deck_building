@@ -75,6 +75,7 @@ public class UiManager : MonoBehaviour
     public void EndTurn()
     {
         roundManager.PlayerPhaseIsDone();
+        enemiesManager.BeginEnemyPhase();
     }
 
 

@@ -33,6 +33,7 @@ public class EnemyStatus : MonoBehaviour
     }
     void TurnDone()
     {
+        currentAction = 0;
         turnDone = true;
         currentlyDoingAnAction = false;
         currentlyDoingTurn = false;
