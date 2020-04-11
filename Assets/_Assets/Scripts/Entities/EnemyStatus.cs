@@ -14,10 +14,13 @@ public class EnemyStatus : MonoBehaviour
     public bool currentlyDoingTurn = false;
     public bool currentlyDoingAnAction = false;
     public bool turnDone = false;
+    public GameObject player;
+    public GridCreator gridCreator;
 
-    public string[,] actions = new string[2, 2] {
+    public string[,] actions = new string[3, 2] {
     {"move", "2"},
-    {"move","1"}
+    {"move","1"},
+    {"meleeAttack", "10"}
     };
     int currentAction = 0;
 
@@ -48,7 +51,30 @@ public class EnemyStatus : MonoBehaviour
         allowedMovement = moveSpeed;
         currentlyDoingAnAction = true;
         enemyPathfinder.isAllowedToMove = true;
-   
+    }
+    void EmptyAction(){
+
+    }
+    void MeleeAttackAction(){
+        print("begining --------------------------");
+    currentlyDoingAnAction = true;
+        // List<GameObject> enemies = enemiesManager.activeEnemies;
+        List<Node> neighboursNodes = gridCreator.GetNeighbours(gridCreator.NodeFromWorldPoint(this.transform.position));
+        foreach (Node node in neighboursNodes)
+        {
+            if (node.worldPosition == player.transform.position)
+            {
+                animator.SetTrigger("Attack");
+                int randomAnimation = Random.Range(1, 5);
+                player.GetComponent<Animator>().SetTrigger("getHit" + randomAnimation);
+                this.transform.LookAt(player.transform.position);
+                player.GetComponent<PlayerStatus>().health = player.GetComponent<PlayerStatus>().health - int.Parse(actions[currentAction,1]);
+                
+            }
+        }
+        print("end --------------------------");
+        currentlyDoingAnAction = false;
+        NextAction();
     }
     void Update()
     {
@@ -65,7 +91,9 @@ public class EnemyStatus : MonoBehaviour
                 if (currentAction > actions.GetLength(0) - 1) TurnDone();
                 else if (!currentlyDoingAnAction)
                 {
+                    
                     if (actions[currentAction,0] == "move") MoveAction();
+                    else if(actions[currentAction, 0] == "meleeAttack") MeleeAttackAction();
 
                 }
             }
