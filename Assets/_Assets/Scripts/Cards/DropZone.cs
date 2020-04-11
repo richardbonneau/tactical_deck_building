@@ -5,15 +5,16 @@ using UnityEngine.EventSystems;
 
 public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-
+        print("on pointer enter");
     }
-
-    // Update is called once per frame
-    void Update()
+    public void OnPointerExit(PointerEventData eventData)
     {
-
+        print("on pointer exit");
+    }
+    public void OnDrop(PointerEventData eventData)
+    {
+        eventData.pointerDrag.GetComponent<Draggable>().parentToReturnTo = this.transform;
     }
 }
