@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Attacks : MonoBehaviour
 {
+    public UiManager uiManager;
     public GridCreator gridCreator;
     public GameObject player;
     Animator playerAnimator;
@@ -59,7 +60,7 @@ public class Attacks : MonoBehaviour
         }
         if (targets.Count == 0)
         {
-            print("NO TARGETS FOUND. NEXT ACTION");
+            uiManager.DisplayAlertMessage("There are no targets to attack.");
         }
 
     }

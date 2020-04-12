@@ -13,10 +13,16 @@ public class UiManager : MonoBehaviour
     public TextMeshProUGUI displayRounds;
     public TextMeshProUGUI cardsPlayed;
     public Button endTurnBtn;
+    public GameObject alertTextContainer;
+    public TextMeshProUGUI alertText;
+    public RectTransform rect;
 
     void Awake()
     {
         playerAnimator = player.GetComponentInChildren<Animator>();
+        rect = alertTextContainer.transform.GetChild(0).GetComponent<RectTransform>();
+        alertText = alertTextContainer.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        LeanTween.moveLocal(alertTextContainer, new Vector3(0f, 0f, 1100f), 0f);
 
     }
     void Start()
@@ -51,6 +57,12 @@ public class UiManager : MonoBehaviour
     public void EnableEndTurn()
     {
         endTurnBtn.interactable = true;
+    }
+    public void DisplayAlertMessage(string message)
+    {
+        alertText.text = message;
+        LeanTween.moveLocal(alertTextContainer, new Vector3(0f, 0f, 0f), 1f);
+        LeanTween.moveLocal(alertTextContainer, new Vector3(0f, 0f, 1100f), 1f).setDelay(3f);
     }
 
 
