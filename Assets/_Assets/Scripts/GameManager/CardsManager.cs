@@ -6,20 +6,28 @@ public class CardsManager : MonoBehaviour
 {
     public GameObject deckUI;
     RectTransform rect;
-    // Start is called before the first frame update
+    bool deckToggledOn = false;
+
     void Awake()
     {
         rect = deckUI.GetComponent<RectTransform>();
     }
 
-    // Update is called once per frame
 
+
+    public void ToggleDeck()
+    {
+        if (deckToggledOn) ToggleDeckOff();
+        else ToggleDeckOn();
+    }
     public void ToggleDeckOff()
     {
+        deckToggledOn = false;
         LeanTween.moveY(rect, -268f, .65f).setEase(LeanTweenType.easeInOutCubic); ;
     }
     public void ToggleDeckOn()
     {
+        deckToggledOn = true;
         LeanTween.moveY(rect, -66, .65f).setEase(LeanTweenType.easeInOutCubic); ;
     }
 

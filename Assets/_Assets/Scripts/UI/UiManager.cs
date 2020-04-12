@@ -15,6 +15,7 @@ public class UiManager : MonoBehaviour
     public GameObject attackZoneObj;
     public GridCreator gridCreator;
     public RoundManager roundManager;
+    public CardsManager cardsManager;
     public Pathfinder pathfinder;
     public GameObject player;
     Animator playerAnimator;
@@ -102,18 +103,7 @@ public class UiManager : MonoBehaviour
 
     public void ToggleDeck()
     {
-        if (deckToggled)
-        {
-            deckToggled = false;
-            LeanTween.moveY(rect, -268f, .65f).setEase(LeanTweenType.easeInOutCubic); ;
-        }
-        else
-        {
-            deckToggled = true;
-            LeanTween.moveY(rect, -66, .65f).setEase(LeanTweenType.easeInOutCubic); ;
-        }
-
-
+        cardsManager.ToggleDeck();
     }
 
 

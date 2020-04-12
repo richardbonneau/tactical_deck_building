@@ -9,6 +9,7 @@ public class CardAbilities : MonoBehaviour
     GameObject player;
     Pathfinder pathfinder;
     CardsManager cardsManager;
+    RoundManager roundManager;
     Attacks attacks;
     public bool isMoveCard = false;
     public List<CardAction> cardActions = new List<CardAction>();
@@ -25,6 +26,7 @@ public class CardAbilities : MonoBehaviour
         cardsManager = cardsManagerObj.GetComponent<CardsManager>();
         attacks = cardsManagerObj.GetComponent<Attacks>();
 
+        roundManager = GameObject.FindWithTag("RoundManager").GetComponent<RoundManager>();
         player = GameObject.FindWithTag("Player");
         activeCardLocation = GameObject.FindWithTag("ActiveCardLocation");
 
@@ -65,8 +67,13 @@ public class CardAbilities : MonoBehaviour
     }
     void CardUsed()
     {
-        cardsManager.ToggleDeckOn();
+
         Destroy(this.gameObject);
+        roundManager.cardsPlayed++;
+        if (roundManager.cardsPlayed < roundManager.maxCardsToBePlayed)
+        {
+            cardsManager.ToggleDeckOn();
+        }
     }
     void PlayAction()
     {
