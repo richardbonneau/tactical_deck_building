@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class CardAbilities : MonoBehaviour
 {
-    public GameObject activeCardLocation;
+    GameObject activeCardLocation;
 
     Pathfinder pathfinder;
     UiManager uiManager;
     CardsManager cardsManager;
     Attacks attacks;
-    public bool isMoveCard = false;
-    public List<CardAction> cardActions = new List<CardAction>();
+    List<CardAction> cardActions = new List<CardAction>();
+    public List<string> actionsTypes = new List<string>();
+    public List<int> actionsValues = new List<int>();
 
 
     bool cardActive = false;
@@ -30,12 +31,12 @@ public class CardAbilities : MonoBehaviour
     }
     void Start()
     {
-        if (isMoveCard)
+        for (int i = 0; i < actionsValues.Count; i++)
         {
-            cardActions.Add(new CardAction(_actionType: "move", _value: 2));
-            cardActions.Add(new CardAction(_actionType: "move", _value: 4));
+            string type = actionsTypes[i];
+            int value = actionsValues[i];
+            cardActions.Add(new CardAction(_actionType: type, _value: value));
         }
-        else cardActions.Add(new CardAction(_actionType: "attack", _value: 5));
     }
     void Update()
     {

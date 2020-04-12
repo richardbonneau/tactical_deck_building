@@ -12,6 +12,7 @@ TagManager:
   - ActiveCardLocation
   - CardsManager
   - RoundManager
+  - UiManager
   layers:
   - Default
   - TransparentFX
