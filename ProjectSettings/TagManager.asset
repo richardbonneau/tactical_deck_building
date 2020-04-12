@@ -11,6 +11,7 @@ TagManager:
   - EnemiesManager
   - ActiveCardLocation
   - CardsManager
+  - RoundManager
   layers:
   - Default
   - TransparentFX
