@@ -5,6 +5,9 @@ using TMPro;
 
 public class UiManager : MonoBehaviour
 {
+    public GameObject deckUI;
+    RectTransform rect;
+    bool deckToggled = true;
     public GameObject debugCanvas;
     bool debugCanvasIsActive = false;
     public EnemiesManager enemiesManager;
@@ -19,6 +22,7 @@ public class UiManager : MonoBehaviour
 
     void Awake()
     {
+        rect = deckUI.GetComponent<RectTransform>();
         playerAnimator = player.GetComponentInChildren<Animator>();
     }
     void Start()
@@ -38,6 +42,8 @@ public class UiManager : MonoBehaviour
 
             debugCanvas.SetActive(false);
         }
+
+
     }
     public void EnablePlayerMove()
     {
@@ -92,4 +98,23 @@ public class UiManager : MonoBehaviour
         roundManager.playerPhaseDone = true;
         enemiesManager.BeginEnemyPhase();
     }
+
+
+    public void ToggleDeck()
+    {
+        if (deckToggled)
+        {
+            deckToggled = false;
+            LeanTween.moveY(rect, -270f, 1f).setEase(LeanTweenType.easeInOutCubic); ;
+        }
+        else
+        {
+            deckToggled = true;
+            LeanTween.moveY(rect, -67, 1f).setEase(LeanTweenType.easeInOutCubic); ;
+        }
+
+
+    }
+
+
 }
