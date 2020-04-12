@@ -49,6 +49,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             GetComponent<CardAbilities>().PlayCard();
             return;
         }
+        this.transform.SetParent(parentToReturnTo);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         this.transform.SetSiblingIndex(placeholder.transform.GetSiblingIndex());
 
