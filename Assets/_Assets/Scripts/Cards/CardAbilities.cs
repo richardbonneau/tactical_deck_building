@@ -7,7 +7,7 @@ public class CardAbilities : MonoBehaviour
     public GameObject activeCardLocation;
 
     Pathfinder pathfinder;
-
+    UiManager uiManager;
     CardsManager cardsManager;
     Attacks attacks;
     public bool isMoveCard = false;
@@ -25,6 +25,7 @@ public class CardAbilities : MonoBehaviour
         cardsManager = cardsManagerObj.GetComponent<CardsManager>();
         attacks = cardsManagerObj.GetComponent<Attacks>();
         activeCardLocation = GameObject.FindWithTag("ActiveCardLocation");
+        uiManager = GameObject.FindWithTag("UiManager").GetComponent<UiManager>();
 
     }
     void Start()
@@ -60,11 +61,13 @@ public class CardAbilities : MonoBehaviour
         cardsManager.ToggleDeckOff();
         LeanTween.move(this.gameObject, activeCardLocation.transform.position, 0.5f).setEase(LeanTweenType.easeOutQuad);
         LeanTween.scale(this.gameObject.GetComponent<RectTransform>(), gameObject.GetComponent<RectTransform>().localScale * 1.5f, 0.5f);
+        uiManager.DisableEndTurn();
     }
     void CardUsed()
     {
         Destroy(this.gameObject);
         cardsManager.CardUsed();
+        uiManager.EnableEndTurn();
     }
     void PlayAction()
     {

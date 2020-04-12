@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.UI;
 public class UiManager : MonoBehaviour
 {
     public EnemiesManager enemiesManager;
@@ -12,6 +12,7 @@ public class UiManager : MonoBehaviour
     Animator playerAnimator;
     public TextMeshProUGUI displayRounds;
     public TextMeshProUGUI cardsPlayed;
+    public Button endTurnBtn;
 
     void Awake()
     {
@@ -42,6 +43,14 @@ public class UiManager : MonoBehaviour
     public void ToggleDeck()
     {
         cardsManager.ToggleDeck();
+    }
+    public void DisableEndTurn()
+    {
+        endTurnBtn.interactable = false;
+    }
+    public void EnableEndTurn()
+    {
+        endTurnBtn.interactable = true;
     }
 
 
