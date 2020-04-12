@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemiesManager : MonoBehaviour
 {
     public GridCreator gridCreator;
-    public List<GameObject> activeEnemies;
+    public List<GameObject> activeEnemies = new List<GameObject>();
     public RoundManager roundManager;
     int currentEnemyTurn = 0;
     public bool allEnemiesTurnsDone = false;
@@ -13,6 +13,15 @@ public class EnemiesManager : MonoBehaviour
     EnemyStatus activeEnemyStatus;
 
 
+    void Start()
+    {
+        GameObject[] allEnemiesInScene = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in allEnemiesInScene)
+        {
+            print(enemy.transform.position);
+            activeEnemies.Add(enemy);
+        }
+    }
     public void NextRound()
     {
         allEnemiesTurnsDone = false;

@@ -32,6 +32,12 @@ public class EnemyPathfinder : MonoBehaviour
     {
         enemyStatus = this.GetComponent<EnemyStatus>();
         animator = GetComponent<Animator>();
+        player = GameObject.FindWithTag("Player");
+        mainCam = Camera.main;
+        grid = GameObject.FindWithTag("GridManager").GetComponent<GridCreator>();
+        ObjectPooler[] objectPoolers = GameObject.FindWithTag("ObjectPooler").GetComponents<ObjectPooler>();
+        moveGridPool = objectPoolers[0];
+        movePathPool = objectPoolers[1];
     }
     void Start()
     {

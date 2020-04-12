@@ -32,7 +32,10 @@ public class UiManager : MonoBehaviour
 
     public void ChangeRoundOnTheUI()
     {
-        displayRounds.text = roundManager.currentRound.ToString();
+        string newRound = roundManager.currentRound.ToString();
+        displayRounds.text = newRound;
+        DisplayAlertMessage("Begin Round " + newRound);
+
     }
     public void ChangeCardsPlayedOnTheUI()
     {

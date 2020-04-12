@@ -9,13 +9,13 @@ public class EnemyStatus : MonoBehaviour
     public int allowedMovement = 10;
     public bool isDead = false;
     Animator animator;
-    public EnemiesManager enemiesManager;
+    EnemiesManager enemiesManager;
     EnemyPathfinder enemyPathfinder;
     public bool currentlyDoingTurn = false;
     public bool currentlyDoingAnAction = false;
     public bool turnDone = false;
-    public GameObject player;
-    public GridCreator gridCreator;
+    GameObject player;
+    GridCreator gridCreator;
     Node enemyNode;
 
     public string[,] actions = new string[3, 2] {
@@ -25,6 +25,12 @@ public class EnemyStatus : MonoBehaviour
     };
     int currentAction = 0;
 
+    void Awake()
+    {
+        enemiesManager = GameObject.FindWithTag("EnemiesManager").GetComponent<EnemiesManager>();
+        gridCreator = GameObject.FindWithTag("GridManager").GetComponent<GridCreator>();
+        player = GameObject.FindWithTag("Player");
+    }
     void Start()
     {
         enemyPathfinder = GetComponent<EnemyPathfinder>();
