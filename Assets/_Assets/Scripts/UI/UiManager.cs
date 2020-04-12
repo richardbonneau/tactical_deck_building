@@ -105,12 +105,12 @@ public class UiManager : MonoBehaviour
         if (deckToggled)
         {
             deckToggled = false;
-            LeanTween.moveY(rect, -270f, 1f).setEase(LeanTweenType.easeInOutCubic); ;
+            LeanTween.moveY(rect, -270f, .65f).setEase(LeanTweenType.easeInOutCubic); ;
         }
         else
         {
             deckToggled = true;
-            LeanTween.moveY(rect, -67, 1f).setEase(LeanTweenType.easeInOutCubic); ;
+            LeanTween.moveY(rect, -67, .65f).setEase(LeanTweenType.easeInOutCubic); ;
         }
 
 
