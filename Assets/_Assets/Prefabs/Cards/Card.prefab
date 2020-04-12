@@ -260,6 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeholderPrefab: {fileID: 2881557790958940421, guid: a71613a2e5dcc4a45b4528b7ed9e037a,
     type: 3}
+  willPlayCard: 0
 --- !u!114 &4607082018008836273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,3 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c63c8d80d5f754f9af710a7544f7f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCardLocation: {fileID: 0}
+  isMoveCard: 0
+  currentActionIndex: 0
+  currentlyDoingAnAction: 0

@@ -30,7 +30,7 @@ public class Pathfinder : MonoBehaviour
     List<Node> destination;
     Animator animator;
     List<Node> path;
-    public CardAbilities originCard;
+    [System.NonSerialized] public CardAbilities originCard;
 
     void Awake()
     {
@@ -46,8 +46,7 @@ public class Pathfinder : MonoBehaviour
             playerIsCurrentlyMoving = false;
             animator.SetBool("isMoving", false);
             removeMovementPath();
-            originCard.currentlyDoingAnAction = false;
-            originCard.currentActionIndex++;
+            originCard.NextAction();
         }
         else
         {

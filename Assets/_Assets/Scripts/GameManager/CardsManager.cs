@@ -13,22 +13,14 @@ public class CardsManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
 
-    }
     public void ToggleDeckOff()
     {
         LeanTween.moveY(rect, -268f, .65f).setEase(LeanTweenType.easeInOutCubic); ;
-        // if (deckToggled)
-        // {
-        //     deckToggled = false;
-        //     LeanTween.moveY(rect, -268f, .65f).setEase(LeanTweenType.easeInOutCubic); ;
-        // }
-        // else
-        // {
-        //     deckToggled = true;
-        //     LeanTween.moveY(rect, -66, .65f).setEase(LeanTweenType.easeInOutCubic); ;
-        // }
     }
+    public void ToggleDeckOn()
+    {
+        LeanTween.moveY(rect, -66, .65f).setEase(LeanTweenType.easeInOutCubic); ;
+    }
+
 }
