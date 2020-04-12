@@ -16,6 +16,7 @@ public class UiManager : MonoBehaviour
     public GameObject alertTextContainer;
     public TextMeshProUGUI alertText;
     public RectTransform rect;
+    public Quaternion healthBarsRotation;
 
     void Awake()
     {
