@@ -28,9 +28,9 @@ public class HealthCanvas : MonoBehaviour
             enemyStatus = playerOrEnemy.GetComponent<EnemyStatus>();
             startingHealth = enemyStatus.health;
         }
-        mainCam = Camera.main;
+        // mainCam = Camera.main;
         originalRotation = this.transform.rotation;
-        uiManager = GameObject.FindWithTag("UiManager").GetComponent<UiManager>();
+        // uiManager = GameObject.FindWithTag("UiManager").GetComponent<UiManager>();
 
         rect = this.transform.GetChild(this.transform.childCount - 1).GetComponent<RectTransform>();
 
@@ -38,7 +38,6 @@ public class HealthCanvas : MonoBehaviour
 
     void Update()
     {
-        print("enemyStatus" + enemyStatus);
         if (enemyStatus == null)
         {
             rect.sizeDelta = new Vector2(playerStatus.health * 100 / startingHealth, 100);
@@ -47,12 +46,13 @@ public class HealthCanvas : MonoBehaviour
     }
     void LateUpdate()
     {
-        if (this.gameObject.name == "PlayerCanvas")
-        {
-            this.transform.LookAt(mainCam.transform.position);
-            uiManager.healthBarsRotation = this.transform.rotation;
-        }
-        else this.transform.rotation = uiManager.healthBarsRotation;
+        this.transform.rotation = originalRotation;
+        //     if (this.gameObject.name == "PlayerCanvas")
+        //     {
+        //         this.transform.LookAt(mainCam.transform.position);
+        //         uiManager.healthBarsRotation = this.transform.rotation;
+        //     }
+        //     else this.transform.rotation = uiManager.healthBarsRotation;
 
     }
 }
