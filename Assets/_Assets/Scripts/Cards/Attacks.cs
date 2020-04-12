@@ -9,13 +9,40 @@ public class Attacks : MonoBehaviour
     Animator playerAnimator;
     [System.NonSerialized] public CardAbilities originCard;
     public EnemiesManager enemiesManager;
+    bool hasToChoosetarget = false;
+    List<GameObject> targets = new List<GameObject>();
+    public Camera mainCam;
+    public GameObject mapSelector;
+    public GameObject potentialTargetIndicator;
+    List<GameObject> targetIndicators = new List<GameObject>();
+    int attackAmount = 0;
     void Awake()
     {
         playerAnimator = player.GetComponent<Animator>();
-
     }
-    public void FindPotentialTargets(int attackAmount)
+    void Update()
     {
+        if (hasToChoosetarget)
+        {
+            RaycastHit hit;
+            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+                Vector3 mouseSelectWorldPosition = new Vector3(Mathf.Round(hit.point.x), 0, Mathf.Round(hit.point.z));
+                Transform objectHit = hit.transform;
+                mapSelector.transform.position = mouseSelectWorldPosition;
+                GameObject target = targets.Find(enemy => enemy.transform.position == mouseSelectWorldPosition);
+                if (Input.GetMouseButtonDown(0) && target != null)
+                {
+                    print("DEWIT" + target.transform.position);
+                    AttackTarget(target);
+                }
+            }
+        }
+    }
+    public void FindPotentialTargets(int atkAmount)
+    {
+        attackAmount = atkAmount;
         List<GameObject> enemies = enemiesManager.activeEnemies;
         List<Node> neighboursNodes = gridCreator.GetNeighbours(gridCreator.NodeFromWorldPoint(player.transform.position));
         foreach (Node node in neighboursNodes)
@@ -23,21 +50,31 @@ public class Attacks : MonoBehaviour
             GameObject found = enemies.Find(enemy => enemy.transform.position.x == node.worldPosition.x && enemy.transform.position.z == node.worldPosition.z);
             if (found != null)
             {
-                playerAnimator.SetTrigger("Attack");
-                int randomAnimation = Random.Range(1, 5);
-                found.GetComponent<Animator>().SetTrigger("getHit" + randomAnimation);
-                player.transform.LookAt(found.transform.position);
-
-                found.GetComponent<EnemyStatus>().health = found.GetComponent<EnemyStatus>().health - attackAmount;
-                originCard.NextAction();
-                return;
+                GameObject potentialTarget = Instantiate(potentialTargetIndicator, found.transform.position, Quaternion.identity);
+                targetIndicators.Add(potentialTarget);
+                targets.Add(found);
+                hasToChoosetarget = true;
 
             }
         }
+        if (targets.Count == 0)
+        {
+            print("NO TARGETS FOUND. NEXT ACTION");
+        }
 
     }
-    // public void PotentialTarget(GameObject target)
-    // {
+    void AttackTarget(GameObject target)
+    {
+        foreach (GameObject indicator in targetIndicators) Destroy(indicator);
+        targetIndicators.Clear();
+        hasToChoosetarget = false;
+        playerAnimator.SetTrigger("Attack");
+        int randomAnimation = Random.Range(1, 5);
+        target.GetComponent<Animator>().SetTrigger("getHit" + randomAnimation);
+        player.transform.LookAt(target.transform.position);
 
-    // }
+        target.GetComponent<EnemyStatus>().health = target.GetComponent<EnemyStatus>().health - attackAmount;
+        originCard.NextAction();
+    }
+
 }
