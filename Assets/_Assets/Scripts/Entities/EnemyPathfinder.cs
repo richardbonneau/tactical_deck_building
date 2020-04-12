@@ -47,8 +47,13 @@ public class EnemyPathfinder : MonoBehaviour
             path = new List<Node>();
             movesMade = 0;
 
+
+            enemyNode.walkable = true;
+            enemyNode = grid.NodeFromWorldPoint(this.gameObject.transform.position);
+            enemyNode.walkable = false;
             enemyStatus.NextAction();
             enemyStatus.currentlyDoingAnAction = false;
+
         }
         else
         {
@@ -151,14 +156,13 @@ public class EnemyPathfinder : MonoBehaviour
 
                 else if (canMoveToSelectedSpot)
                 {
+
                     removeMovementGrid();
                     isAllowedToMove = false;
                     destination = path;
                     isCurrentlyMoving = true;
                     animator.SetBool("isMoving", true);
-                    enemyNode.walkable = true;
-                    enemyNode = path[path.Count - 1];
-                    enemyNode.walkable = false;
+
                 }
 
             }

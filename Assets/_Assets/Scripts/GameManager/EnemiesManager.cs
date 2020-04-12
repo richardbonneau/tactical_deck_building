@@ -12,14 +12,7 @@ public class EnemiesManager : MonoBehaviour
     GameObject activeEnemy;
     EnemyStatus activeEnemyStatus;
 
-    void Start()
-    {
-        foreach (GameObject enemy in activeEnemies)
-        {
-            Node node = gridCreator.NodeFromWorldPoint(enemy.transform.position);
-            node.walkable = false;
-        }
-    }
+
     public void NextRound()
     {
         allEnemiesTurnsDone = false;

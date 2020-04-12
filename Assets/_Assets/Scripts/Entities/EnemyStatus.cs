@@ -16,6 +16,7 @@ public class EnemyStatus : MonoBehaviour
     public bool turnDone = false;
     public GameObject player;
     public GridCreator gridCreator;
+    Node enemyNode;
 
     public string[,] actions = new string[3, 2] {
     {"move", "2"},
@@ -28,6 +29,8 @@ public class EnemyStatus : MonoBehaviour
     {
         enemyPathfinder = GetComponent<EnemyPathfinder>();
         animator = GetComponent<Animator>();
+        enemyNode = gridCreator.NodeFromWorldPoint(player.transform.position);
+        enemyNode.walkable = false;
     }
     public void GetHit()
     {
