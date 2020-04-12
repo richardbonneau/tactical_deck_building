@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class CardAbilities : MonoBehaviour
 {
-
+    public GameObject activeCardLocation;
     Animator playerAnimator;
     GameObject player;
     Pathfinder pathfinder;
     EnemiesManager enemiesManager;
     GridCreator gridCreator;
+    CardsManager cardsManager;
+
     public bool isMoveCard = false;
     public List<CardAction> cardActions = new List<CardAction>();
+
+
+    bool cardActive = false;
+    public int currentActionIndex = 0;
+    public bool currentlyDoingAnAction = false;
     void Awake()
     {
         GameObject gridManager = GameObject.FindWithTag("GridManager");
@@ -20,23 +27,47 @@ public class CardAbilities : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerAnimator = player.GetComponent<Animator>();
         enemiesManager = GameObject.FindWithTag("EnemiesManager").GetComponent<EnemiesManager>();
+        activeCardLocation = GameObject.FindWithTag("ActiveCardLocation");
+        cardsManager = GameObject.FindWithTag("CardsManager").GetComponent<CardsManager>();
     }
     void Start()
     {
         if (isMoveCard)
         {
             cardActions.Add(new CardAction(_actionType: "move", _value: 2));
+            cardActions.Add(new CardAction(_actionType: "move", _value: 4));
         }
         else cardActions.Add(new CardAction(_actionType: "attack", _value: 5));
+    }
+    void Update()
+    {
+        if (currentActionIndex < cardActions.Count)
+        {
+            if (cardActive && !currentlyDoingAnAction)
+            {
+                PlayAction();
+            }
+        }
+        else
+        {
+            // done with this card
+        }
+
     }
 
     public void PlayCard()
     {
-        foreach (CardAction action in cardActions)
-        {
-            if (action.actionType == "move") EnablePlayerMove(action.value);
-            else if (action.actionType == "attack") EnablePlayerAttack(action.value);
-        }
+        cardActive = true;
+        pathfinder.originCard = this;
+        cardsManager.ToggleDeckOff();
+        LeanTween.move(this.gameObject, activeCardLocation.transform.position, 0.5f).setEase(LeanTweenType.easeOutQuad);
+        LeanTween.scale(this.gameObject.GetComponent<RectTransform>(), gameObject.GetComponent<RectTransform>().localScale * 1.5f, 0.5f);
+    }
+    void PlayAction()
+    {
+        currentlyDoingAnAction = true;
+        if (cardActions[currentActionIndex].actionType == "move") EnablePlayerMove(cardActions[currentActionIndex].value);
+        else if (cardActions[currentActionIndex].actionType == "attack") EnablePlayerAttack(cardActions[currentActionIndex].value);
     }
     public void EnablePlayerMove(int maxMove)
     {

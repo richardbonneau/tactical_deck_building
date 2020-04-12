@@ -44,7 +44,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnEndDrag(PointerEventData eventData)
     {
         if (willPlayCard) GetComponent<CardAbilities>().PlayCard();
-        this.transform.SetParent(parentToReturnTo);
+        // this.transform.SetParent(parentToReturnTo);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         this.transform.SetSiblingIndex(placeholder.transform.GetSiblingIndex());
         Destroy(placeholder);

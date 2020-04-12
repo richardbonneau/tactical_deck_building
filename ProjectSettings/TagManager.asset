@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - GridManager
   - EnemiesManager
+  - ActiveCardLocation
+  - CardsManager
   layers:
   - Default
   - TransparentFX

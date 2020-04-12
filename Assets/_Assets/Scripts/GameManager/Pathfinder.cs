@@ -30,6 +30,7 @@ public class Pathfinder : MonoBehaviour
     List<Node> destination;
     Animator animator;
     List<Node> path;
+    public CardAbilities originCard;
 
     void Awake()
     {
@@ -38,10 +39,6 @@ public class Pathfinder : MonoBehaviour
         animator = player.GetComponent<Animator>();
     }
 
-
-
-
-
     void EntityCurrentlyMoving()
     {
         if (destination.Count == 0)
@@ -49,6 +46,8 @@ public class Pathfinder : MonoBehaviour
             playerIsCurrentlyMoving = false;
             animator.SetBool("isMoving", false);
             removeMovementPath();
+            originCard.currentlyDoingAnAction = false;
+            originCard.currentActionIndex++;
         }
         else
         {
@@ -56,11 +55,13 @@ public class Pathfinder : MonoBehaviour
             if (destination[0].worldPosition == player.transform.position) destination.RemoveAt(0);
         }
     }
+
     void EntityMoveToNextNode()
     {
         player.transform.LookAt(destination[0].worldPosition);
         player.transform.position = Vector3.MoveTowards(player.transform.position, destination[0].worldPosition, moveSpeed * Time.deltaTime);
     }
+
     public void removeMovementGrid()
     {
         grid.ResetAllNodeCosts();
@@ -80,7 +81,6 @@ public class Pathfinder : MonoBehaviour
         pathView = new List<GameObject>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (playerIsCurrentlyMoving)
