@@ -29,7 +29,7 @@ public class EnemyStatus : MonoBehaviour
     {
         enemyPathfinder = GetComponent<EnemyPathfinder>();
         animator = GetComponent<Animator>();
-        enemyNode = gridCreator.NodeFromWorldPoint(player.transform.position);
+        enemyNode = gridCreator.NodeFromWorldPoint(this.gameObject.transform.position);
         enemyNode.walkable = false;
     }
     public void GetHit()

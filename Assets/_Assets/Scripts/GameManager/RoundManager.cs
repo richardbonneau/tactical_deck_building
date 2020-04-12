@@ -10,6 +10,7 @@ public class RoundManager : MonoBehaviour
     public int currentRound = 1;
     public bool playerPhaseDone = false;
     public bool enemiesPhaseDone = false;
+    public PlayerStatus playerStatus;
 
 
     void Start()
@@ -19,12 +20,20 @@ public class RoundManager : MonoBehaviour
 
     public void NextRound()
     {
-        currentRound++;
-        uiManager.ChangeRoundOnTheUI();
-        playerPhaseDone = false;
-        enemiesPhaseDone = false;
-        enemiesManager.NextRound();
-        cardsManager.NextRound();
+        if (!playerStatus.isDead)
+        {
+            currentRound++;
+            uiManager.ChangeRoundOnTheUI();
+            playerPhaseDone = false;
+            enemiesPhaseDone = false;
+            enemiesManager.NextRound();
+            cardsManager.NextRound();
+        }
+        else
+        {
+            uiManager.DisableEndTurn();
+        }
+
     }
 
 }

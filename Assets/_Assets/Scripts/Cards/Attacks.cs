@@ -35,7 +35,6 @@ public class Attacks : MonoBehaviour
                 GameObject target = targets.Find(enemy => enemy.transform.position == mouseSelectWorldPosition);
                 if (Input.GetMouseButtonDown(0) && target != null)
                 {
-                    print("DEWIT" + target.transform.position);
                     AttackTarget(target);
                 }
             }
@@ -61,6 +60,7 @@ public class Attacks : MonoBehaviour
         if (targets.Count == 0)
         {
             uiManager.DisplayAlertMessage("There are no targets to attack.");
+            originCard.NextAction();
         }
 
     }
@@ -77,5 +77,6 @@ public class Attacks : MonoBehaviour
         target.GetComponent<EnemyStatus>().health = target.GetComponent<EnemyStatus>().health - attackAmount;
         originCard.NextAction();
     }
+
 
 }
