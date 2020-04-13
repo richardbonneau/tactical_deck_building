@@ -34,7 +34,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnDrag(PointerEventData eventData)
     {
         this.transform.position = eventData.position;
-
+        
         if (placeholderParent == null) return;
         if (placeholder.transform.parent != placeholderParent) placeholder.transform.SetParent(placeholderParent);
         int newSiblingIndex = placeholderParent.childCount;
@@ -59,7 +59,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             GetComponent<CardAbilities>().PlayCard();
             return;
         }
-        
+
         // I THINK I CAN DELETE THIS.
         // else if (isPlacingAbilityOnCard && isAbility)
         // {
