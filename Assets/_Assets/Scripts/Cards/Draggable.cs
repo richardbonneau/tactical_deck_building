@@ -20,6 +20,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if (this.gameObject.CompareTag("Card")) isPlayableCard = true;
         else if (this.gameObject.CompareTag("Ability")) isAbility = true;
     }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         placeholder = Instantiate(placeholderPrefab, this.transform.position, Quaternion.identity);
@@ -28,16 +29,20 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         parentToReturnTo = this.transform.parent;
         placeholderParent = parentToReturnTo;
-        this.transform.SetParent(this.transform.parent.parent);
+        if(this.transform.CompareTag("Ability") && parentToReturnTo.CompareTag("Card")) this.transform.SetParent(this.transform.parent.parent.parent);
+        else this.transform.SetParent(this.transform.parent.parent);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
+
     public void OnDrag(PointerEventData eventData)
     {
         this.transform.position = eventData.position;
         
         if (placeholderParent == null) return;
-        if (placeholder.transform.parent != placeholderParent) placeholder.transform.SetParent(placeholderParent);
+        if(this.transform.CompareTag("Ability") && placeholderParent.CompareTag("CardDropZone")) return;
+        else if (placeholder.transform.parent != placeholderParent) placeholder.transform.SetParent(placeholderParent);
         int newSiblingIndex = placeholderParent.childCount;
+
         for (int i = 0; i < placeholderParent.childCount; i++)
         {
             if (isPlayableCard && this.transform.position.x < placeholderParent.GetChild(i).position.x || isPlayableCard && this.transform.position.y > placeholderParent.GetChild(i).position.y && placeholderParent.transform.CompareTag("Inventory") || isAbility && this.transform.position.y > placeholderParent.GetChild(i).position.y)
@@ -46,10 +51,10 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                 if (placeholder.transform.GetSiblingIndex() < newSiblingIndex) newSiblingIndex--;
                 break;
             }
-
         }
         placeholder.transform.SetSiblingIndex(newSiblingIndex);
     }
+
     public void OnEndDrag(PointerEventData eventData)
     {
         Destroy(placeholder);
@@ -59,16 +64,9 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             return;
         }
 
-        // I THINK I CAN DELETE THIS.
-        // else if (isPlacingAbilityOnCard && isAbility)
-        // {
-            
-        // }
-
         this.transform.SetParent(parentToReturnTo);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         this.transform.SetSiblingIndex(placeholder.transform.GetSiblingIndex());
 
     }
-
 }
