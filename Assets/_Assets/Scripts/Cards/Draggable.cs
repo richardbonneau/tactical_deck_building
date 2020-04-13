@@ -11,6 +11,11 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     [System.NonSerialized] public GameObject placeholder;
 
     [System.NonSerialized] public bool willPlayCard = false;
+    bool isPlayableCard = false;
+    void Awake()
+    {
+
+    }
     public void OnBeginDrag(PointerEventData eventData)
     {
         placeholder = Instantiate(placeholderPrefab, this.transform.position, Quaternion.identity);
