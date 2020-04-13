@@ -5591,7 +5591,7 @@ GameObject:
   - component: {fileID: 1196818124}
   m_Layer: 5
   m_Name: Scroller
-  m_TagString: Untagged
+  m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6792,6 +6792,7 @@ MonoBehaviour:
   alertTextContainer: {fileID: 1040052690}
   healthBarsRotation: {x: 0, y: 0, z: 0, w: 0}
   craftMenu: {fileID: 1728974215}
+  cardDropZone: {fileID: 6053693118623538668}
   deckHolder: {fileID: 341683008}
 --- !u!4 &1612067043
 Transform:

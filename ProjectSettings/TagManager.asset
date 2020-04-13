@@ -19,6 +19,7 @@ TagManager:
   - ShowCurrentAction
   - CardItem
   - CardDropZone
+  - Inventory
   layers:
   - Default
   - TransparentFX
