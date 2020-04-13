@@ -51,7 +51,6 @@ public class CardAbilities : MonoBehaviour
         {
             CardUsed();
         }
-
     }
 
     public void PlayCard()
