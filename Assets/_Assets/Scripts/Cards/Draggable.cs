@@ -11,10 +11,14 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     [System.NonSerialized] public GameObject placeholder;
 
     [System.NonSerialized] public bool willPlayCard = false;
+    [System.NonSerialized] public bool isPlacingAbilityOnCard = false;
     bool isPlayableCard = false;
+    bool isAbility = false;
+
     void Awake()
     {
-
+        if (this.gameObject.name == "Card") isPlayableCard = true;
+        else if (this.gameObject.name == "Ability") isAbility = true;
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -36,7 +40,8 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         int newSiblingIndex = placeholderParent.childCount;
         for (int i = 0; i < placeholderParent.childCount; i++)
         {
-            if (this.transform.position.x < placeholderParent.GetChild(i).position.x)
+            if (isPlayableCard && this.transform.position.x < placeholderParent.GetChild(i).position.x || isAbility && this.transform.position.y > placeholderParent.GetChild(i).position.y)
+
             {
                 newSiblingIndex = i;
                 if (placeholder.transform.GetSiblingIndex() < newSiblingIndex) newSiblingIndex--;
@@ -49,10 +54,14 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnEndDrag(PointerEventData eventData)
     {
         Destroy(placeholder);
-        if (willPlayCard)
+        if (willPlayCard && isPlayableCard)
         {
             GetComponent<CardAbilities>().PlayCard();
             return;
+        }
+        else if (isPlacingAbilityOnCard && isAbility)
+        {
+
         }
         this.transform.SetParent(parentToReturnTo);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
