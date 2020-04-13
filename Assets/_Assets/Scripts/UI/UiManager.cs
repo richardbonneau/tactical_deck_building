@@ -69,8 +69,8 @@ public class UiManager : MonoBehaviour
     public void DisplayAlertMessage(string message)
     {
         alertText.text = message;
-        LeanTween.moveLocal(alertTextContainer, new Vector3(0f, 0f, 0f), 1f);
-        LeanTween.moveLocal(alertTextContainer, new Vector3(0f, 0f, 1100f), 1f).setDelay(3f);
+        LeanTween.moveLocal(alertTextContainer, new Vector3(0f, 0f, 0f), 2f);
+        LeanTween.moveLocal(alertTextContainer, new Vector3(0f, 1000f, 0f), 2f).setDelay(5f);
     }
 
     public void ToggleCraftMenu(){

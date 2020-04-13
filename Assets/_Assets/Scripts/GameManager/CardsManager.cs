@@ -25,7 +25,7 @@ public class CardsManager : MonoBehaviour
     public void ToggleDeckOff()
     {
         deckToggledOn = false;
-        LeanTween.moveY(rect, -268f, .65f).setEase(LeanTweenType.easeInOutCubic); ;
+        LeanTween.moveY(rect, -368f, .65f).setEase(LeanTweenType.easeInOutCubic); ;
     }
     public void ToggleDeckOn()
     {
