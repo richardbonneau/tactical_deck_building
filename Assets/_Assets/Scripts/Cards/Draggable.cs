@@ -40,8 +40,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         int newSiblingIndex = placeholderParent.childCount;
         for (int i = 0; i < placeholderParent.childCount; i++)
         {
-            if (isPlayableCard && this.transform.position.x < placeholderParent.GetChild(i).position.x || isAbility && this.transform.position.y > placeholderParent.GetChild(i).position.y)
-
+            if (isPlayableCard && this.transform.position.x < placeholderParent.GetChild(i).position.x || isPlayableCard && this.transform.position.y > placeholderParent.GetChild(i).position.y && placeholderParent.transform.CompareTag("Inventory") || isAbility && this.transform.position.y > placeholderParent.GetChild(i).position.y)
             {
                 newSiblingIndex = i;
                 if (placeholder.transform.GetSiblingIndex() < newSiblingIndex) newSiblingIndex--;

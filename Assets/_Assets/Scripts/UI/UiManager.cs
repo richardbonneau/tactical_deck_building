@@ -29,7 +29,6 @@ public class UiManager : MonoBehaviour
         rect = alertTextContainer.transform.GetChild(0).GetComponent<RectTransform>();
         alertText = alertTextContainer.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         LeanTween.moveLocal(alertTextContainer, new Vector3(0f, 0f, 1100f), 0f);
-
     }
     void Start()
     {
