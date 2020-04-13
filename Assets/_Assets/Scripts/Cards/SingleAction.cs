@@ -12,14 +12,34 @@ public class SingleAction : MonoBehaviour
     CardAbilities parentCardAbilities;
     void Awake()
     {
-        abilityText.text = actionType + " " + value;
-        if(this.transform.parent.name == "Card")  parentCardAbilities = this.transform.parent.GetComponent<CardAbilities>();
+        abilityText.text = WriteAbilityName(actionType,value);
+        if(this.transform.parent.CompareTag("Card")) {
+            GetComponent<CanvasGroup>().blocksRaycasts = false;
+            parentCardAbilities = this.transform.parent.GetComponent<CardAbilities>();
+        } 
+
     }
     public void PutAbilityOnParentCard(){
-if(this.transform.parent.name == "Card")  parentCardAbilities = this.transform.parent.GetComponent<CardAbilities>();
-       if(parentCardAbilities != null){
+        if(this.transform.parent.CompareTag("Card"))  parentCardAbilities = this.transform.parent.GetComponent<CardAbilities>();
+        if(parentCardAbilities != null){
         parentCardAbilities.actionsTypes.Add(actionType);
         parentCardAbilities.actionsValues.Add(value);
        }
+    }
+
+    string WriteAbilityName(string type, int val){
+        switch (type)
+        {
+          case "move":
+              return "Move "+val;
+              break;
+          case "attack":
+              return "Melee Attack "+val;
+              break;
+          default:
+              print("Ability Type not found");
+              return type+" "+val;
+              break;
+        }
     }
 }

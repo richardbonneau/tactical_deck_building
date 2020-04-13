@@ -12,7 +12,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
         d.placeholderParent = this.transform;
         d.willPlayCard = false;
-        if (eventData.pointerDrag.name == "Ability" && this.gameObject.name == "CraftCard")
+        if (eventData.pointerDrag.CompareTag("Ability") && this.gameObject.CompareTag("CraftCard"))
         {
             d.isPlacingAbilityOnCard = true;
             d.parentToReturnTo = this.transform;

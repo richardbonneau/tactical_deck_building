@@ -11,8 +11,6 @@ public class EnemiesManager : MonoBehaviour
     public bool allEnemiesTurnsDone = false;
     GameObject activeEnemy;
     EnemyStatus activeEnemyStatus;
-
-
     void Start()
     {
         GameObject[] allEnemiesInScene = GameObject.FindGameObjectsWithTag("Enemy");

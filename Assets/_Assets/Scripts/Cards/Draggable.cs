@@ -17,8 +17,8 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     void Awake()
     {
-        if (this.gameObject.name == "Card") isPlayableCard = true;
-        else if (this.gameObject.name == "Ability") isAbility = true;
+        if (this.gameObject.CompareTag("Card")) isPlayableCard = true;
+        else if (this.gameObject.CompareTag("Ability")) isAbility = true;
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -63,6 +63,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         {
             
         }
+
         this.transform.SetParent(parentToReturnTo);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         this.transform.SetSiblingIndex(placeholder.transform.GetSiblingIndex());

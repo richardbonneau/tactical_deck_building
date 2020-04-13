@@ -72,7 +72,6 @@ public class EnemyStatus : MonoBehaviour
     void MeleeAttackAction()
     {
         currentlyDoingAnAction = true;
-        // List<GameObject> enemies = enemiesManager.activeEnemies;
         List<Node> neighboursNodes = gridCreator.GetNeighbours(gridCreator.NodeFromWorldPoint(this.transform.position));
         foreach (Node node in neighboursNodes)
         {
