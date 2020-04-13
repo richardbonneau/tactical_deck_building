@@ -10,18 +10,12 @@ public class SingleAction : MonoBehaviour
     // public icon
     public TextMeshProUGUI abilityText;
     CardAbilities parentCardAbilities;
-
-
-    
-
     void Awake()
     {
         parentCardAbilities = this.transform.parent.GetComponent<CardAbilities>();
-    PutAbilityOnParentCard();
     }
-
     public void PutAbilityOnParentCard(){
-        abilityText.text = actionType+" "+value;
+        abilityText.text = actionType + " " + value;
         parentCardAbilities.actionsTypes.Add(actionType);
         parentCardAbilities.actionsValues.Add(value);
     }

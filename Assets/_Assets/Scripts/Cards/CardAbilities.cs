@@ -31,6 +31,9 @@ public class CardAbilities : MonoBehaviour
     }
     void Start()
     {
+        foreach(Transform child in this.transform){
+            child.GetComponent<SingleAction>().PutAbilityOnParentCard();
+        }
         for (int i = 0; i < actionsValues.Count; i++)
         {
             string type = actionsTypes[i];
@@ -42,8 +45,10 @@ public class CardAbilities : MonoBehaviour
     {
         if (currentActionIndex < cardActions.Count)
         {
+
             if (cardActive && !currentlyDoingAnAction)
             {
+                print("play action");
                 PlayAction();
             }
         }
