@@ -12,11 +12,14 @@ public class SingleAction : MonoBehaviour
     CardAbilities parentCardAbilities;
     void Awake()
     {
-        parentCardAbilities = this.transform.parent.GetComponent<CardAbilities>();
+        abilityText.text = actionType + " " + value;
+        if(this.transform.parent.name == "Card")  parentCardAbilities = this.transform.parent.GetComponent<CardAbilities>();
     }
     public void PutAbilityOnParentCard(){
-        abilityText.text = actionType + " " + value;
+if(this.transform.parent.name == "Card")  parentCardAbilities = this.transform.parent.GetComponent<CardAbilities>();
+       if(parentCardAbilities != null){
         parentCardAbilities.actionsTypes.Add(actionType);
         parentCardAbilities.actionsValues.Add(value);
+       }
     }
 }

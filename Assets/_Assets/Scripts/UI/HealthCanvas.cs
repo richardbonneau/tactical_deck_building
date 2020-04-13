@@ -16,7 +16,6 @@ public class HealthCanvas : MonoBehaviour
     int startingHealth = 0;
     void Awake()
     {
-        print("awake");
         playerOrEnemy = this.transform.parent;
         if (this.gameObject.name == "PlayerCanvas")
         {

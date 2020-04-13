@@ -31,19 +31,11 @@ public class CardAbilities : MonoBehaviour
     }
     void Start()
     {
-        foreach(Transform child in this.transform){
-            child.GetComponent<SingleAction>().PutAbilityOnParentCard();
-        }
-        for (int i = 0; i < actionsValues.Count; i++)
-        {
-            string type = actionsTypes[i];
-            int value = actionsValues[i];
-            cardActions.Add(new CardAction(_actionType: type, _value: value));
-        }
+        PutAbilitiesOnCard();
     }
     void Update()
     {
-        if (currentActionIndex < cardActions.Count)
+        if (cardActions.Count == 0 || currentActionIndex < cardActions.Count)
         {
 
             if (cardActive && !currentlyDoingAnAction)
@@ -55,6 +47,20 @@ public class CardAbilities : MonoBehaviour
         else
         {
             CardUsed();
+        }
+    }
+
+    public void PutAbilitiesOnCard(){
+        print("put abilities on card");
+        foreach(Transform child in this.transform)
+        {
+        child.GetComponent<SingleAction>().PutAbilityOnParentCard();
+        }
+        for (int i = 0; i < actionsValues.Count; i++)
+        {
+            string type = actionsTypes[i];
+            int value = actionsValues[i];
+            cardActions.Add(new CardAction(_actionType: type, _value: value));
         }
     }
 
@@ -76,6 +82,7 @@ public class CardAbilities : MonoBehaviour
     }
     void PlayAction()
     {
+        print("cardActions "+cardActions.Count);
         currentlyDoingAnAction = true;
         if (cardActions[currentActionIndex].actionType == "move") EnablePlayerMove(cardActions[currentActionIndex].value);
         else if (cardActions[currentActionIndex].actionType == "attack") attacks.FindPotentialTargets(cardActions[currentActionIndex].value);

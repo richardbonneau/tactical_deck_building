@@ -18,7 +18,6 @@ public class EnemiesManager : MonoBehaviour
         GameObject[] allEnemiesInScene = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in allEnemiesInScene)
         {
-            print(enemy.transform.position);
             activeEnemies.Add(enemy);
         }
     }

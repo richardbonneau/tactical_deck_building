@@ -96,6 +96,7 @@ public class UiManager : MonoBehaviour
             foreach(Transform ability in cardToAddToDeck){
                 ability.GetComponent<CanvasGroup>().blocksRaycasts = false;
             }
+            cardToAddToDeck.GetComponent<CardAbilities>().PutAbilitiesOnCard();
             cardToAddToDeck.SetParent(deckHolder.transform);
         }
     
