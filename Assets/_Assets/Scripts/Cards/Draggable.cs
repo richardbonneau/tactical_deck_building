@@ -59,10 +59,12 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             GetComponent<CardAbilities>().PlayCard();
             return;
         }
-        else if (isPlacingAbilityOnCard && isAbility)
-        {
+        
+        // I THINK I CAN DELETE THIS.
+        // else if (isPlacingAbilityOnCard && isAbility)
+        // {
             
-        }
+        // }
 
         this.transform.SetParent(parentToReturnTo);
         GetComponent<CanvasGroup>().blocksRaycasts = true;

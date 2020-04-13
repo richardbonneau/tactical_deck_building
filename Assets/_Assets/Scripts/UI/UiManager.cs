@@ -19,6 +19,7 @@ public class UiManager : MonoBehaviour
     public Quaternion healthBarsRotation;
     bool craftMenuOpened = false;
     public GameObject craftMenu;
+    public GameObject cardDropZone;
     public GameObject deckHolder;
     Transform cardToAddToDeck;
 
@@ -84,9 +85,7 @@ public class UiManager : MonoBehaviour
     }
     public void CraftCard(){
         cardToAddToDeck = null;
-        foreach(Transform child in craftMenu.transform){
-            if(child.CompareTag("Card")) cardToAddToDeck = child;
-        }
+        if(cardDropZone.transform.childCount == 1) cardToAddToDeck = cardDropZone.transform.GetChild(0);
         if(cardToAddToDeck == null) return;
         else{
                 // check if all card slots have been filled
