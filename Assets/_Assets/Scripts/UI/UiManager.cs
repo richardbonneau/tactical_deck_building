@@ -85,7 +85,7 @@ public class UiManager : MonoBehaviour
     public void CraftCard(){
         cardToAddToDeck = null;
         foreach(Transform child in craftMenu.transform){
-            if(child.name == "Card") cardToAddToDeck = child;
+            if(child.CompareTag("Card")) cardToAddToDeck = child;
         }
         if(cardToAddToDeck == null) return;
         else{

@@ -46,12 +46,5 @@ public class HealthCanvas : MonoBehaviour
     void LateUpdate()
     {
         this.transform.rotation = originalRotation;
-        //     if (this.gameObject.name == "PlayerCanvas")
-        //     {
-        //         this.transform.LookAt(mainCam.transform.position);
-        //         uiManager.healthBarsRotation = this.transform.rotation;
-        //     }
-        //     else this.transform.rotation = uiManager.healthBarsRotation;
-
     }
 }

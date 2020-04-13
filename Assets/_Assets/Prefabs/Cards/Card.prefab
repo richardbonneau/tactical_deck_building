@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2519829263378906293}
   - component: {fileID: 6643921788343421871}
   - component: {fileID: 533613197}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Card
   m_TagString: Card
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 125, y: 200}
+  m_SizeDelta: {x: 187.5, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1278003515997580374
 CanvasRenderer:

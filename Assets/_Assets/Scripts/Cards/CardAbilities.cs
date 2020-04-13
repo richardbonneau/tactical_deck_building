@@ -13,6 +13,7 @@ public class CardAbilities : MonoBehaviour
     List<CardAction> cardActions = new List<CardAction>();
     public List<string> actionsTypes = new List<string>();
     public List<int> actionsValues = new List<int>();
+    GameObject showCurrentAction;
 
 
     bool cardActive = false;
@@ -27,6 +28,7 @@ public class CardAbilities : MonoBehaviour
         attacks = cardsManagerObj.GetComponent<Attacks>();
         activeCardLocation = GameObject.FindWithTag("ActiveCardLocation");
         uiManager = GameObject.FindWithTag("UiManager").GetComponent<UiManager>();
+        showCurrentAction = GameObject.FindWithTag("ShowCurrentAction");
 
     }
     void Start()
@@ -82,7 +84,7 @@ public class CardAbilities : MonoBehaviour
     }
     void PlayAction()
     {
-        print("cardActions "+cardActions.Count);
+        if(currentActionIndex != 0)LeanTween.move(showCurrentAction, this.transform.GetChild(currentActionIndex).transform.position, 0.5f).setEase(LeanTweenType.easeOutQuad);
         currentlyDoingAnAction = true;
         if (cardActions[currentActionIndex].actionType == "move") EnablePlayerMove(cardActions[currentActionIndex].value);
         else if (cardActions[currentActionIndex].actionType == "attack") attacks.FindPotentialTargets(cardActions[currentActionIndex].value);
