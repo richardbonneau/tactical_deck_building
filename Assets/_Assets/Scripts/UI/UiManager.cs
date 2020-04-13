@@ -14,9 +14,13 @@ public class UiManager : MonoBehaviour
     public TextMeshProUGUI cardsPlayed;
     public Button endTurnBtn;
     public GameObject alertTextContainer;
-    public TextMeshProUGUI alertText;
-    public RectTransform rect;
+    [System.NonSerialized] public TextMeshProUGUI alertText;
+    [System.NonSerialized] public RectTransform rect;
     public Quaternion healthBarsRotation;
+    bool craftMenuOpened = false;
+    public GameObject craftMenu;
+    public GameObject deckHolder;
+    Transform cardToAddToDeck;
 
     void Awake()
     {
@@ -69,5 +73,33 @@ public class UiManager : MonoBehaviour
         LeanTween.moveLocal(alertTextContainer, new Vector3(0f, 0f, 1100f), 1f).setDelay(3f);
     }
 
+    public void ToggleCraftMenu(){
+        if(craftMenuOpened){
+            craftMenuOpened = false;
+            craftMenu.SetActive(false);
+        } else {
+            craftMenuOpened = true;
+            craftMenu.SetActive(true);
+            }
+    }
+    public void CraftCard(){
+        cardToAddToDeck = null;
+        foreach(Transform child in craftMenu.transform){
+            if(child.name == "Card") cardToAddToDeck = child;
+        }
+        if(cardToAddToDeck == null) return;
+        else{
+                // check if all card slots have been filled
+
+
+        // Remove the card from the craftcard spot and add it to the deck.
+            foreach(Transform ability in cardToAddToDeck){
+                ability.GetComponent<CanvasGroup>().blocksRaycasts = false;
+            }
+            cardToAddToDeck.SetParent(deckHolder.transform);
+        }
+    
+        
+    }
 
 }

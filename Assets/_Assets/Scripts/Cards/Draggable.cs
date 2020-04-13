@@ -61,7 +61,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         }
         else if (isPlacingAbilityOnCard && isAbility)
         {
-
+            
         }
         this.transform.SetParent(parentToReturnTo);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
