@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardAbilities : MonoBehaviour
 {
@@ -37,7 +38,6 @@ public class CardAbilities : MonoBehaviour
     {
         if (cardActions.Count == 0 || currentActionIndex < cardActions.Count)
         {
-
             if (cardActive && !currentlyDoingAnAction)
             {
                 print("play action");
@@ -82,9 +82,8 @@ public class CardAbilities : MonoBehaviour
     }
     void PlayAction()
     {
-        print(this.transform.GetChild(currentActionIndex)+" "+currentActionIndex);
-       
         currentlyDoingAnAction = true;
+        this.transform.GetChild(currentActionIndex).transform.GetChild(0).GetComponent<Image>().enabled = true;
         if (cardActions[currentActionIndex].actionType == "move") EnablePlayerMove(cardActions[currentActionIndex].value);
         else if (cardActions[currentActionIndex].actionType == "attack") attacks.FindPotentialTargets(cardActions[currentActionIndex].value);
     }
@@ -100,6 +99,7 @@ public class CardAbilities : MonoBehaviour
     }
     public void NextAction()
     {
+        this.transform.GetChild(currentActionIndex).transform.GetChild(0).GetComponent<Image>().enabled = false;
         currentActionIndex++;
         currentlyDoingAnAction = false;
     }
