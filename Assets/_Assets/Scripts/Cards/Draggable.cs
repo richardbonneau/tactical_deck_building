@@ -29,7 +29,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         parentToReturnTo = this.transform.parent;
         placeholderParent = parentToReturnTo;
-        if(this.transform.CompareTag("Ability") && parentToReturnTo.CompareTag("Card")) this.transform.SetParent(this.transform.parent.parent.parent);
+        if (this.transform.CompareTag("Ability") && parentToReturnTo.CompareTag("Card") || parentToReturnTo.CompareTag("Inventory")) this.transform.SetParent(this.transform.parent.parent.parent);
         else this.transform.SetParent(this.transform.parent.parent);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
@@ -37,9 +37,9 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnDrag(PointerEventData eventData)
     {
         this.transform.position = eventData.position;
-        
+
         if (placeholderParent == null) return;
-        if(this.transform.CompareTag("Ability") && placeholderParent.CompareTag("CardDropZone")) return;
+        if (this.transform.CompareTag("Ability") && placeholderParent.CompareTag("CardDropZone")) return;
         else if (placeholder.transform.parent != placeholderParent) placeholder.transform.SetParent(placeholderParent);
         int newSiblingIndex = placeholderParent.childCount;
 
