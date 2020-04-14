@@ -43,7 +43,7 @@ public class EnemiesManager : MonoBehaviour
         activeEnemyStatus.currentlyDoingTurn = true;
     }
     IEnumerator WaitAndNextRound(){
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         roundManager.NextRound();
     }
     public void BeginEnemyPhase()
