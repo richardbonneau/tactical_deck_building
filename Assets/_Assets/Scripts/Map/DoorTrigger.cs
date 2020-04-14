@@ -5,8 +5,9 @@ using UnityEngine;
 public class DoorTrigger : MonoBehaviour
 {
     GridCreator gridCreator;
-    public Vector3 newRoomVector;
-    public Vector3 newRoomPlayerSpawn;
+    public Vector3 nextRoomVector;
+    public Vector3 nextRoomPlayerSpawn;
+    public int nextRoomIndex;
     void Awake()
     {
         gridCreator = GameObject.FindWithTag("GridManager").GetComponent<GridCreator>();
@@ -14,12 +15,14 @@ public class DoorTrigger : MonoBehaviour
     void Start()
     {
         Node node = gridCreator.NodeFromWorldPoint(this.transform.position);
-        if(node != null) {
+        if (node != null)
+        {
             node.isDoor = true;
-            node.newRoomVector = newRoomVector;
-            node.newRoomPlayerSpawn = newRoomPlayerSpawn;
+            node.nextRoomVector = nextRoomVector;
+            node.nextRoomPlayerSpawn = nextRoomPlayerSpawn;
+            node.nextRoomIndex = nextRoomIndex;
         }
-      
+
     }
 
 }

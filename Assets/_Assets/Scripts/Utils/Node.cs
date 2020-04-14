@@ -9,8 +9,9 @@ public class Node
     public bool walkable;
     public bool lootable = false;
     public bool isDoor = false;
-    public Vector3 newRoomVector;
-    public Vector3 newRoomPlayerSpawn;
+    public Vector3 nextRoomVector;
+    public Vector3 nextRoomPlayerSpawn;
+    public int nextRoomIndex;
 
     // Distance from Starting Node
     public int gCost;
