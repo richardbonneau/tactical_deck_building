@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     bool isDeckHolder = false;
+    public bool isDropZone = false;
+    [System.NonSerialized] public bool dropZoneHasCard = false;
     void Awake()
     {
         if (this.transform.CompareTag("DeckHolder")) isDeckHolder = true;
@@ -37,9 +39,17 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     }
     public void OnDrop(PointerEventData eventData)
     {
+        print("pareant to returt to: " + eventData.pointerDrag.tag + " " + this.transform.tag);
         if (eventData.pointerDrag == null) return;
         if (eventData.pointerDrag.CompareTag("Ability") && this.transform.CompareTag("CardDropZone")) return;
+        if (eventData.pointerDrag.CompareTag("Card") && this.transform.CompareTag("Card")) return;
+        if (eventData.pointerDrag.CompareTag("Card") && isDropZone)
+        {
+            if (dropZoneHasCard) return;
+            else dropZoneHasCard = true;
+        }
         eventData.pointerDrag.GetComponent<Draggable>().parentToReturnTo = this.transform;
+
     }
 
 }
