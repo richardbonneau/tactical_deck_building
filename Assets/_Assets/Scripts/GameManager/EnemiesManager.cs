@@ -11,6 +11,10 @@ public class EnemiesManager : MonoBehaviour
     public bool allEnemiesTurnsDone = false;
     GameObject activeEnemy;
     EnemyStatus activeEnemyStatus;
+    public GameObject lootableVisual;
+    List<GameObject> lootables = new List<GameObject>();
+    GameObject lootToRemove;
+
     void Start()
     {
         GameObject[] allEnemiesInScene = GameObject.FindGameObjectsWithTag("Enemy");
@@ -41,6 +45,26 @@ public class EnemiesManager : MonoBehaviour
         activeEnemy = activeEnemies[currentEnemyTurn];
         activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
         activeEnemyStatus.currentlyDoingTurn = true;
+    }
+    public void NewLootable(Vector3 position)
+    {
+        GameObject newLootable = Instantiate(lootableVisual, position, Quaternion.identity);
+        lootables.Add(newLootable);
+    }
+
+    public void LootablePickedUp(Vector3 position)
+    {
+        print("PICKING UP LOOT" + lootables.Count);
+        foreach (GameObject loot in lootables)
+        {
+            if (loot.transform.position == position) lootToRemove = loot;
+            break;
+        }
+
+        lootables.Remove(lootToRemove);
+        Destroy(lootToRemove);
+        lootToRemove = null;
+        print("LOOT picked up" + lootables.Count);
     }
 
     void Update()

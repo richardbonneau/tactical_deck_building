@@ -7,6 +7,7 @@ using System;
 
 public class Pathfinder : MonoBehaviour
 {
+    public EnemiesManager enemiesManager;
     public Camera mainCam;
     public GameObject mapSelector;
     PlayerStatus playerStatus;
@@ -31,6 +32,7 @@ public class Pathfinder : MonoBehaviour
     Animator animator;
     List<Node> path;
     [System.NonSerialized] public CardAbilities originCard;
+    Node lastNodeOfPath;
 
     void Awake()
     {
@@ -43,6 +45,7 @@ public class Pathfinder : MonoBehaviour
     {
         if (destination.Count == 0)
         {
+            if (lastNodeOfPath.lootable) enemiesManager.LootablePickedUp(lastNodeOfPath.worldPosition);
             playerIsCurrentlyMoving = false;
             animator.SetBool("isMoving", false);
             removeMovementPath();
@@ -161,6 +164,7 @@ public class Pathfinder : MonoBehaviour
                 }
                 if (Input.GetMouseButtonDown(0) && playerCanMoveToSelectedSpot)
                 {
+                    lastNodeOfPath = path[path.Count - 1];
                     removeMovementGrid();
                     playerIsAllowedToMove = false;
                     destination = path;
@@ -169,7 +173,6 @@ public class Pathfinder : MonoBehaviour
                     playerStatus.playerNode.walkable = true;
                     playerStatus.playerNode = grid.NodeFromWorldPoint(mouseSelectWorldPosition);
                     playerStatus.playerNode.walkable = false;
-
                 }
             }
             else mapSelector.transform.position = new Vector3(0, 20, 0);

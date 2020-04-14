@@ -18,6 +18,7 @@ public class EnemyStatus : MonoBehaviour
     GridCreator gridCreator;
     Node enemyNode;
 
+
     public string[,] actions = new string[3, 2] {
     {"move", "2"},
     {"move","1"},
@@ -90,7 +91,6 @@ public class EnemyStatus : MonoBehaviour
     }
     void Update()
     {
-
         if (!isDead)
         {
             if (health <= 0)
@@ -98,6 +98,11 @@ public class EnemyStatus : MonoBehaviour
                 isDead = true;
                 animator.SetBool("isDead", true);
                 enemiesManager.activeEnemies.Remove(this.gameObject);
+                enemyNode.walkable = true;
+                enemyNode.lootable = true;
+                enemiesManager.NewLootable(this.transform.position);
+
+                // remove health bar
             }
             if (currentlyDoingTurn)
             {
@@ -107,10 +112,8 @@ public class EnemyStatus : MonoBehaviour
 
                     if (actions[currentAction, 0] == "move") MoveAction();
                     else if (actions[currentAction, 0] == "meleeAttack") MeleeAttackAction();
-
                 }
             }
-
         }
     }
 }
