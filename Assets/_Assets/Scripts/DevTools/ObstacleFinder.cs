@@ -28,13 +28,10 @@ public class ObstacleFinder : MonoBehaviour
         {
             if (!hitObstacleLastUpdate)
             {
-
                 if (currentObstacleFinderZ < grid.GetLength(0))
                 {
                     currentObstacleFinderZ++;
                     transform.position = grid[currentObstacleFinderX, currentObstacleFinderZ].worldPosition;
-
-
                 }
                 else if (currentObstacleFinderX < grid.GetLength(1) - 1)
                 {
@@ -50,11 +47,10 @@ public class ObstacleFinder : MonoBehaviour
         }
         else if (!listSaved)
         {
-
             obstacleCoordinatesList = obstacleCoordinatesList.Distinct().ToList();
             string path = "Assets/_Assets/DevTools/ObstaclesList.txt";
             StreamWriter writer = new StreamWriter(path, true);
-            writer.WriteLine("public static List<Vector2> obstaclesCoordinates = new List<Vector2>(){");
+            writer.WriteLine("public static List<Vector2> roomX = new List<Vector2>(){");
             foreach (Vector2 coord in obstacleCoordinatesList)
             {
                 writer.WriteLine("new Vector2(" + coord.x + "f," + coord.y + "f)" + ",");

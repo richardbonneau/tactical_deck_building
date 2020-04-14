@@ -4,34 +4,15 @@ using UnityEngine;
 
 public class GridCreator : MonoBehaviour
 {
-    Vector3 gridSpawnPoint = new Vector3(-10, 0, -10);
+    public Vector3 gridSpawnPoint = new Vector3(-10, 0, -10);
     public int gridSizeX = 20;
-    public int gridSizeZ = 20;
+    public int gridSizeZ = 40;
     public Node[,] grid;
     public List<Node> path;
-
-    public static List<Vector2> obstaclesCoordinates = new List<Vector2>(){
-new Vector2(5f,5f),
-new Vector2(5f,12f),
-new Vector2(10f,1f),
-new Vector2(10f,2f),
-new Vector2(10f,3f),
-new Vector2(10f,5f),
-new Vector2(10f,6f),
-new Vector2(10f,8f),
-new Vector2(10f,9f),
-new Vector2(10f,10f),
-new Vector2(10f,11f),
-new Vector2(10f,12f),
-new Vector2(10f,13f),
-new Vector2(10f,14f),
-new Vector2(10f,15f),
-new Vector2(10f,16f),
-new Vector2(10f,17f),
-new Vector2(17f,16f),
-};
+    
 
 
+    public static List<Vector2> obstaclesCoordinates = RoomObstacleLists.room2;
     void Awake()
     {
         CreateGrid();
@@ -134,6 +115,17 @@ new Vector2(17f,16f),
                 grid[x, z] = new Node(x, z, new Vector3(gridSpawnPoint.x + x, 0, gridSpawnPoint.z + z), walkable);
             }
         }
+        print(grid.Length);
+    }
+    public void EnterNewRoom(Vector3 newGridSpawnPoint){
+        gridSpawnPoint = newGridSpawnPoint;
+        grid = new Node[gridSizeX, gridSizeZ];
+        // set new obstacle list
+        CreateGrid();
+        // Change player location / make player move to new room\
+        //  put veil over old room, remove veil on new room
+        // Move Camera,
+        
     }
 
     public void ResetAllNodeCosts()

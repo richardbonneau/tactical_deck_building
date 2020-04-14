@@ -8,6 +8,7 @@ public class Node
     public Vector3 worldPosition;
     public bool walkable;
     public bool lootable = false;
+    public bool isDoor = false;
 
     // Distance from Starting Node
     public int gCost;
@@ -25,7 +26,6 @@ public class Node
         z = _zCoordinates;
         worldPosition = _worldPosition;
         walkable = _walkable;
-
     }
     public int fCost
     {
