@@ -12,6 +12,7 @@ public class ObstacleFinder : MonoBehaviour
     bool obstacleScanDone = false;
     bool hitObstacleLastUpdate = false;
     public List<Vector2> obstacleCoordinatesList = new List<Vector2>();
+
     bool listSaved = false;
 
     void Awake()
@@ -65,6 +66,17 @@ public class ObstacleFinder : MonoBehaviour
     void OnTriggerEnter(Collider col)
     {
         if (col.transform.CompareTag("Obstacle"))
+        {
+            print("obstacle found: " + col.transform.name);
+            // Node node = gridScript.NodeFromWorldPoint(transform.position);
+            // node.walkable = false;
+            Vector2 newCoord = new Vector2(currentObstacleFinderX, currentObstacleFinderZ);
+            // if(obstacleCoordinatesList.Count > 0 && obstacleCoordinatesList[obstacleCoordinatesList.Count-1] != newCoord)
+            obstacleCoordinatesList.Add(newCoord);
+            transform.position = new Vector3(0, 10, 0);
+            hitObstacleLastUpdate = true;
+        }
+        if (col.transform.CompareTag("DoorTrigger"))
         {
             print("obstacle found: " + col.transform.name);
             // Node node = gridScript.NodeFromWorldPoint(transform.position);

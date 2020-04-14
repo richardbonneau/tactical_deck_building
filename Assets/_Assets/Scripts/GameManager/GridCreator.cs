@@ -12,14 +12,10 @@ public class GridCreator : MonoBehaviour
     
 
 
-    public static List<Vector2> obstaclesCoordinates = RoomObstacleLists.room2;
+    public static List<Vector2> obstaclesCoordinates = new List<Vector2>();
     void Awake()
     {
         CreateGrid();
-    }
-    void Start()
-    {
-
     }
 
     public List<Node> FindPath(Vector3 startPos, Vector3 endPos)
@@ -102,14 +98,14 @@ public class GridCreator : MonoBehaviour
             for (int z = 0; z < gridSizeZ; z++)
             {
                 bool walkable = true;
-                foreach (Vector2 obstacleCoord in obstaclesCoordinates)
-                {
-                    if (obstacleCoord.x == x && obstacleCoord.y == z)
-                    {
-                        walkable = false;
-                        // obstaclesCoordinates.Remove(obstacleCoord);
-                    }
-                }
+                // foreach (Vector2 obstacleCoord in obstaclesCoordinates)
+                // {
+                //     if (obstacleCoord.x == x && obstacleCoord.y == z)
+                //     {
+                //         walkable = false;
+                //         // obstaclesCoordinates.Remove(obstacleCoord);
+                //     }
+                // }
 
                 // if(x == 10 && z == 10 || x == 11 && z == 10 || x == 12 && z ==10) walkable = false;
                 grid[x, z] = new Node(x, z, new Vector3(gridSpawnPoint.x + x, 0, gridSpawnPoint.z + z), walkable);
