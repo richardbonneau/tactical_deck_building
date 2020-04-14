@@ -46,6 +46,7 @@ public class Pathfinder : MonoBehaviour
         if (destination.Count == 0)
         {
             if (lastNodeOfPath.lootable) enemiesManager.LootablePickedUp(lastNodeOfPath.worldPosition);
+            else if(lastNodeOfPath.isDoor) grid.EnterNewRoom(lastNodeOfPath.newRoomVector);
             playerIsCurrentlyMoving = false;
             animator.SetBool("isMoving", false);
             removeMovementPath();

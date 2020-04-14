@@ -116,7 +116,10 @@ public class GridCreator : MonoBehaviour
     public void EnterNewRoom(Vector3 newGridSpawnPoint){
         gridSpawnPoint = newGridSpawnPoint;
         grid = new Node[gridSizeX, gridSizeZ];
-        // set new obstacle list
+        // set new obstacle list / Activate all obstacles
+        // Deactive old obstacles
+        // clear the list of active enemies
+        // activate all new enemies
         CreateGrid();
         // Change player location / make player move to new room\
         //  put veil over old room, remove veil on new room

@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     bool isDeckHolder = false;
-    public bool isDropZone = false;
+    public bool isCardDropZone = false;
     [System.NonSerialized] public bool dropZoneHasCard = false;
     void Awake()
     {
@@ -43,7 +43,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         if (eventData.pointerDrag == null) return;
         if (eventData.pointerDrag.CompareTag("Ability") && this.transform.CompareTag("CardDropZone")) return;
         if (eventData.pointerDrag.CompareTag("Card") && this.transform.CompareTag("Card")) return;
-        if (eventData.pointerDrag.CompareTag("Card") && isDropZone)
+        if (eventData.pointerDrag.CompareTag("Card") && isCardDropZone)
         {
             if (dropZoneHasCard) return;
             else dropZoneHasCard = true;
