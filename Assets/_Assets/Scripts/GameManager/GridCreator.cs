@@ -9,7 +9,8 @@ public class GridCreator : MonoBehaviour
     public int gridSizeZ = 40;
     public Node[,] grid;
     public List<Node> path;
-    
+    public EnemiesManager enemiesManager;
+    public GameObject player;
 
 
     public static List<Vector2> obstaclesCoordinates = new List<Vector2>();
@@ -33,7 +34,6 @@ public class GridCreator : MonoBehaviour
             Node lowestCostNode = openNodes[0];
             foreach (Node node in openNodes)
             {
-
                 if (node.fCost <= lowestCostNode.fCost && node.hCost < lowestCostNode.hCost)
                 {
                     lowestCostNode = node;
@@ -113,15 +113,19 @@ public class GridCreator : MonoBehaviour
         }
         print(grid.Length);
     }
-    public void EnterNewRoom(Vector3 newGridSpawnPoint){
-        gridSpawnPoint = newGridSpawnPoint;
+    public void EnterNewRoom(Node doorTriggerNode){
+        gridSpawnPoint = doorTriggerNode.newRoomVector;
         grid = new Node[gridSizeX, gridSizeZ];
+        // Change player location / make player move to new room\
+        player.transform.position = doorTriggerNode.newRoomPlayerSpawn;
         // set new obstacle list / Activate all obstacles
         // Deactive old obstacles
+
         // clear the list of active enemies
+        enemiesManager.ClearAllEnemies();
         // activate all new enemies
         CreateGrid();
-        // Change player location / make player move to new room\
+        
         //  put veil over old room, remove veil on new room
         // Move Camera,
         

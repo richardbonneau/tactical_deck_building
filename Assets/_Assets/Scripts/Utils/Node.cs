@@ -10,6 +10,7 @@ public class Node
     public bool lootable = false;
     public bool isDoor = false;
     public Vector3 newRoomVector;
+    public Vector3 newRoomPlayerSpawn;
 
     // Distance from Starting Node
     public int gCost;

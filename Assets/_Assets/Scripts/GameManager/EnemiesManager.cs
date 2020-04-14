@@ -67,6 +67,13 @@ public class EnemiesManager : MonoBehaviour
         print("LOOT picked up" + lootables.Count);
     }
 
+    public void ClearAllEnemies(){
+        foreach(GameObject enemy in activeEnemies){
+            Destroy(enemy);
+        }
+        activeEnemies.Clear();
+    }
+
     void Update()
     {
         if (roundManager.playerPhaseDone && !roundManager.enemiesPhaseDone && activeEnemies.Count > 0)

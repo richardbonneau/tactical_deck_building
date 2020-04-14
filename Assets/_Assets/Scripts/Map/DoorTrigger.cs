@@ -6,6 +6,7 @@ public class DoorTrigger : MonoBehaviour
 {
     GridCreator gridCreator;
     public Vector3 newRoomVector;
+    public Vector3 newRoomPlayerSpawn;
     void Awake()
     {
         gridCreator = GameObject.FindWithTag("GridManager").GetComponent<GridCreator>();
@@ -16,6 +17,7 @@ public class DoorTrigger : MonoBehaviour
         if(node != null) {
             node.isDoor = true;
             node.newRoomVector = newRoomVector;
+            node.newRoomPlayerSpawn = newRoomPlayerSpawn;
         }
       
     }
