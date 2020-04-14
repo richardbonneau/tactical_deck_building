@@ -29,13 +29,17 @@ public class CardsManager : MonoBehaviour
     }
     public void ToggleDeckOn()
     {
+        print("deck toggled on");
         deckToggledOn = true;
-        LeanTween.moveY(rect, -66, .65f).setEase(LeanTweenType.easeInOutCubic); ;
+        LeanTween.moveY(rect, -66, .65f).setEase(LeanTweenType.easeInOutCubic);
+        
     }
     public void NextRound()
     {
+        print("NextRound deck toggled on");
         cardsPlayed = 0;
         ToggleDeckOn();
+        
     }
     public void CardUsed()
     {

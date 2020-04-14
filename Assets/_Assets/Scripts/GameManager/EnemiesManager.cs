@@ -42,12 +42,22 @@ public class EnemiesManager : MonoBehaviour
         activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
         activeEnemyStatus.currentlyDoingTurn = true;
     }
+    IEnumerator WaitAndNextRound(){
+        yield return new WaitForSeconds(1.5f);
+        roundManager.NextRound();
+    }
     public void BeginEnemyPhase()
     {
-        currentEnemyTurn = 0;
-        activeEnemy = activeEnemies[currentEnemyTurn];
-        activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
-        activeEnemyStatus.currentlyDoingTurn = true;
+        print("begin enemy phase");
+        if(activeEnemies.Count > 0){
+            print("begin enemy phase THERE ARE ENEMIES");
+            currentEnemyTurn = 0;
+            activeEnemy = activeEnemies[currentEnemyTurn];
+            activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
+            activeEnemyStatus.currentlyDoingTurn = true;
+        } else {
+            StartCoroutine(WaitAndNextRound());
+        }
     }
     public void NewLootable(Vector3 position)
     {
