@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class EnemiesManager : MonoBehaviour
 {
+    public GameObject inventory;
     public GridCreator gridCreator;
     public List<GameObject> activeEnemies = new List<GameObject>();
     public RoundManager roundManager;
     int currentEnemyTurn = 0;
     public bool allEnemiesTurnsDone = false;
+    public UiManager uiManager;
     GameObject activeEnemy;
     EnemyStatus activeEnemyStatus;
     public GameObject lootableVisual;
+    public List<GameObject> randomLootItems = new List<GameObject>();
     List<GameObject> lootables = new List<GameObject>();
     GameObject lootToRemove;
 
@@ -70,13 +73,20 @@ public class EnemiesManager : MonoBehaviour
         print("PICKING UP LOOT" + lootables.Count);
         foreach (GameObject loot in lootables)
         {
-            if (loot.transform.position == position) lootToRemove = loot;
-            break;
+            if (loot.transform.position == position) {
+                lootToRemove = loot;
+                break;
+                }
         }
 
         lootables.Remove(lootToRemove);
         Destroy(lootToRemove);
         lootToRemove = null;
+        GameObject randomItem = randomLootItems[Random.Range(0, randomLootItems.Count)];
+        GameObject lootToAdd = Instantiate(randomItem, new Vector3(0,40,0), Quaternion.identity);
+        lootToAdd.transform.SetParent(inventory.transform);
+        uiManager.DisplayAlertMessage(lootToAdd.name+" added to Inventory!");
+        
         print("LOOT picked up" + lootables.Count);
     }
 
