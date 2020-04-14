@@ -21,6 +21,29 @@ public class GridCreator : MonoBehaviour
         CreateGrid();
     }
 
+    public void EnterNewRoom(Node doorTriggerNode)
+    {
+        gridSpawnPoint = doorTriggerNode.nextRoomVector;
+        grid = new Node[gridSizeX, gridSizeZ];
+        // Change player location / make player move to new room\
+        player.transform.position = doorTriggerNode.nextRoomPlayerSpawn;
+        // set new obstacle list / Activate all obstacles
+        // Deactive old obstacles
+        enemiesManager.ClearAllEnemies();
+        rooms[doorTriggerNode.nextRoomIndex].SetActive(true);
+        rooms[roomIndex].SetActive(false);
+        roomIndex = doorTriggerNode.nextRoomIndex;
+        // clear the list of active enemies
+        
+        enemiesManager.FindAllActiveEnemies();
+        // activate all new enemies
+        CreateGrid();
+
+        //  put veil over old room, remove veil on new room
+        // Move Camera,
+
+    }
+
     public List<Node> FindPath(Vector3 startPos, Vector3 endPos)
     {
         // Nodes that we want to calculate the F cost of
@@ -115,26 +138,7 @@ public class GridCreator : MonoBehaviour
         }
         print(grid.Length);
     }
-    public void EnterNewRoom(Node doorTriggerNode)
-    {
-        gridSpawnPoint = doorTriggerNode.nextRoomVector;
-        grid = new Node[gridSizeX, gridSizeZ];
-        // Change player location / make player move to new room\
-        player.transform.position = doorTriggerNode.nextRoomPlayerSpawn;
-        // set new obstacle list / Activate all obstacles
-        // Deactive old obstacles
-        rooms[doorTriggerNode.nextRoomIndex].SetActive(true);
-        rooms[roomIndex].SetActive(false);
-        roomIndex = doorTriggerNode.nextRoomIndex;
-        // clear the list of active enemies
-        enemiesManager.ClearAllEnemies();
-        // activate all new enemies
-        CreateGrid();
 
-        //  put veil over old room, remove veil on new room
-        // Move Camera,
-
-    }
 
     public void ResetAllNodeCosts()
     {

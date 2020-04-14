@@ -17,6 +17,9 @@ public class EnemiesManager : MonoBehaviour
 
     void Start()
     {
+        FindAllActiveEnemies();
+    }
+    public void FindAllActiveEnemies(){
         GameObject[] allEnemiesInScene = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in allEnemiesInScene)
         {
