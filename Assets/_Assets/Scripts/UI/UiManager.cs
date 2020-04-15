@@ -13,6 +13,7 @@ public class UiManager : MonoBehaviour
     public TextMeshProUGUI displayRounds;
     public TextMeshProUGUI cardsPlayed;
     public Button endTurnBtn;
+    public Button craftBtn;
     public GameObject alertTextContainer;
     [System.NonSerialized] public TextMeshProUGUI alertText;
     [System.NonSerialized] public RectTransform rect;
@@ -61,15 +62,18 @@ public class UiManager : MonoBehaviour
     public void DisableEndTurn()
     {
         endTurnBtn.interactable = false;
+        craftBtn.interactable = false;
+        
     }
     public void EnableEndTurn()
     {
         endTurnBtn.interactable = true;
+        craftBtn.interactable = true;
     }
     public void DisplayAlertMessage(string message)
     {
         alertText.text = message;
-        LeanTween.moveLocal(alertTextContainer, new Vector3(0f, 0f, 0f), 2f);
+        LeanTween.moveLocal(alertTextContainer, new Vector3(0f, 0f, 0f), .5f);
         LeanTween.moveLocal(alertTextContainer, new Vector3(0f, 1000f, 0f), 2f).setDelay(5f);
     }
 
