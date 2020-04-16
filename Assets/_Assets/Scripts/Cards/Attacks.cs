@@ -42,7 +42,6 @@ public class Attacks : MonoBehaviour
     }
     public void FindPotentialTargets(int atkAmount)
     {
-        print("FIND POTENTIAL TARGETS");
         attackAmount = atkAmount;
         List<GameObject> enemies = enemiesManager.activeEnemies;
         List<Node> neighboursNodes = gridCreator.GetNeighbours(gridCreator.NodeFromWorldPoint(player.transform.position));

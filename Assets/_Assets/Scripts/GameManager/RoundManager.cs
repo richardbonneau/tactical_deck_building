@@ -20,10 +20,8 @@ public class RoundManager : MonoBehaviour
 
     public void NextRound()
     {
-        print("NextRound round manager");
         if (!playerStatus.isDead)
         {
-            print("player isnt dead");
             currentRound++;
             uiManager.ChangeRoundOnTheUI();
             playerPhaseDone = false;
@@ -35,7 +33,5 @@ public class RoundManager : MonoBehaviour
         {
             uiManager.DisableEndTurn();
         }
-
     }
-
 }

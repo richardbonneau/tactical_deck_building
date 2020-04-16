@@ -38,16 +38,10 @@ public class CardAbilities : MonoBehaviour
     {
         if (cardActions.Count == 0 || currentActionIndex < cardActions.Count)
         {
-            if (cardActive && !currentlyDoingAnAction)
-            {
-                print("PLAY ACTION METHIOD");
-                PlayAction();
-            }
+            if (cardActive && !currentlyDoingAnAction) PlayAction();
         }
-        else
-        {
-            CardUsed();
-        }
+        else CardUsed();
+        
     }
 
     public void PutAbilitiesOnCard(){
@@ -81,8 +75,6 @@ public class CardAbilities : MonoBehaviour
     }
     void PlayAction()
     {
-        print("--");
-        print("IS ATTACK------------------ "+cardActions[currentActionIndex].actionType );
         currentlyDoingAnAction = true;
         this.transform.GetChild(currentActionIndex).transform.GetChild(0).GetComponent<Image>().enabled = true;
         if (cardActions[currentActionIndex].actionType == "move") EnablePlayerMove(cardActions[currentActionIndex].value);

@@ -85,15 +85,12 @@ public class EnemyStatus : MonoBehaviour
         NextAction();
     }
     void EnemyDied(){
-        print("EnemyDied start");
         isDead = true;
         animator.SetBool("isDead", true);
         enemiesManager.activeEnemies.Remove(this.gameObject);
         enemyNode.walkable = true;
         enemyNode.lootable = true;
-        print("BEF ENEMY DIES, WALKABLE: "+ this.transform.position + " "+enemyNode.worldPosition);
         enemiesManager.NewLootable(this.transform.position);
-        print("aft ENEMY DIES, WALKABLE: "+ this.transform.position + " "+enemyNode.worldPosition);
     }
     void Update()
     {
