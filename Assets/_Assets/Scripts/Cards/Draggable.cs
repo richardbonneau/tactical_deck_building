@@ -37,10 +37,10 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnDrag(PointerEventData eventData)
     {
         this.transform.position = eventData.position;
-
+    
         if (placeholderParent == null) return;
         if (this.transform.CompareTag("Ability") && placeholderParent.CompareTag("CardDropZone")) return;
-        else if (this.transform.CompareTag("Card") && placeholderParent.CompareTag("CardDropZone") && placeholderParent.GetComponent<DropZone>().dropZoneHasCard) return;
+        else if (this.transform.CompareTag("Card") && placeholderParent.CompareTag("CardDropZone") || placeholderParent.GetComponent<DropZone>().dropZoneHasCard) return;
         else if (this.transform.CompareTag("Card") && placeholderParent.CompareTag("Card")) return;
         else if (placeholder.transform.parent != placeholderParent) placeholder.transform.SetParent(placeholderParent);
         int newSiblingIndex = placeholderParent.childCount;
