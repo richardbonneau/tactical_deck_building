@@ -212,6 +212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c80f7dcdd9a284abbe99cb66a5ada6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentToReturnTo: {fileID: 0}
+  placeholderParent: {fileID: 0}
   placeholderPrefab: {fileID: 6059909978242785385, guid: dd0b114613cfb144bb97c22f6d793a0d,
     type: 3}
 --- !u!114 &846045979
@@ -228,6 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionType: move
   value: 10
+  iconImage: {fileID: 2065890993192652442}
   abilityText: {fileID: 4148853445259759316}
 --- !u!1 &6928683682608543040
 GameObject:
@@ -531,7 +534,7 @@ PrefabInstance:
     - target: {fileID: 3095134913067990774, guid: 1cc79203578025b4a809e9ecb9efdd35,
         type: 3}
       propertyPath: m_PreserveAspect
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3095134913067990774, guid: 1cc79203578025b4a809e9ecb9efdd35,
         type: 3}
@@ -543,6 +546,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Icon
       objectReference: {fileID: 0}
+    - target: {fileID: 8565137298534640304, guid: 1cc79203578025b4a809e9ecb9efdd35,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8565137298534640304, guid: 1cc79203578025b4a809e9ecb9efdd35,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cc79203578025b4a809e9ecb9efdd35, type: 3}
 --- !u!224 &3301454523164112965 stripped
@@ -551,3 +564,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3918030691077386348}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2065890993192652442 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3095134913067990774, guid: 1cc79203578025b4a809e9ecb9efdd35,
+    type: 3}
+  m_PrefabInstance: {fileID: 3918030691077386348}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

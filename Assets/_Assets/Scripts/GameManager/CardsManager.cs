@@ -11,6 +11,7 @@ public class CardsManager : MonoBehaviour
     bool deckToggledOn = true;
     public int maxCardsToBePlayed = 2;
     public int cardsPlayed = 0;
+    public List<Sprite> abilityIcons = new List<Sprite>();
 
     void Awake()
     {

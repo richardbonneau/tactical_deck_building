@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class SingleAction : MonoBehaviour
 {
+    CardsManager cardsManager;
     public string actionType;
     public int value;
-    // public icon
+    public Image iconImage;
     public TextMeshProUGUI abilityText;
     CardAbilities parentCardAbilities;
     void Awake()
     {
+        cardsManager = GameObject.FindWithTag("CardsManager").GetComponent<CardsManager>();
         abilityText.text = WriteAbilityName(actionType,value);
         if(this.transform.parent.CompareTag("Card")) {
             GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -30,12 +33,18 @@ public class SingleAction : MonoBehaviour
     string WriteAbilityName(string type, int val){
         switch (type)
         {
-          case "move":
-              return "Move "+val;
-              break;
-          case "attack":
-              return "Melee Attack "+val;
-              break;
+          case "move":{
+            iconImage.sprite = cardsManager.abilityIcons[0];
+            return "Move "+val;
+            break;
+          }
+              
+          case "attack":{
+            iconImage.sprite = cardsManager.abilityIcons[1];
+            return "Melee Attack "+val;
+            break;
+          }
+         
           default:
               print("Ability Type not found");
               return type+" "+val;
