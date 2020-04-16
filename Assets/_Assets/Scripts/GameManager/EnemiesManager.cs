@@ -51,9 +51,8 @@ public class EnemiesManager : MonoBehaviour
     }
     public void BeginEnemyPhase()
     {
-        print("begin enemy phase");
+
         if(activeEnemies.Count > 0){
-            print("begin enemy phase THERE ARE ENEMIES");
             currentEnemyTurn = 0;
             activeEnemy = activeEnemies[currentEnemyTurn];
             activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
@@ -83,8 +82,8 @@ public class EnemiesManager : MonoBehaviour
         Destroy(lootToRemove);
         lootToRemove = null;
         GameObject randomItem = randomLootItems[Random.Range(0, randomLootItems.Count)];
-        GameObject lootToAdd = Instantiate(randomItem, new Vector3(0,40,0), Quaternion.identity);
-        lootToAdd.transform.SetParent(inventory.transform);
+        GameObject lootToAdd = Instantiate(randomItem, new Vector3(0,0,0), Quaternion.identity);
+        lootToAdd.transform.SetParent(inventory.transform, false);
         uiManager.DisplayAlertMessage(lootToAdd.name+" added to Inventory!");
         
         print("LOOT picked up" + lootables.Count);

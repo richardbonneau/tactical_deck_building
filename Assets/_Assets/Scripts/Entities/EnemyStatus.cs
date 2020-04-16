@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyStatus : MonoBehaviour
 {
     public int health = 10;
-    public int attack = 2;
     public int allowedMovement = 10;
     public bool isDead = false;
     Animator animator;
@@ -22,7 +21,7 @@ public class EnemyStatus : MonoBehaviour
     public string[,] actions = new string[3, 2] {
     {"move", "2"},
     {"move","1"},
-    {"meleeAttack", "10"}
+    {"meleeAttack", "2"}
     };
     int currentAction = 0;
 
@@ -35,6 +34,7 @@ public class EnemyStatus : MonoBehaviour
     }
     void Start()
     {
+        print("enemy start0");
         enemyPathfinder = GetComponent<EnemyPathfinder>();
         animator = GetComponent<Animator>();
         enemyNode = gridCreator.NodeFromWorldPoint(this.gameObject.transform.position);
