@@ -40,7 +40,7 @@ public class CardAbilities : MonoBehaviour
         {
             if (cardActive && !currentlyDoingAnAction)
             {
-                print("play action");
+                print("PLAY ACTION METHIOD");
                 PlayAction();
             }
         }
@@ -51,7 +51,6 @@ public class CardAbilities : MonoBehaviour
     }
 
     public void PutAbilitiesOnCard(){
-        print("put abilities on card");
         foreach(Transform child in this.transform)
         {
         child.GetComponent<SingleAction>().PutAbilityOnParentCard();
@@ -82,6 +81,8 @@ public class CardAbilities : MonoBehaviour
     }
     void PlayAction()
     {
+        print("--");
+        print("IS ATTACK------------------ "+cardActions[currentActionIndex].actionType );
         currentlyDoingAnAction = true;
         this.transform.GetChild(currentActionIndex).transform.GetChild(0).GetComponent<Image>().enabled = true;
         if (cardActions[currentActionIndex].actionType == "move") EnablePlayerMove(cardActions[currentActionIndex].value);

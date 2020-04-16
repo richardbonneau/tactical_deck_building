@@ -31,6 +31,7 @@ public class EnemyStatus : MonoBehaviour
         enemiesManager = GameObject.FindWithTag("EnemiesManager").GetComponent<EnemiesManager>();
         gridCreator = GameObject.FindWithTag("GridManager").GetComponent<GridCreator>();
         player = GameObject.FindWithTag("Player");
+        print(player.transform.position);
     }
     void Start()
     {

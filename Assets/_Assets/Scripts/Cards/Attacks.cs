@@ -49,6 +49,7 @@ public class Attacks : MonoBehaviour
         foreach (Node node in neighboursNodes)
         {
             GameObject found = enemies.Find(enemy => enemy.transform.position.x == node.worldPosition.x && enemy.transform.position.z == node.worldPosition.z);
+            print("found "+found);
             if (found != null)
             {
                 GameObject potentialTarget = Instantiate(potentialTargetIndicator, found.transform.position, Quaternion.identity);
@@ -69,6 +70,7 @@ public class Attacks : MonoBehaviour
     {
         foreach (GameObject indicator in targetIndicators) Destroy(indicator);
         targetIndicators.Clear();
+        targets.Clear();
         hasToChoosetarget = false;
         playerAnimator.SetTrigger("Attack");
         int randomAnimation = Random.Range(1, 5);

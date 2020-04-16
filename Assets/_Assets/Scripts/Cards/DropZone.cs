@@ -21,12 +21,11 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         
         if (eventData.pointerDrag.CompareTag("Ability") && this.gameObject.CompareTag("Card"))
         {
-            print("ability going to card");
             d.isPlacingAbilityOnCard = true;
             d.placeholderParent = this.transform;
             d.parentToReturnTo = this.transform;
         };
-        // eventData.pointerDrag.GetComponent<Draggable>().placeholder.transform.SetParent(eventData.pointerDrag);
+
     }
     public void OnPointerExit(PointerEventData eventData)
     {
@@ -40,7 +39,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     }
     public void OnDrop(PointerEventData eventData)
     {
-        print("parent to returt to: " + eventData.pointerDrag.tag + " " + this.transform.tag);
+
         if (eventData.pointerDrag == null) return;
         if (eventData.pointerDrag.CompareTag("Ability") && this.transform.CompareTag("CardDropZone")) return;
         if (eventData.pointerDrag.CompareTag("Card") && this.transform.CompareTag("Card")) return;

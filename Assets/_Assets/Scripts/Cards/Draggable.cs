@@ -59,7 +59,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        print("end drag");
         Destroy(placeholder);
         if (willPlayCard && isPlayableCard)
         {
