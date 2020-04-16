@@ -37,7 +37,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnDrag(PointerEventData eventData)
     {
         this.transform.position = eventData.position;
-        // print("placeholder.transform.parent != placeholderParent: "+placeholder.transform.parent.name + placeholderParent.name);
+        print("parentToReturnTo: "+ parentToReturnTo.name);
         if (placeholderParent == null) {
             // print(0);
             return;
