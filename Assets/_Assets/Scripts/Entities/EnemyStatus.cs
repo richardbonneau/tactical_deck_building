@@ -19,9 +19,9 @@ public class EnemyStatus : MonoBehaviour
 
 
     public string[,] actions = new string[3, 2] {
-    {"move", "2"},
-    {"move","1"},
-    {"meleeAttack", "2"}
+        {"move", "2"},
+        {"move","1"},
+        {"meleeAttack", "2"}
     };
     int currentAction = 0;
 
@@ -30,15 +30,12 @@ public class EnemyStatus : MonoBehaviour
         enemiesManager = GameObject.FindWithTag("EnemiesManager").GetComponent<EnemiesManager>();
         gridCreator = GameObject.FindWithTag("GridManager").GetComponent<GridCreator>();
         player = GameObject.FindWithTag("Player");
-        print(player.transform.position);
     }
     void Start()
     {
-        print("enemy start0");
         enemyPathfinder = GetComponent<EnemyPathfinder>();
         animator = GetComponent<Animator>();
         enemyNode = enemyPathfinder.enemyNode;
-
     }
     public void GetHit()
     {
@@ -67,10 +64,7 @@ public class EnemyStatus : MonoBehaviour
         currentlyDoingAnAction = true;
         enemyPathfinder.isAllowedToMove = true;
     }
-    void EmptyAction()
-    {
 
-    }
     void MeleeAttackAction()
     {
         currentlyDoingAnAction = true;

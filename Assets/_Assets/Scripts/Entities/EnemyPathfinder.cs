@@ -124,7 +124,6 @@ public class EnemyPathfinder : MonoBehaviour
                             Node currentNode = grid.NodeFromWorldPoint(new Vector3(x, 0, z));
 
                             List<Node> path = null;
-                            if (currentNode != null) path = grid.FindPath(this.transform.position, currentNode.worldPosition);
 
                             if (path != null && path.Count > 0 && path[path.Count - 1].gCost <= maxMove * 10)
                             {
@@ -152,7 +151,7 @@ public class EnemyPathfinder : MonoBehaviour
                     foreach (Node node in neighbouringPlayerNodes)
                     {
                         // Instantiate(player, node.worldPosition, Quaternion.identity);
-                        List<Node> temporaryPath = grid.FindPath(this.transform.position, node.worldPosition);
+                        List<Node> temporaryPath = grid.FindPath(this.transform.position, node.worldPosition, true);
                         if (temporaryPath.Count != 0 && temporaryPath.Count < pathCount)
                         {
                             path = temporaryPath;

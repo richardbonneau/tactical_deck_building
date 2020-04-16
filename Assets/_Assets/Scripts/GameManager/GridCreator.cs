@@ -45,7 +45,7 @@ public class GridCreator : MonoBehaviour
 
     }
 
-    public List<Node> FindPath(Vector3 startPos, Vector3 endPos)
+    public List<Node> FindPath(Vector3 startPos, Vector3 endPos, bool isEnemy)
     {
         // Nodes that we want to calculate the F cost of
         List<Node> openNodes = new List<Node>();
@@ -84,10 +84,10 @@ public class GridCreator : MonoBehaviour
             List<Node> neighbours = GetNeighbours(lowestCostNode);
             foreach (Node neighbour in neighbours)
             {
-                if (!neighbour.walkable || closedNodes.Contains(neighbour))
-                {
-                    continue;
-                }
+                
+                if (!neighbour.walkable || closedNodes.Contains(neighbour)) continue;
+                else if(isEnemy && neighbour.lootable) continue;
+            
                 int newCostToNeighbour = lowestCostNode.gCost + GetDistance(lowestCostNode, neighbour);
                 bool openNodesListContainsNeighbour = openNodes.Contains(neighbour);
                 if (newCostToNeighbour < neighbour.gCost || !openNodesListContainsNeighbour)

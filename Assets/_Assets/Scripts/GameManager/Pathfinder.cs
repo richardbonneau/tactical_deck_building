@@ -108,7 +108,7 @@ public class Pathfinder : MonoBehaviour
                         Node currentNode = grid.NodeFromWorldPoint(new Vector3(x, 0, z));
 
                         List<Node> path = null;
-                        if (currentNode != null) path = grid.FindPath(player.transform.position, currentNode.worldPosition);
+                        if (currentNode != null) path = grid.FindPath(player.transform.position, currentNode.worldPosition,false);
 
                         if (path != null && path.Count > 0 && path[path.Count - 1].gCost <= maxMove * 10)
                         {
@@ -140,7 +140,7 @@ public class Pathfinder : MonoBehaviour
                     playerCanMoveToSelectedSpot = false;
                     removeMovementPath();
 
-                    path = grid.FindPath(player.transform.position, mouseSelectWorldPosition);
+                    path = grid.FindPath(player.transform.position, mouseSelectWorldPosition,false);
 
                     foreach (GameObject gridSquare in gridView)
                     {
