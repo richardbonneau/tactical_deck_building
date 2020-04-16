@@ -27,7 +27,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         placeholder.transform.SetParent(this.transform.parent);
         placeholder.transform.SetSiblingIndex(this.transform.GetSiblingIndex());
-
         parentToReturnTo = this.transform.parent;
         placeholderParent = parentToReturnTo;
         if (this.transform.CompareTag("Ability") && parentToReturnTo.CompareTag("Card") || parentToReturnTo.CompareTag("Inventory")) this.transform.SetParent(this.transform.parent.parent.parent);

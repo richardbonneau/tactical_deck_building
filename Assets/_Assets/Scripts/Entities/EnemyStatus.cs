@@ -15,7 +15,7 @@ public class EnemyStatus : MonoBehaviour
     public bool turnDone = false;
     GameObject player;
     GridCreator gridCreator;
-    Node enemyNode;
+    public Node enemyNode;
 
 
     public string[,] actions = new string[3, 2] {
@@ -37,8 +37,8 @@ public class EnemyStatus : MonoBehaviour
         print("enemy start0");
         enemyPathfinder = GetComponent<EnemyPathfinder>();
         animator = GetComponent<Animator>();
-        enemyNode = gridCreator.NodeFromWorldPoint(this.gameObject.transform.position);
-        enemyNode.walkable = false;
+        enemyNode = enemyPathfinder.enemyNode;
+
     }
     public void GetHit()
     {
@@ -90,21 +90,22 @@ public class EnemyStatus : MonoBehaviour
         currentlyDoingAnAction = false;
         NextAction();
     }
+    void EnemyDied(){
+        print("EnemyDied start");
+        isDead = true;
+        animator.SetBool("isDead", true);
+        enemiesManager.activeEnemies.Remove(this.gameObject);
+        enemyNode.walkable = true;
+        enemyNode.lootable = true;
+        print("BEF ENEMY DIES, WALKABLE: "+ this.transform.position + " "+enemyNode.worldPosition);
+        enemiesManager.NewLootable(this.transform.position);
+        print("aft ENEMY DIES, WALKABLE: "+ this.transform.position + " "+enemyNode.worldPosition);
+    }
     void Update()
     {
         if (!isDead)
         {
-            if (health <= 0)
-            {
-                isDead = true;
-                animator.SetBool("isDead", true);
-                enemiesManager.activeEnemies.Remove(this.gameObject);
-                enemyNode.walkable = true;
-                enemyNode.lootable = true;
-                enemiesManager.NewLootable(this.transform.position);
-
-                // remove health bar
-            }
+            if (health <= 0) EnemyDied();
             if (currentlyDoingTurn)
             {
                 if (currentAction > actions.GetLength(0) - 1) TurnDone();

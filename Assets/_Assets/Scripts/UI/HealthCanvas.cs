@@ -27,10 +27,7 @@ public class HealthCanvas : MonoBehaviour
             enemyStatus = playerOrEnemy.GetComponent<EnemyStatus>();
             startingHealth = enemyStatus.health;
         }
-        // mainCam = Camera.main;
         originalRotation = this.transform.rotation;
-        // uiManager = GameObject.FindWithTag("UiManager").GetComponent<UiManager>();
-
         rect = this.transform.GetChild(this.transform.childCount - 1).GetComponent<RectTransform>();
 
     }

@@ -49,7 +49,6 @@ public class Attacks : MonoBehaviour
         foreach (Node node in neighboursNodes)
         {
             GameObject found = enemies.Find(enemy => enemy.transform.position.x == node.worldPosition.x && enemy.transform.position.z == node.worldPosition.z);
-            print("found "+found);
             if (found != null)
             {
                 GameObject potentialTarget = Instantiate(potentialTargetIndicator, found.transform.position, Quaternion.identity);

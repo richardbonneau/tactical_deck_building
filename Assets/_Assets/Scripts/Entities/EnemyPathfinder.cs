@@ -7,7 +7,7 @@ public class EnemyPathfinder : MonoBehaviour
 
     public GameObject player;
     public Camera mainCam;
-    Node enemyNode;
+    [System.NonSerialized] public Node enemyNode;
     Animator animator;
     bool isCurrentlyMoving = false;
     public bool isAllowedToMove = false;
@@ -42,24 +42,27 @@ public class EnemyPathfinder : MonoBehaviour
     void Start()
     {
         enemyNode = grid.NodeFromWorldPoint(this.transform.position);
+        enemyNode.walkable = false;
     }
     void EntityCurrentlyMoving()
     {
         if (movesMade >= enemyStatus.allowedMovement || destination.Count == 0)
         {
+
             isCurrentlyMoving = false;
             canMoveToSelectedSpot = false;
             animator.SetBool("isMoving", false);
             path = new List<Node>();
             movesMade = 0;
 
-
             enemyNode.walkable = true;
             enemyNode = grid.NodeFromWorldPoint(this.gameObject.transform.position);
             enemyNode.walkable = false;
+
             enemyStatus.NextAction();
             enemyStatus.currentlyDoingAnAction = false;
-
+            enemyStatus.enemyNode = enemyNode;
+            
         }
         else
         {
@@ -88,11 +91,11 @@ public class EnemyPathfinder : MonoBehaviour
     public void removeMovementGrid()
     {
         grid.ResetAllNodeCosts();
-        foreach (GameObject gridObj in gridView)
-        {
-            gridObj.SetActive(false);
-        }
-        gridView = new List<GameObject>();
+        // foreach (GameObject gridObj in gridView)
+        // {
+        //     gridObj.SetActive(false);
+        // }
+        // gridView = new List<GameObject>();
         availableMovementsGridShown = false;
     }
     void Update()
@@ -125,13 +128,13 @@ public class EnemyPathfinder : MonoBehaviour
 
                             if (path != null && path.Count > 0 && path[path.Count - 1].gCost <= maxMove * 10)
                             {
-                                GameObject p = moveGridPool.GetPooledObject();
-                                if (p != null)
-                                {
-                                    p.transform.position = new Vector3(x, 0, z);
-                                    p.SetActive(true);
-                                }
-                                gridView.Add(p);
+                                // GameObject p = moveGridPool.GetPooledObject();
+                                // if (p != null)
+                                // {
+                                //     p.transform.position = new Vector3(x, 0, z);
+                                //     p.SetActive(true);
+                                // }
+                                // gridView.Add(p);
                             }
 
                         }
@@ -162,13 +165,11 @@ public class EnemyPathfinder : MonoBehaviour
 
                 else if (canMoveToSelectedSpot)
                 {
-
                     removeMovementGrid();
                     isAllowedToMove = false;
                     destination = path;
                     isCurrentlyMoving = true;
                     animator.SetBool("isMoving", true);
-
                 }
 
             }

@@ -21,6 +21,7 @@ public class GridCreator : MonoBehaviour
         CreateGrid();
     }
 
+
     public void EnterNewRoom(Node doorTriggerNode)
     {
         gridSpawnPoint = doorTriggerNode.nextRoomVector;
@@ -123,20 +124,10 @@ public class GridCreator : MonoBehaviour
             for (int z = 0; z < gridSizeZ; z++)
             {
                 bool walkable = true;
-                // foreach (Vector2 obstacleCoord in obstaclesCoordinates)
-                // {
-                //     if (obstacleCoord.x == x && obstacleCoord.y == z)
-                //     {
-                //         walkable = false;
-                //         // obstaclesCoordinates.Remove(obstacleCoord);
-                //     }
-                // }
-
-                // if(x == 10 && z == 10 || x == 11 && z == 10 || x == 12 && z ==10) walkable = false;
                 grid[x, z] = new Node(x, z, new Vector3(gridSpawnPoint.x + x, 0, gridSpawnPoint.z + z), walkable);
             }
         }
-        print(grid.Length);
+        
     }
 
 
@@ -182,7 +173,6 @@ public class GridCreator : MonoBehaviour
 
     void OnDrawGizmos()
     {
-
         if (grid != null)
         {
             foreach (Node n in grid)

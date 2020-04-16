@@ -65,6 +65,7 @@ public class EnemiesManager : MonoBehaviour
     {
         GameObject newLootable = Instantiate(lootableVisual, position, Quaternion.identity);
         lootables.Add(newLootable);
+        print("WALKABLE?: "+gridCreator.NodeFromWorldPoint(position).walkable);
     }
 
     public void LootablePickedUp(Vector3 position)
@@ -85,7 +86,6 @@ public class EnemiesManager : MonoBehaviour
         GameObject lootToAdd = Instantiate(randomItem, new Vector3(0,0,0), Quaternion.identity);
         lootToAdd.transform.SetParent(inventory.transform, false);
         uiManager.DisplayAlertMessage(lootToAdd.name+" added to Inventory!");
-        
         print("LOOT picked up" + lootables.Count);
     }
 
