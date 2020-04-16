@@ -14,7 +14,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (eventData.pointerDrag == null || isCardDropZone && eventData.pointerDrag.CompareTag("Ability")) return;
+        if (eventData.pointerDrag == null || isCardDropZone && eventData.pointerDrag.CompareTag("Ability") || eventData.pointerDrag.CompareTag("Card") && this.transform.parent.tag == "DeckHolder") return;
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
         d.placeholderParent = this.transform;
         d.willPlayCard = false;
@@ -29,7 +29,8 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (eventData.pointerDrag == null) return;
+        print("pointer exit"+this.transform.tag);
+        if (eventData.pointerDrag == null || this.transform.CompareTag("Card") && eventData.pointerDrag.CompareTag("Card")) return;
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
         d.placeholderParent = null;
         if (isDeckHolder)
