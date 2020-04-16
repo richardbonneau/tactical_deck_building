@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 
 public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    [System.NonSerialized] public Transform parentToReturnTo;
-    [System.NonSerialized] public Transform placeholderParent;
+     public Transform parentToReturnTo;
+     public Transform placeholderParent;
     public GameObject placeholderPrefab;
     [System.NonSerialized] public GameObject placeholder;
 
@@ -39,26 +39,26 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         this.transform.position = eventData.position;
         print("parentToReturnTo: "+ parentToReturnTo.name);
         if (placeholderParent == null) {
-            // print(0);
+            print(0);
             return;
             };
         if (this.transform.CompareTag("Ability") && placeholderParent.CompareTag("CardDropZone")) {
-            // print(1);
+            print(1);
             return;
             }
         else if (this.transform.CompareTag("Card") && placeholderParent.CompareTag("CardDropZone") || placeholderParent.GetComponent<DropZone>().dropZoneHasCard) {
-        //    print(2);
+           print(2);
             return;
             }
         else if (this.transform.CompareTag("Card") && placeholderParent.CompareTag("Card")) {
-            // print(3);
+            print(3);
             return;
             }
         else if (placeholder.transform.parent != placeholderParent) {
-            // print(4);
+            print(4);
             placeholder.transform.SetParent(placeholderParent);
             }
-        // print(5);
+        print(5);
         int newSiblingIndex = placeholderParent.childCount;
         for (int i = 0; i < placeholderParent.childCount; i++)
         {
@@ -71,7 +71,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             || isPlayableCard && this.transform.position.y > placeholderParent.GetChild(i).position.y && placeholderParent.transform.CompareTag("Inventory") 
             || isAbility && this.transform.position.y > placeholderParent.GetChild(i).position.y)
             {
-                print("gets here");
+     
                 newSiblingIndex = i;
                 if (placeholder.transform.GetSiblingIndex() < newSiblingIndex) newSiblingIndex--;
                 break;

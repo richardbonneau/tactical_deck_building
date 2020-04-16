@@ -20,9 +20,12 @@ public class UiManager : MonoBehaviour
     public Quaternion healthBarsRotation;
     bool craftMenuOpened = false;
     public GameObject craftMenu;
-    public GameObject cardDropZone;
+    
     public GameObject deckHolder;
     Transform cardToAddToDeck;
+
+    public GameObject cardDropZone;
+    DropZone dropZone;
 
     void Awake()
     {
@@ -30,6 +33,7 @@ public class UiManager : MonoBehaviour
         rect = alertTextContainer.transform.GetChild(0).GetComponent<RectTransform>();
         alertText = alertTextContainer.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         LeanTween.moveLocal(alertTextContainer, new Vector3(0f, 0f, 1100f), 0f);
+        dropZone = cardDropZone.GetComponent<DropZone>();
     }
     void Start()
     {
@@ -63,7 +67,7 @@ public class UiManager : MonoBehaviour
     {
         endTurnBtn.interactable = false;
         craftBtn.interactable = false;
-        
+
     }
     public void EnableEndTurn()
     {
@@ -77,32 +81,43 @@ public class UiManager : MonoBehaviour
         LeanTween.moveLocal(alertTextContainer, new Vector3(0f, 1000f, 0f), 2f).setDelay(5f);
     }
 
-    public void ToggleCraftMenu(){
-        if(craftMenuOpened){
+    public void ToggleCraftMenu()
+    {
+        if (craftMenuOpened)
+        {
             craftMenuOpened = false;
             craftMenu.SetActive(false);
-        } else {
+        }
+        else
+        {
             craftMenuOpened = true;
             craftMenu.SetActive(true);
-            }
+        }
     }
-    public void CraftCard(){
-        cardToAddToDeck = null;
-        if(cardDropZone.transform.childCount == 1) cardToAddToDeck = cardDropZone.transform.GetChild(0);
-        if(cardToAddToDeck == null) return;
-        else{
+    public void CraftCard()
+    {
+        if (cardDropZone.transform.GetChild(0).childCount > 0)
+        {
+            dropZone.CardDropZoneIsAvailable();
+            cardToAddToDeck = null;
+            if (cardDropZone.transform.childCount == 1) cardToAddToDeck = cardDropZone.transform.GetChild(0);
+            if (cardToAddToDeck == null) return;
+            else
+            {
                 // check if all card slots have been filled
 
 
-        // Remove the card from the craftcard spot and add it to the deck.
-            foreach(Transform ability in cardToAddToDeck){
-                ability.GetComponent<CanvasGroup>().blocksRaycasts = false;
+                // Remove the card from the craftcard spot and add it to the deck.
+                foreach (Transform ability in cardToAddToDeck)
+                {
+                    ability.GetComponent<CanvasGroup>().blocksRaycasts = false;
+                }
+                cardToAddToDeck.GetComponent<CardAbilities>().PutAbilitiesOnCard();
+                cardToAddToDeck.SetParent(deckHolder.transform);
             }
-            cardToAddToDeck.GetComponent<CardAbilities>().PutAbilitiesOnCard();
-            cardToAddToDeck.SetParent(deckHolder.transform);
+
         }
-    
-        
+
     }
 
 }

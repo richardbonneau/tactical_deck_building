@@ -8266,6 +8266,21 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2884547287530575732, guid: 4ee905f2f49747f41916f38a0497e75f,
+        type: 3}
+      propertyPath: m_ChildControlHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2884547287530575732, guid: 4ee905f2f49747f41916f38a0497e75f,
+        type: 3}
+      propertyPath: m_ChildScaleHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2884547287530575732, guid: 4ee905f2f49747f41916f38a0497e75f,
+        type: 3}
+      propertyPath: m_ChildForceExpandHeight
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ee905f2f49747f41916f38a0497e75f, type: 3}
 --- !u!224 &170049106 stripped
@@ -11998,8 +12013,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -16230,6 +16245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCardDropZone: 0
+  putCardHere: {fileID: 0}
 --- !u!1001 &343856153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59947,7 +59963,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1196818119}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a4db7a114972834c8e4117be1d82ba3, type: 3}
   m_Name: 
@@ -71799,6 +71815,7 @@ GameObject:
   - component: {fileID: 1458324644}
   - component: {fileID: 1458324643}
   - component: {fileID: 1458324642}
+  - component: {fileID: 1458324646}
   m_Layer: 5
   m_Name: Content
   m_TagString: Inventory
@@ -71827,7 +71844,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.000030517578, y: 0}
-  m_SizeDelta: {x: 0, y: 688}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1458324642
 MonoBehaviour:
@@ -71846,7 +71863,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 44
     m_Bottom: 44
-  m_ChildAlignment: 4
+  m_ChildAlignment: 1
   m_Spacing: 100
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -71867,6 +71884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCardDropZone: 0
+  putCardHere: {fileID: 0}
 --- !u!114 &1458324644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71903,6 +71921,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458324640}
   m_CullTransparentMesh: 0
+--- !u!114 &1458324646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458324640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!4 &1459406941 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4897653200368869725, guid: 996b75cfce256dd42bd2b03e62bb61b8,
@@ -80041,8 +80073,8 @@ MonoBehaviour:
   alertTextContainer: {fileID: 1040052690}
   healthBarsRotation: {x: 0, y: 0, z: 0, w: 0}
   craftMenu: {fileID: 1728974215}
-  cardDropZone: {fileID: 6053693118623538668}
   deckHolder: {fileID: 341683008}
+  cardDropZone: {fileID: 6053693118623538668}
 --- !u!4 &1612067043
 Transform:
   m_ObjectHideFlags: 0
@@ -86611,14 +86643,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 1}
+  m_Material: {fileID: 2100000, guid: a4ba6452393c9934fbda3b88896675cc, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: c8957a17bfe65ec47ac205f805f7ee0f, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -105954,6 +105986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCardDropZone: 1
+  putCardHere: {fileID: 243451374}
 --- !u!222 &6053693118623538640
 CanvasRenderer:
   m_ObjectHideFlags: 0
