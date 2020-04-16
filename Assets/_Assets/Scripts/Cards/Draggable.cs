@@ -24,6 +24,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnBeginDrag(PointerEventData eventData)
     {
         placeholder = Instantiate(placeholderPrefab, this.transform.position, Quaternion.identity);
+
         placeholder.transform.SetParent(this.transform.parent);
         placeholder.transform.SetSiblingIndex(this.transform.GetSiblingIndex());
 

@@ -59402,7 +59402,7 @@ MonoBehaviour:
   m_ScrollSensitivity: 30
   m_Viewport: {fileID: 0}
   m_HorizontalScrollbar: {fileID: 0}
-  m_VerticalScrollbar: {fileID: 1196818125}
+  m_VerticalScrollbar: {fileID: 0}
   m_HorizontalScrollbarVisibility: 0
   m_VerticalScrollbarVisibility: 0
   m_HorizontalScrollbarSpacing: 0
@@ -59466,7 +59466,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_Value: 0.5
-  m_Size: 0.46583852
+  m_Size: 0.46583855
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -71535,6 +71535,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2884547287530575732, guid: 4ee905f2f49747f41916f38a0497e75f,
+        type: 3}
+      propertyPath: m_ChildControlWidth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2884547287530575732, guid: 4ee905f2f49747f41916f38a0497e75f,
+        type: 3}
+      propertyPath: m_ChildControlHeight
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ee905f2f49747f41916f38a0497e75f, type: 3}
@@ -104579,7 +104589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1a2917035dcd74185ae2f00af60492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCardDropZone: 0
+  isCardDropZone: 1
 --- !u!222 &6053693118623538640
 CanvasRenderer:
   m_ObjectHideFlags: 0
