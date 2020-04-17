@@ -14,6 +14,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     [System.NonSerialized] public bool isPlacingAbilityOnCard = false;
     bool isPlayableCard = false;
     bool isAbility = false;
+    [System.NonSerialized] public bool stopDrag = false;
 
     void Awake()
     {
@@ -23,13 +24,14 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        stopDrag = false;
         placeholder = Instantiate(placeholderPrefab, this.transform.position, Quaternion.identity);
 
         placeholder.transform.SetParent(this.transform.parent);
         placeholder.transform.SetSiblingIndex(this.transform.GetSiblingIndex());
         parentToReturnTo = this.transform.parent;
         placeholderParent = parentToReturnTo;
-        if (this.transform.CompareTag("Ability") && parentToReturnTo.CompareTag("Card") || parentToReturnTo.CompareTag("Inventory")) this.transform.SetParent(this.transform.parent.parent.parent);
+        if (isAbility && parentToReturnTo.CompareTag("Card") || parentToReturnTo.CompareTag("Inventory")) this.transform.SetParent(this.transform.parent.parent.parent);
         else this.transform.SetParent(this.transform.parent.parent);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
@@ -37,28 +39,28 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnDrag(PointerEventData eventData)
     {
         this.transform.position = eventData.position;
-        print("parentToReturnTo: "+ parentToReturnTo.name);
-        if (placeholderParent == null) {
-            print(0);
+        // print("parentToReturnTo: "+ parentToReturnTo.name);
+        if (placeholderParent == null || stopDrag) {
+            // print(0);
             return;
             };
-        if (this.transform.CompareTag("Ability") && placeholderParent.CompareTag("CardDropZone")) {
-            print(1);
+        if (isAbility && placeholderParent.CompareTag("CardDropZone")) {
+            // print(1);
             return;
             }
-        else if (this.transform.CompareTag("Card") && placeholderParent.CompareTag("CardDropZone") || placeholderParent.GetComponent<DropZone>().dropZoneHasCard) {
-           print(2);
+        else if (isPlayableCard && placeholderParent.CompareTag("CardDropZone") || placeholderParent.GetComponent<DropZone>().dropZoneHasCard) {
+        //    print(2);
             return;
             }
-        else if (this.transform.CompareTag("Card") && placeholderParent.CompareTag("Card")) {
-            print(3);
+        else if (isPlayableCard && placeholderParent.CompareTag("Card")) {
+            // print(3);
             return;
             }
         else if (placeholder.transform.parent != placeholderParent) {
-            print(4);
+            // print(4);
             placeholder.transform.SetParent(placeholderParent);
             }
-        print(5);
+        // print(5);
         int newSiblingIndex = placeholderParent.childCount;
         for (int i = 0; i < placeholderParent.childCount; i++)
         {

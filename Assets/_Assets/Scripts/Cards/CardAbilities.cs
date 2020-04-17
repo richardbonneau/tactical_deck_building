@@ -16,6 +16,7 @@ public class CardAbilities : MonoBehaviour
     public List<int> actionsValues = new List<int>();
     public Image cardImage;
     public int tier = 1;
+    
 
 
     bool cardActive = false;
@@ -76,6 +77,11 @@ public class CardAbilities : MonoBehaviour
         }
     }
 
+    public bool IsCardFull(){
+        print("is card full");
+        print(tier+" "+this.transform.childCount);
+        return this.transform.childCount >= tier;
+    }
     public void PlayCard()
     {
         cardActive = true;

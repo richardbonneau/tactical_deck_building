@@ -127,7 +127,6 @@ public class GridCreator : MonoBehaviour
                 grid[x, z] = new Node(x, z, new Vector3(gridSpawnPoint.x + x, 0, gridSpawnPoint.z + z), walkable);
             }
         }
-        print("-----------------finished creating grid");
     }
 
 
@@ -141,7 +140,6 @@ public class GridCreator : MonoBehaviour
 
     public Node NodeFromWorldPoint(Vector3 worldPosition)
     {
-        print("node from worldp oint");
         int x = Mathf.RoundToInt(worldPosition.x - gridSpawnPoint.x);
         int z = Mathf.RoundToInt(worldPosition.z - gridSpawnPoint.z);
         if (x < 0 || z < 0 || x > grid.GetLength(0) - 1 || z > grid.GetLength(1) - 1)
