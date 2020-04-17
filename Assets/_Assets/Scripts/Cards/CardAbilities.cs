@@ -14,6 +14,8 @@ public class CardAbilities : MonoBehaviour
     List<CardAction> cardActions = new List<CardAction>();
     public List<string> actionsTypes = new List<string>();
     public List<int> actionsValues = new List<int>();
+    public Image cardImage;
+    public int tier = 1;
 
 
     bool cardActive = false;
@@ -21,6 +23,7 @@ public class CardAbilities : MonoBehaviour
     public bool currentlyDoingAnAction = false;
     void Awake()
     {
+        cardImage = this.GetComponent<Image>();
         GameObject gridManager = GameObject.FindWithTag("GridManager");
         pathfinder = gridManager.GetComponent<Pathfinder>();
         GameObject cardsManagerObj = GameObject.FindWithTag("CardsManager");
@@ -32,6 +35,21 @@ public class CardAbilities : MonoBehaviour
     }
     void Start()
     {
+        switch (tier)
+        {
+            case 1:
+                cardImage.color = new Color32(70, 231, 0, 169);
+                break;
+            case 2:
+                cardImage.color = new Color32(241, 83, 12, 169);
+                break;
+            case 3:
+                cardImage.color = new Color32(231, 8, 222, 169);
+                break;
+            default:
+                print("Card Tier not found");
+                break;
+        }
         PutAbilitiesOnCard();
     }
     void Update()
@@ -41,13 +59,14 @@ public class CardAbilities : MonoBehaviour
             if (cardActive && !currentlyDoingAnAction) PlayAction();
         }
         else CardUsed();
-        
+
     }
 
-    public void PutAbilitiesOnCard(){
-        foreach(Transform child in this.transform)
+    public void PutAbilitiesOnCard()
+    {
+        foreach (Transform child in this.transform)
         {
-        child.GetComponent<SingleAction>().PutAbilityOnParentCard();
+            child.GetComponent<SingleAction>().PutAbilityOnParentCard();
         }
         for (int i = 0; i < actionsValues.Count; i++)
         {
