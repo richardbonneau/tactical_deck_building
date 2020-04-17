@@ -10,6 +10,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     [System.NonSerialized] public bool dropZoneHasCard = false;
     public GameObject putCardHere;
     CardAbilities cardAbilities;
+    GameObject inventory;
 
     bool isCard = false;
     void Start()
@@ -18,9 +19,11 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         {
             isCard = true;
             cardAbilities = this.GetComponent<CardAbilities>();
+            inventory = GameObject.FindWithTag("Inventory");
         }
         if (this.transform.CompareTag("DeckHolder")) isDeckHolder = true;
         if (this.transform.CompareTag("CardDropZone")) isCardDropZone = true;
+
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -60,7 +63,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         {
             d.isPlacingAbilityOnCard = false;
             d.placeholderParent = this.transform.parent;
-            d.parentToReturnTo = this.transform.parent;
+            d.parentToReturnTo = inventory.transform;
         }
     }
     public void OnDrop(PointerEventData eventData)
