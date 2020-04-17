@@ -57,6 +57,12 @@ public class SingleAction : MonoBehaviour
                     return "Heal Self " + val;
                     break;
                 }
+            case "area":
+                {
+                    iconImage.sprite = cardsManager.abilityIcons[3];
+                    return "Ranged AoE Attack " + val;
+                    break;
+                }
 
             default:
                 print("Ability Type not found");
