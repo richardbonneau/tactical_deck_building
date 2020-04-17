@@ -20,6 +20,7 @@ public class Attacks : MonoBehaviour
     int attackAmount = 0;
     public ObjectPooler attackIndicatorsPool;
     List<GameObject> attackIndicators = new List<GameObject>();
+    public GameObject aoeExplosionEffect;
     void Awake()
     {
         playerAnimator = player.GetComponent<Animator>();
@@ -55,6 +56,9 @@ public class Attacks : MonoBehaviour
                     if (Input.GetMouseButtonDown(0))
                     {
                         print("AOE ATTACK");
+                        aoeExplosionEffect.transform.position = attackIndicators[attackIndicators.Count - 1].transform.position;
+                        StartCoroutine(aoeExplosion());
+
                         // GameObject target = targets.Find(enemy => enemy.transform.position == mouseSelectWorldPosition);
                         // AttackTarget(target);
                     }
@@ -89,6 +93,12 @@ public class Attacks : MonoBehaviour
     }
 
 
+    private IEnumerator aoeExplosion()
+    {
+        aoeExplosionEffect.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+        aoeExplosionEffect.SetActive(false);
+    }
     public void AreaAttack(int atkAmount)
     {
         hasToChooseAoeTarget = true;
