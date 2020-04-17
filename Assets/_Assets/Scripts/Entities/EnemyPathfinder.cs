@@ -7,7 +7,7 @@ public class EnemyPathfinder : MonoBehaviour
 
     public GameObject player;
     public Camera mainCam;
-    [System.NonSerialized] public Node enemyNode;
+    public Node enemyNode;
     Animator animator;
     bool isCurrentlyMoving = false;
     public bool isAllowedToMove = false;
@@ -38,11 +38,14 @@ public class EnemyPathfinder : MonoBehaviour
         ObjectPooler[] objectPoolers = GameObject.FindWithTag("ObjectPooler").GetComponents<ObjectPooler>();
         moveGridPool = objectPoolers[0];
         movePathPool = objectPoolers[1];
+
+   
     }
     void Start()
     {
-        enemyNode = grid.NodeFromWorldPoint(this.transform.position);
+     enemyNode = grid.NodeFromWorldPoint(this.transform.position);
         enemyNode.walkable = false;
+        print("enemy pathfinder: "+enemyNode.worldPosition);
     }
     void EntityCurrentlyMoving()
     {
