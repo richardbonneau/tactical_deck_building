@@ -8,6 +8,7 @@ public class PlayerStatus : MonoBehaviour
     public int allowedMovement = 5;
     public Node playerNode;
     public GameObject player;
+    int maxHealth = 15;
     public int health = 15;
     public bool isDead = false;
     public UiManager uiManager;
@@ -40,6 +41,7 @@ public class PlayerStatus : MonoBehaviour
     private IEnumerator HealWithPause(int amount)
     {
         health += amount;
+        if (health > maxHealth) health = maxHealth;
         uiManager.DisplayNewRoundMessage("You healed " + amount + " HP!");
         yield return new WaitForSeconds(2f);
         originCard.NextAction();
