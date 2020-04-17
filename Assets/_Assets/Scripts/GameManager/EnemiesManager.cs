@@ -51,7 +51,6 @@ public class EnemiesManager : MonoBehaviour
     }
     public void BeginEnemyPhase()
     {
-
         if(activeEnemies.Count > 0){
             currentEnemyTurn = 0;
             activeEnemy = activeEnemies[currentEnemyTurn];
@@ -85,7 +84,7 @@ public class EnemiesManager : MonoBehaviour
         GameObject randomItem = randomLootItems[Random.Range(0, randomLootItems.Count)];
         GameObject lootToAdd = Instantiate(randomItem, new Vector3(0,0,0), Quaternion.identity);
         lootToAdd.transform.SetParent(inventory.transform, false);
-        uiManager.DisplayAlertMessage(lootToAdd.name+" added to Inventory!");
+        uiManager.DisplayLootedMessage(lootToAdd.name+" added to Inventory!");
         print("LOOT picked up" + lootables.Count);
     }
 

@@ -90,18 +90,18 @@ public class CardAbilities : MonoBehaviour
     }
     void CardUsed()
     {
-
         LeanTween.scale(this.gameObject.GetComponent<RectTransform>(), new Vector3(1,1,1), 0.5f);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         print("CARD USED");
         cardActive = false;
         currentActionIndex = 0;
         cardsManager.CardUsed(this.gameObject);
-        uiManager.EnableEndTurn();
+        uiManager.EnableCrafting();
     }
     
     void PlayAction()
     {
+        uiManager.DisableCrafting();
         currentlyDoingAnAction = true;
         this.transform.GetChild(currentActionIndex).transform.GetChild(0).GetComponent<Image>().enabled = true;
         if (cardActions[currentActionIndex].actionType == "move") EnablePlayerMove(cardActions[currentActionIndex].value);
