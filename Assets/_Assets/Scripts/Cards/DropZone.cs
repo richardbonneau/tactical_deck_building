@@ -14,15 +14,13 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     bool isCard = false;
     void Start()
     {
-        print("tag? :"+this.gameObject.tag);
-        if(this.gameObject.CompareTag("Card")) {
-            print("IT IS A CARD");
+        if (this.gameObject.CompareTag("Card"))
+        {
             isCard = true;
             cardAbilities = this.GetComponent<CardAbilities>();
-            print("CARD ABILITIEs: "+cardAbilities);
-            }
+        }
         if (this.transform.CompareTag("DeckHolder")) isDeckHolder = true;
-        if(this.transform.CompareTag("CardDropZone")) isCardDropZone = true;
+        if (this.transform.CompareTag("CardDropZone")) isCardDropZone = true;
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -32,27 +30,34 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
         d.placeholderParent = this.transform;
         d.willPlayCard = false;
-        
-        if (eventData.pointerDrag.CompareTag("Ability") && isCard && !cardAbilities.IsCardFull())
+
+        if (eventData.pointerDrag.CompareTag("Ability") && isCard)
         {
-            print(this.transform.childCount+" " + " "+cardAbilities.tier);
-            d.isPlacingAbilityOnCard = true;
-            d.placeholderParent = this.transform;
-            d.parentToReturnTo = this.transform;
-        } else d.stopDrag = true;
+            if (!cardAbilities.IsCardFull())
+            {
+                print(this.transform.childCount + " " + " " + cardAbilities.tier);
+                d.isPlacingAbilityOnCard = true;
+                d.placeholderParent = this.transform;
+                d.parentToReturnTo = this.transform;
+            }
+            else d.stopDrag = true;
+
+        }
+
 
     }
     public void OnPointerExit(PointerEventData eventData)
     {
         if (eventData.pointerDrag == null || isCard && eventData.pointerDrag.CompareTag("Card")) return;
-        if(isCardDropZone && dropZoneHasCard && eventData.pointerDrag.CompareTag("Card")) CardDropZoneIsAvailable();
+        if (isCardDropZone && dropZoneHasCard && eventData.pointerDrag.CompareTag("Card")) CardDropZoneIsAvailable();
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
         d.placeholderParent = null;
         if (isDeckHolder)
         {
             d.willPlayCard = true;
         }
-        if(eventData.pointerDrag.CompareTag("Ability") && isCard){
+        if (eventData.pointerDrag.CompareTag("Ability") && isCard)
+        {
             d.isPlacingAbilityOnCard = false;
             d.placeholderParent = this.transform.parent;
             d.parentToReturnTo = this.transform.parent;
@@ -60,27 +65,31 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     }
     public void OnDrop(PointerEventData eventData)
     {
-        print(this.gameObject.name+" "+this.gameObject.tag);
+        print(this.gameObject.name + " " + this.gameObject.tag);
         if (eventData.pointerDrag == null) return;
-        if (isCard && (eventData.pointerDrag.CompareTag("Card") || cardAbilities.IsCardFull())) {
+        if (isCard && (eventData.pointerDrag.CompareTag("Card") || cardAbilities.IsCardFull()))
+        {
             print("retrun 2");
-            return;}
+            return;
+        }
 
-        if (isCardDropZone && eventData.pointerDrag.CompareTag("Ability") ) return;
+        if (isCardDropZone && eventData.pointerDrag.CompareTag("Ability")) return;
 
         if (isCardDropZone && eventData.pointerDrag.CompareTag("Card"))
         {
             if (dropZoneHasCard) return;
-            else {
+            else
+            {
                 putCardHere.SetActive(false);
                 dropZoneHasCard = true;
-                }
+            }
         }
         eventData.pointerDrag.GetComponent<Draggable>().parentToReturnTo = this.transform;
     }
-    public void CardDropZoneIsAvailable(){
-          putCardHere.SetActive(true);
-            dropZoneHasCard = false;
+    public void CardDropZoneIsAvailable()
+    {
+        putCardHere.SetActive(true);
+        dropZoneHasCard = false;
     }
 
 }

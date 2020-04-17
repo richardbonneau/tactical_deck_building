@@ -16,6 +16,7 @@ public class RoundManager : MonoBehaviour
     void Start()
     {
         uiManager.ChangeRoundOnTheUI();
+
     }
 
     public void NextRound()

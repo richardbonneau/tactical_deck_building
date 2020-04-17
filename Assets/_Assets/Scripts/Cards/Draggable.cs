@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 
 public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-     public Transform parentToReturnTo;
-     public Transform placeholderParent;
+    public Transform parentToReturnTo;
+    public Transform placeholderParent;
     public GameObject placeholderPrefab;
     [System.NonSerialized] public GameObject placeholder;
 
@@ -39,28 +39,33 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnDrag(PointerEventData eventData)
     {
         this.transform.position = eventData.position;
-        // print("parentToReturnTo: "+ parentToReturnTo.name);
-        if (placeholderParent == null || stopDrag) {
-            // print(0);
+        print("parentToReturnTo: " + parentToReturnTo.name + "STOP DRAG " + stopDrag.ToString());
+        if (placeholderParent == null || stopDrag)
+        {
+            print(0);
             return;
-            };
-        if (isAbility && placeholderParent.CompareTag("CardDropZone")) {
-            // print(1);
+        };
+        if (isAbility && placeholderParent.CompareTag("CardDropZone"))
+        {
+            print(1);
             return;
-            }
-        else if (isPlayableCard && placeholderParent.CompareTag("CardDropZone") || placeholderParent.GetComponent<DropZone>().dropZoneHasCard) {
-        //    print(2);
+        }
+        else if (isPlayableCard && placeholderParent.CompareTag("CardDropZone") || placeholderParent.GetComponent<DropZone>().dropZoneHasCard)
+        {
+            print(2);
             return;
-            }
-        else if (isPlayableCard && placeholderParent.CompareTag("Card")) {
-            // print(3);
+        }
+        else if (isPlayableCard && placeholderParent.CompareTag("Card"))
+        {
+            print(3);
             return;
-            }
-        else if (placeholder.transform.parent != placeholderParent) {
-            // print(4);
+        }
+        else if (placeholder.transform.parent != placeholderParent)
+        {
+            print(4);
             placeholder.transform.SetParent(placeholderParent);
-            }
-        // print(5);
+        }
+        print(5);
         int newSiblingIndex = placeholderParent.childCount;
         for (int i = 0; i < placeholderParent.childCount; i++)
         {
@@ -69,11 +74,11 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             // print("b "+(isPlayableCard && this.transform.position.y > placeholderParent.GetChild(i).position.y && placeholderParent.transform.CompareTag("Inventory")).ToString());
             // print("c "+(isAbility && this.transform.position.y > placeholderParent.GetChild(i).position.y).ToString());
 
-            if (isPlayableCard && this.transform.position.x < placeholderParent.GetChild(i).position.x 
-            || isPlayableCard && this.transform.position.y > placeholderParent.GetChild(i).position.y && placeholderParent.transform.CompareTag("Inventory") 
+            if (isPlayableCard && this.transform.position.x < placeholderParent.GetChild(i).position.x
+            || isPlayableCard && this.transform.position.y > placeholderParent.GetChild(i).position.y && placeholderParent.transform.CompareTag("Inventory")
             || isAbility && this.transform.position.y > placeholderParent.GetChild(i).position.y)
             {
-     
+
                 newSiblingIndex = i;
                 if (placeholder.transform.GetSiblingIndex() < newSiblingIndex) newSiblingIndex--;
                 break;

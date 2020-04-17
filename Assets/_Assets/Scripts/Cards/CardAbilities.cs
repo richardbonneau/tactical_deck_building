@@ -75,7 +75,8 @@ public class CardAbilities : MonoBehaviour
         }
     }
 
-    public bool IsCardFull(){
+    public bool IsCardFull()
+    {
         return this.transform.childCount >= tier;
     }
     public void PlayCard()
@@ -90,15 +91,14 @@ public class CardAbilities : MonoBehaviour
     }
     void CardUsed()
     {
-        LeanTween.scale(this.gameObject.GetComponent<RectTransform>(), new Vector3(1,1,1), 0.5f);
+        LeanTween.scale(this.gameObject.GetComponent<RectTransform>(), new Vector3(1, 1, 1), 0.5f);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
-        print("CARD USED");
         cardActive = false;
         currentActionIndex = 0;
         cardsManager.CardUsed(this.gameObject);
         uiManager.EnableCrafting();
     }
-    
+
     void PlayAction()
     {
         uiManager.DisableCrafting();

@@ -43,7 +43,6 @@ public class EnemyPathfinder : MonoBehaviour
     {
         enemyNode = grid.NodeFromWorldPoint(this.transform.position);
         enemyNode.walkable = false;
-        print("enemy pathfinder: "+this.gameObject.name+enemyNode.worldPosition);
     }
     void EntityCurrentlyMoving()
     {
@@ -63,7 +62,7 @@ public class EnemyPathfinder : MonoBehaviour
             enemyStatus.NextAction();
             enemyStatus.currentlyDoingAnAction = false;
             enemyStatus.enemyNode = enemyNode;
-            
+
         }
         else
         {

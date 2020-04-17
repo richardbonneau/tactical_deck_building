@@ -13,6 +13,7 @@ public class GridCreator : MonoBehaviour
     public GameObject player;
     public List<GameObject> rooms = new List<GameObject>();
     int roomIndex = 0;
+    List<GameObject> currentRoomDoorTriggers = new List<GameObject>();
 
 
     public static List<Vector2> obstaclesCoordinates = new List<Vector2>();
@@ -35,14 +36,22 @@ public class GridCreator : MonoBehaviour
         rooms[roomIndex].SetActive(false);
         roomIndex = doorTriggerNode.nextRoomIndex;
         // clear the list of active enemies
-        
+
         enemiesManager.FindAllActiveEnemies();
         // activate all new enemies
         CreateGrid();
 
+
+
         //  put veil over old room, remove veil on new room
         // Move Camera,
-
+    }
+    public void EnableDoorTriggers()
+    {
+        foreach (GameObject trigger in currentRoomDoorTriggers)
+        {
+            trigger.SetActive(true);
+        }
     }
 
     public List<Node> FindPath(Vector3 startPos, Vector3 endPos, bool isEnemy)
@@ -84,10 +93,10 @@ public class GridCreator : MonoBehaviour
             List<Node> neighbours = GetNeighbours(lowestCostNode);
             foreach (Node neighbour in neighbours)
             {
-                
+
                 if (!neighbour.walkable || closedNodes.Contains(neighbour)) continue;
-                else if(isEnemy && neighbour.lootable) continue;
-            
+                else if (isEnemy && neighbour.lootable) continue;
+
                 int newCostToNeighbour = lowestCostNode.gCost + GetDistance(lowestCostNode, neighbour);
                 bool openNodesListContainsNeighbour = openNodes.Contains(neighbour);
                 if (newCostToNeighbour < neighbour.gCost || !openNodesListContainsNeighbour)
@@ -126,6 +135,13 @@ public class GridCreator : MonoBehaviour
                 bool walkable = true;
                 grid[x, z] = new Node(x, z, new Vector3(gridSpawnPoint.x + x, 0, gridSpawnPoint.z + z), walkable);
             }
+        }
+        currentRoomDoorTriggers.Clear();
+        GameObject[] doorTriggers = GameObject.FindGameObjectsWithTag("DoorTrigger");
+        foreach (GameObject trigger in doorTriggers)
+        {
+            trigger.SetActive(false);
+            currentRoomDoorTriggers.Add(trigger);
         }
     }
 

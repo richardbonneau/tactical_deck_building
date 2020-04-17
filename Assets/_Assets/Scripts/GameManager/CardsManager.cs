@@ -35,13 +35,13 @@ public class CardsManager : MonoBehaviour
     {
         deckToggledOn = true;
         LeanTween.moveY(rect, -66, .65f).setEase(LeanTweenType.easeInOutCubic);
-        
+
     }
     public void NextRound()
     {
         cardsPlayed = 0;
         ToggleDeckOn();
-        
+
     }
     public void CardUsed(GameObject usedCard)
     {
@@ -61,25 +61,26 @@ public class CardsManager : MonoBehaviour
             PlayerTurnDone();
         }
 
-        if(deckHolder.transform.childCount < 1) ReShuffleAndLoseOne();
+        if (deckHolder.transform.childCount < 1) ReShuffleAndLoseOne();
 
     }
-    public void ReShuffleAndLoseOne(){
+    public void ReShuffleAndLoseOne()
+    {
         GameObject cardToLose = discardedCards[Random.Range(0, discardedCards.Count)];
         discardedCards.Remove(cardToLose);
-        
-        foreach(GameObject card in discardedCards){
+
+        foreach (GameObject card in discardedCards)
+        {
             card.SetActive(true);
             card.transform.SetParent(deckHolder.transform);
         }
         // lose one card
-        uiManager.DisplayReshuffleMessage("Deck Reshuffled! You lost a tier "+cardToLose.GetComponent<CardAbilities>().tier+" card in the process.");
+        uiManager.DisplayReshuffleMessage("Deck Reshuffled! You lost a tier " + cardToLose.GetComponent<CardAbilities>().tier + " card in the process.");
         Destroy(cardToLose);
         // ui.sendmessage reshuffling. you lost this card in the process, ok
     }
     void PlayerTurnDone()
     {
-        print("player turn done");
         uiManager.EnableEndTurn();
     }
 

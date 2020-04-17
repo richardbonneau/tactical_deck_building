@@ -121,7 +121,7 @@ public class UiManager : MonoBehaviour
     private IEnumerator AlertMessageCooldown(GameObject container, Vector3 position)
     {
         LeanTween.moveLocal(container, position, .5f);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(6f);
         LeanTween.moveLocal(container, new Vector3(0f, 1000f, 0f), 2f);
     }
 

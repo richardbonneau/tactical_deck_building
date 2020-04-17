@@ -59,7 +59,7 @@ public class Attacks : MonoBehaviour
         }
         if (targets.Count == 0)
         {
-            uiManager.DisplayNoTargetsMessage("There are no targets to attack.");
+            uiManager.DisplayNoTargetsMessage("Your Attack Ability has no targets.");
             originCard.NextAction();
         }
 

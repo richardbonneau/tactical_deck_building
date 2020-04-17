@@ -22,7 +22,8 @@ public class EnemiesManager : MonoBehaviour
     {
         FindAllActiveEnemies();
     }
-    public void FindAllActiveEnemies(){
+    public void FindAllActiveEnemies()
+    {
         GameObject[] allEnemiesInScene = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in allEnemiesInScene)
         {
@@ -45,18 +46,22 @@ public class EnemiesManager : MonoBehaviour
         activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
         activeEnemyStatus.currentlyDoingTurn = true;
     }
-    IEnumerator WaitAndNextRound(){
+    IEnumerator WaitAndNextRound()
+    {
         yield return new WaitForSeconds(1f);
         roundManager.NextRound();
     }
     public void BeginEnemyPhase()
     {
-        if(activeEnemies.Count > 0){
+        if (activeEnemies.Count > 0)
+        {
             currentEnemyTurn = 0;
             activeEnemy = activeEnemies[currentEnemyTurn];
             activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
             activeEnemyStatus.currentlyDoingTurn = true;
-        } else {
+        }
+        else
+        {
             StartCoroutine(WaitAndNextRound());
         }
     }
@@ -64,7 +69,7 @@ public class EnemiesManager : MonoBehaviour
     {
         GameObject newLootable = Instantiate(lootableVisual, position, Quaternion.identity);
         lootables.Add(newLootable);
-        print("WALKABLE?: "+gridCreator.NodeFromWorldPoint(position).walkable);
+        print("WALKABLE?: " + gridCreator.NodeFromWorldPoint(position).walkable);
     }
 
     public void LootablePickedUp(Vector3 position)
@@ -72,24 +77,27 @@ public class EnemiesManager : MonoBehaviour
         print("PICKING UP LOOT" + lootables.Count);
         foreach (GameObject loot in lootables)
         {
-            if (loot.transform.position == position) {
+            if (loot.transform.position == position)
+            {
                 lootToRemove = loot;
                 break;
-                }
+            }
         }
 
         lootables.Remove(lootToRemove);
         Destroy(lootToRemove);
         lootToRemove = null;
         GameObject randomItem = randomLootItems[Random.Range(0, randomLootItems.Count)];
-        GameObject lootToAdd = Instantiate(randomItem, new Vector3(0,0,0), Quaternion.identity);
+        GameObject lootToAdd = Instantiate(randomItem, new Vector3(0, 0, 0), Quaternion.identity);
         lootToAdd.transform.SetParent(inventory.transform, false);
-        uiManager.DisplayLootedMessage(lootToAdd.name+" added to Inventory!");
+        uiManager.DisplayLootedMessage(lootToAdd.name + " added to Inventory!");
         print("LOOT picked up" + lootables.Count);
     }
 
-    public void ClearAllEnemies(){
-        foreach(GameObject enemy in activeEnemies){
+    public void ClearAllEnemies()
+    {
+        foreach (GameObject enemy in activeEnemies)
+        {
             Destroy(enemy);
         }
         activeEnemies.Clear();
@@ -110,5 +118,6 @@ public class EnemiesManager : MonoBehaviour
                 else NextEnemyTurn();
             }
         }
+        else if (activeEnemies.Count < 1) gridCreator.EnableDoorTriggers();
     }
 }

@@ -30,19 +30,15 @@ public class EnemyStatus : MonoBehaviour
         enemiesManager = GameObject.FindWithTag("EnemiesManager").GetComponent<EnemiesManager>();
         gridCreator = GameObject.FindWithTag("GridManager").GetComponent<GridCreator>();
         player = GameObject.FindWithTag("Player");
-        
-        
+
+
     }
-    
+
     void Start()
     {
         animator = GetComponent<Animator>();
         enemyPathfinder = this.GetComponent<EnemyPathfinder>();
         enemyNode = enemyPathfinder.enemyNode;
-        print("getting enemy node");
-        print(this.gameObject.name);
-        print(enemyPathfinder);
-        print("enemystatus: "+enemyNode.worldPosition);
     }
     public void GetHit()
     {
@@ -91,7 +87,8 @@ public class EnemyStatus : MonoBehaviour
         currentlyDoingAnAction = false;
         NextAction();
     }
-    void EnemyDied(){
+    void EnemyDied()
+    {
         isDead = true;
         animator.SetBool("isDead", true);
         enemiesManager.activeEnemies.Remove(this.gameObject);
