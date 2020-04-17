@@ -45,7 +45,6 @@ public class CardsManager : MonoBehaviour
     }
     public void CardUsed(GameObject usedCard)
     {
-
         discardedCards.Add(usedCard);
         usedCard.SetActive(false);
         uiManager.AddCardToDiscardPile();
@@ -77,7 +76,7 @@ public class CardsManager : MonoBehaviour
         // lose one card
         uiManager.DisplayReshuffleMessage("Deck Reshuffled! You lost a tier " + cardToLose.GetComponent<CardAbilities>().tier + " card in the process.");
         Destroy(cardToLose);
-        // ui.sendmessage reshuffling. you lost this card in the process, ok
+        uiManager.AddCardToLostPile();
     }
     void PlayerTurnDone()
     {
