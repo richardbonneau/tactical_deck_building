@@ -68,11 +68,11 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     }
     public void OnDrop(PointerEventData eventData)
     {
-        print(this.gameObject.name + " " + this.gameObject.tag);
+        // print(this.gameObject.name + " " + this.gameObject.tag);
         if (eventData.pointerDrag == null) return;
         if (isCard && (eventData.pointerDrag.CompareTag("Card") || cardAbilities.IsCardFull()))
         {
-            print("retrun 2");
+            print("2222");
             return;
         }
 

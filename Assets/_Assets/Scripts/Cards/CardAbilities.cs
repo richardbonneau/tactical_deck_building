@@ -77,7 +77,15 @@ public class CardAbilities : MonoBehaviour
 
     public bool IsCardFull()
     {
-        return this.transform.childCount >= tier;
+        int abilities = 0;
+        print(this.transform.name + " ------- " + this.transform.childCount);
+        for (int i = 0; i < this.transform.childCount; i++)
+        {
+            print(this.transform.name + " " + this.transform.GetChild(i).name + " " + this.transform.GetChild(i).tag);
+            if (this.transform.GetChild(i).CompareTag("Ability")) abilities++;
+        }
+        print("abilities " + abilities + " " + "tier " + tier + (abilities >= tier).ToString());
+        return abilities >= tier;
     }
     public void PlayCard()
     {
