@@ -184,8 +184,6 @@ public class GridCreator : MonoBehaviour
         return neighbours;
     }
 
-
-
     void OnDrawGizmos()
     {
         if (grid != null)

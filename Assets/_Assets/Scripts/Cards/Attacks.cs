@@ -52,6 +52,12 @@ public class Attacks : MonoBehaviour
 
                 if (attackIndicators.Count > 0)
                 {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        print("AOE ATTACK");
+                        // GameObject target = targets.Find(enemy => enemy.transform.position == mouseSelectWorldPosition);
+                        // AttackTarget(target);
+                    }
                     if (attackIndicators[attackIndicators.Count - 1].transform.position == mouseSelectWorldPosition) return;
                     foreach (GameObject indicator in attackIndicators)
                     {
@@ -59,6 +65,7 @@ public class Attacks : MonoBehaviour
                     }
                     attackIndicators.Clear();
                 }
+                print("hollaa");
                 Transform objectHit = hit.transform;
                 List<Node> mousePositionNeighbours = gridCreator.GetNeighbours(gridCreator.NodeFromWorldPoint(mouseSelectWorldPosition));
                 mousePositionNeighbours.Add(gridCreator.NodeFromWorldPoint(mouseSelectWorldPosition));
@@ -72,7 +79,11 @@ public class Attacks : MonoBehaviour
                     }
                     attackIndicators.Add(p);
                 }
+                print("here?");
 
+
+
+                print("here here hjere?");
             }
         }
     }

@@ -33041,7 +33041,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 200.33313, y: 346.54382}
+  m_AnchoredPosition: {x: 200.33313, y: 349.64227}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &657351073
@@ -36780,7 +36780,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 4.2177734, y: 310.54382}
+  m_AnchoredPosition: {x: 4.2178955, y: 313.64227}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &746356660
@@ -50677,6 +50677,7 @@ MonoBehaviour:
   mapSelector: {fileID: 172057272}
   potentialTargetIndicator: {fileID: 5146821589706069813, guid: e45c4c57870dcaa438f3dded6b8a1207,
     type: 3}
+  attackIndicatorsPool: {fileID: 302137859}
 --- !u!1001 &1035987595
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -84644,7 +84645,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 208.76807, y: 310.54382}
+  m_AnchoredPosition: {x: 208.76807, y: 313.64227}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1684779537
@@ -85058,7 +85059,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 52.71924, y: 346.54382}
+  m_AnchoredPosition: {x: 52.71924, y: 349.64227}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1686799456
