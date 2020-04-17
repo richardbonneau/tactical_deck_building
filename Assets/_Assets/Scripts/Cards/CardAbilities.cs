@@ -118,6 +118,9 @@ public class CardAbilities : MonoBehaviour
         if (cardActions[currentActionIndex].actionType == "move") EnablePlayerMove(cardActions[currentActionIndex].value);
         else if (cardActions[currentActionIndex].actionType == "attack") attacks.FindPotentialTargets(cardActions[currentActionIndex].value);
         else if (cardActions[currentActionIndex].actionType == "heal") playerStatus.Heal(cardActions[currentActionIndex].value);
+        else if (cardActions[currentActionIndex].actionType == "area") attacks.AreaAttack(cardActions[currentActionIndex].value);
+
+
     }
     public void EnablePlayerMove(int maxMove)
     {

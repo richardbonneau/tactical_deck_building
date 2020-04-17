@@ -14706,6 +14706,7 @@ GameObject:
   - component: {fileID: 302137856}
   - component: {fileID: 302137857}
   - component: {fileID: 302137858}
+  - component: {fileID: 302137859}
   m_Layer: 0
   m_Name: ObjectPooler
   m_TagString: ObjectPooler
@@ -14759,6 +14760,22 @@ MonoBehaviour:
   objectToPool: {fileID: 4387877599061557004, guid: f825e70f007ed3e4fb794d8767ba7cba,
     type: 3}
   amountToPool: 20
+--- !u!114 &302137859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302137855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edde71e1d48a5a643a254c72a8d9c588, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  objectToPool: {fileID: 5146821589706069813, guid: e45c4c57870dcaa438f3dded6b8a1207,
+    type: 3}
+  amountToPool: 15
 --- !u!1001 &302199085
 PrefabInstance:
   m_ObjectHideFlags: 0
