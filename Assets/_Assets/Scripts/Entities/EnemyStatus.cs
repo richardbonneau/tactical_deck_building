@@ -30,18 +30,19 @@ public class EnemyStatus : MonoBehaviour
         enemiesManager = GameObject.FindWithTag("EnemiesManager").GetComponent<EnemiesManager>();
         gridCreator = GameObject.FindWithTag("GridManager").GetComponent<GridCreator>();
         player = GameObject.FindWithTag("Player");
-        enemyPathfinder = this.GetComponent<EnemyPathfinder>();
-        enemyNode = enemyPathfinder.enemyNode;
+        
+        
     }
     
     void Start()
     {
         animator = GetComponent<Animator>();
-        
+        enemyPathfinder = this.GetComponent<EnemyPathfinder>();
+        enemyNode = enemyPathfinder.enemyNode;
         print("getting enemy node");
         print(this.gameObject.name);
         print(enemyPathfinder);
-        print("enemystatus: "+enemyNode);
+        print("enemystatus: "+enemyNode.worldPosition);
     }
     public void GetHit()
     {

@@ -38,14 +38,12 @@ public class EnemyPathfinder : MonoBehaviour
         ObjectPooler[] objectPoolers = GameObject.FindWithTag("ObjectPooler").GetComponents<ObjectPooler>();
         moveGridPool = objectPoolers[0];
         movePathPool = objectPoolers[1];
-
-   
     }
     void Start()
     {
-     enemyNode = grid.NodeFromWorldPoint(this.transform.position);
+        enemyNode = grid.NodeFromWorldPoint(this.transform.position);
         enemyNode.walkable = false;
-        print("enemy pathfinder: "+enemyNode.worldPosition);
+        print("enemy pathfinder: "+this.gameObject.name+enemyNode.worldPosition);
     }
     void EntityCurrentlyMoving()
     {

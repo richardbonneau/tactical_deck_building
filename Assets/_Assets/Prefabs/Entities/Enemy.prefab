@@ -3571,8 +3571,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1776312896317943668}
   - component: {fileID: 1865493954598782666}
-  - component: {fileID: 365195179}
   - component: {fileID: 1382364349}
+  - component: {fileID: 365195179}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -3635,6 +3635,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1382364349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780197449168335130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f183019043088f84fabe35ca148a56d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  allowedMovement: 10
+  isDead: 0
+  currentlyDoingTurn: 0
+  currentlyDoingAnAction: 0
+  turnDone: 0
 --- !u!114 &365195179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3654,24 +3672,6 @@ MonoBehaviour:
   grid: {fileID: 0}
   moveGridPool: {fileID: 0}
   movePathPool: {fileID: 0}
---- !u!114 &1382364349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1780197449168335130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f183019043088f84fabe35ca148a56d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 10
-  allowedMovement: 10
-  isDead: 0
-  currentlyDoingTurn: 0
-  currentlyDoingAnAction: 0
-  turnDone: 0
 --- !u!1 &1780201228453588362
 GameObject:
   m_ObjectHideFlags: 0
