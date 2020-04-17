@@ -20,12 +20,17 @@ public class UiManager : MonoBehaviour
     public Quaternion healthBarsRotation;
     bool craftMenuOpened = false;
     public GameObject craftMenu;
-    
+
     public GameObject deckHolder;
     Transform cardToAddToDeck;
 
     public GameObject cardDropZone;
     DropZone dropZone;
+
+    public TextMeshProUGUI discardPileUI;
+    public TextMeshProUGUI lostPileUI;
+    int discardPile = 0;
+    int lostPile = 0;
 
     void Awake()
     {
@@ -67,7 +72,6 @@ public class UiManager : MonoBehaviour
     {
         endTurnBtn.interactable = false;
         craftBtn.interactable = false;
-
     }
     public void EnableEndTurn()
     {
@@ -115,9 +119,16 @@ public class UiManager : MonoBehaviour
                 cardToAddToDeck.GetComponent<CardAbilities>().PutAbilitiesOnCard();
                 cardToAddToDeck.SetParent(deckHolder.transform);
             }
-
         }
-
     }
-
+    public void AddCardToDiscardPile()
+    {
+        discardPile++;
+        discardPileUI.text = discardPile.ToString();
+    }
+        public void AddCardToLostPile()
+    {
+        lostPile++;
+        lostPileUI.text = lostPile.ToString();
+    }
 }

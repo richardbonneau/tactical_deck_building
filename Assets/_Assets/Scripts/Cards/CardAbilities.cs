@@ -16,8 +16,6 @@ public class CardAbilities : MonoBehaviour
     public List<int> actionsValues = new List<int>();
     public Image cardImage;
     public int tier = 1;
-    
-
 
     bool cardActive = false;
     public int currentActionIndex = 0;
@@ -78,8 +76,6 @@ public class CardAbilities : MonoBehaviour
     }
 
     public bool IsCardFull(){
-        print("is card full");
-        print(tier+" "+this.transform.childCount);
         return this.transform.childCount >= tier;
     }
     public void PlayCard()
@@ -94,10 +90,16 @@ public class CardAbilities : MonoBehaviour
     }
     void CardUsed()
     {
-        Destroy(this.gameObject);
-        cardsManager.CardUsed();
+
+        LeanTween.scale(this.gameObject.GetComponent<RectTransform>(), new Vector3(1,1,1), 0.5f);
+        GetComponent<CanvasGroup>().blocksRaycasts = true;
+        print("CARD USED");
+        cardActive = false;
+        currentActionIndex = 0;
+        cardsManager.CardUsed(this.gameObject);
         uiManager.EnableEndTurn();
     }
+    
     void PlayAction()
     {
         currentlyDoingAnAction = true;

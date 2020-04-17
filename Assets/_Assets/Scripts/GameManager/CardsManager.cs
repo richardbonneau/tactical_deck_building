@@ -12,10 +12,13 @@ public class CardsManager : MonoBehaviour
     public int maxCardsToBePlayed = 2;
     public int cardsPlayed = 0;
     public List<Sprite> abilityIcons = new List<Sprite>();
+    public List<GameObject> discardedCards = new List<GameObject>();
+    GameObject deckHolder;
 
     void Awake()
     {
         rect = deckUI.GetComponent<RectTransform>();
+        deckHolder = GameObject.FindWithTag("DeckHolder");
     }
 
     public void ToggleDeck()
@@ -40,8 +43,12 @@ public class CardsManager : MonoBehaviour
         ToggleDeckOn();
         
     }
-    public void CardUsed()
+    public void CardUsed(GameObject usedCard)
     {
+        discardedCards.Add(usedCard);
+        usedCard.SetActive(false);
+        uiManager.AddCardToDiscardPile();
+
         cardsPlayed++;
         uiManager.ChangeCardsPlayedOnTheUI();
         if (cardsPlayed < maxCardsToBePlayed)
@@ -53,6 +60,21 @@ public class CardsManager : MonoBehaviour
             PlayerTurnDone();
         }
 
+        if(deckHolder.transform.childCount < 1) ReShuffleAndLoseOne();
+
+    }
+    public void ReShuffleAndLoseOne(){
+        GameObject cardToLose = discardedCards[Random.Range(0, discardedCards.Count)];
+        discardedCards.Remove(cardToLose);
+        
+        foreach(GameObject card in discardedCards){
+            card.SetActive(true);
+            card.transform.SetParent(deckHolder.transform);
+        }
+        // lose one card
+        print(cardToLose.name);
+        Destroy(cardToLose);
+        // ui.sendmessage reshuffling. you lost this card in the process, ok
     }
     void PlayerTurnDone()
     {
