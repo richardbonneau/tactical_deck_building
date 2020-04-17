@@ -677,7 +677,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 150.11499, y: 0, z: 0, w: 0}
+  m_margin: {x: 121.85625, y: 0, z: -8.62376, w: 0}
   m_textInfo:
     textComponent: {fileID: 18377496}
     characterCount: 16
@@ -9814,7 +9814,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1691612493}
+    m_TransformParent: {fileID: 416495243}
     m_Modifications:
     - target: {fileID: 1776312896317943668, guid: c6000e67dbb6313429e5c5183040acfe,
         type: 3}
@@ -9854,7 +9854,7 @@ PrefabInstance:
     - target: {fileID: 1776312896317943668, guid: c6000e67dbb6313429e5c5183040acfe,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1776312896317943668, guid: c6000e67dbb6313429e5c5183040acfe,
         type: 3}
@@ -20660,7 +20660,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1677644282}
   m_Father: {fileID: 1691612493}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -40091,7 +40092,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -18.39795, y: 442.27713}
+  m_AnchoredPosition: {x: -8.435059, y: 442.27713}
   m_SizeDelta: {x: 200, y: 40}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &802877369
@@ -50636,6 +50637,7 @@ MonoBehaviour:
   abilityIcons:
   - {fileID: 21300000, guid: d225c087fbcde194f9089a6d00bcd766, type: 3}
   - {fileID: 21300000, guid: bc153a0a67914c64590b25cc40e94c88, type: 3}
+  - {fileID: 21300000, guid: c60da26e4ce2afd448fa359b7cfbdd12, type: 3}
   discardedCards: []
 --- !u!114 &1033858074
 MonoBehaviour:
@@ -62640,8 +62642,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 777.081, y: -111.505035}
-  m_SizeDelta: {x: 375, y: 120}
+  m_AnchoredPosition: {x: 770.7547, y: -111.505035}
+  m_SizeDelta: {x: 390, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1234266651
 MonoBehaviour:
@@ -66448,6 +66450,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1458324641}
     m_Modifications:
+    - target: {fileID: 846045979, guid: 035952a8f0b347d4dabff05c1e31c6a7, type: 3}
+      propertyPath: actionType
+      value: heal
+      objectReference: {fileID: 0}
+    - target: {fileID: 846045979, guid: 035952a8f0b347d4dabff05c1e31c6a7, type: 3}
+      propertyPath: value
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2806043633848560774, guid: 035952a8f0b347d4dabff05c1e31c6a7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -76271,6 +76281,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: d225c087fbcde194f9089a6d00bcd766,
         type: 3}
+    - target: {fileID: 846045979, guid: 035952a8f0b347d4dabff05c1e31c6a7, type: 3}
+      propertyPath: actionType
+      value: heal
+      objectReference: {fileID: 0}
     - target: {fileID: 2065890993192652442, guid: 035952a8f0b347d4dabff05c1e31c6a7,
         type: 3}
       propertyPath: m_UseSpriteMesh
@@ -85456,7 +85470,6 @@ Transform:
   - {fileID: 1133151628}
   - {fileID: 416495243}
   - {fileID: 1084659080}
-  - {fileID: 1677644282}
   m_Father: {fileID: 359906024}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -106859,6 +106872,10 @@ PrefabInstance:
       propertyPath: gridCreator
       value: 
       objectReference: {fileID: 34158121}
+    - target: {fileID: 166642505, guid: 528a6f790d240cd4184313a8371ab908, type: 3}
+      propertyPath: uiManager
+      value: 
+      objectReference: {fileID: 1612067042}
     - target: {fileID: 940551929104937622, guid: 528a6f790d240cd4184313a8371ab908,
         type: 3}
       propertyPath: m_LocalPosition.x

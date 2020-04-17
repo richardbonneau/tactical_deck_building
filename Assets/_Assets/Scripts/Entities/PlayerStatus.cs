@@ -10,14 +10,17 @@ public class PlayerStatus : MonoBehaviour
     public GameObject player;
     public int health = 15;
     public bool isDead = false;
+    public UiManager uiManager;
     Animator animator;
-    // if more than one vector is changed, its a diagonal movement, therefore it costs 2
+    [System.NonSerialized] public CardAbilities originCard;
+
     void Start()
     {
         animator = GetComponent<Animator>();
         playerNode = gridCreator.NodeFromWorldPoint(player.transform.position);
         playerNode.walkable = false;
     }
+
     void Update()
     {
         if (!isDead)
@@ -28,5 +31,17 @@ public class PlayerStatus : MonoBehaviour
                 animator.SetBool("isDead", true);
             }
         }
+    }
+
+    public void Heal(int healAmount)
+    {
+        StartCoroutine(HealWithPause(healAmount));
+    }
+    private IEnumerator HealWithPause(int amount)
+    {
+        health += amount;
+        uiManager.DisplayNewRoundMessage("You healed " + amount + " HP!");
+        yield return new WaitForSeconds(2f);
+        originCard.NextAction();
     }
 }

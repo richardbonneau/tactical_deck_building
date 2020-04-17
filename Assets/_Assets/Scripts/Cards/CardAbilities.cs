@@ -16,6 +16,7 @@ public class CardAbilities : MonoBehaviour
     public List<int> actionsValues = new List<int>();
     public Image cardImage;
     public int tier = 1;
+    PlayerStatus playerStatus;
 
     bool cardActive = false;
     public int currentActionIndex = 0;
@@ -30,6 +31,7 @@ public class CardAbilities : MonoBehaviour
         attacks = cardsManagerObj.GetComponent<Attacks>();
         activeCardLocation = GameObject.FindWithTag("ActiveCardLocation");
         uiManager = GameObject.FindWithTag("UiManager").GetComponent<UiManager>();
+        playerStatus = GameObject.FindWithTag("Player").GetComponent<PlayerStatus>();
 
     }
     void Start()
@@ -92,6 +94,7 @@ public class CardAbilities : MonoBehaviour
         cardActive = true;
         pathfinder.originCard = this;
         attacks.originCard = this;
+        playerStatus.originCard = this;
         cardsManager.ToggleDeckOff();
         LeanTween.move(this.gameObject, activeCardLocation.transform.position, 0.5f).setEase(LeanTweenType.easeOutQuad);
         LeanTween.scale(this.gameObject.GetComponent<RectTransform>(), gameObject.GetComponent<RectTransform>().localScale * 1.5f, 0.5f);
@@ -114,6 +117,7 @@ public class CardAbilities : MonoBehaviour
         this.transform.GetChild(currentActionIndex).transform.GetChild(0).GetComponent<Image>().enabled = true;
         if (cardActions[currentActionIndex].actionType == "move") EnablePlayerMove(cardActions[currentActionIndex].value);
         else if (cardActions[currentActionIndex].actionType == "attack") attacks.FindPotentialTargets(cardActions[currentActionIndex].value);
+        else if (cardActions[currentActionIndex].actionType == "heal") playerStatus.Heal(cardActions[currentActionIndex].value);
     }
     public void EnablePlayerMove(int maxMove)
     {

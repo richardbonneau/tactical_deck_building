@@ -15,40 +15,53 @@ public class SingleAction : MonoBehaviour
     void Awake()
     {
         cardsManager = GameObject.FindWithTag("CardsManager").GetComponent<CardsManager>();
-        abilityText.text = WriteAbilityName(actionType,value);
-        if(this.transform.parent.CompareTag("Card")) {
+        abilityText.text = WriteAbilityName(actionType, value);
+        if (this.transform.parent.CompareTag("Card"))
+        {
             GetComponent<CanvasGroup>().blocksRaycasts = false;
             parentCardAbilities = this.transform.parent.GetComponent<CardAbilities>();
-        } 
+        }
 
     }
-    public void PutAbilityOnParentCard(){
-        if(this.transform.parent.CompareTag("Card"))  parentCardAbilities = this.transform.parent.GetComponent<CardAbilities>();
-        if(parentCardAbilities != null){
-        parentCardAbilities.actionsTypes.Add(actionType);
-        parentCardAbilities.actionsValues.Add(value);
-       }
+    public void PutAbilityOnParentCard()
+    {
+        if (this.transform.parent.CompareTag("Card")) parentCardAbilities = this.transform.parent.GetComponent<CardAbilities>();
+        if (parentCardAbilities != null)
+        {
+            parentCardAbilities.actionsTypes.Add(actionType);
+            parentCardAbilities.actionsValues.Add(value);
+        }
     }
 
-    string WriteAbilityName(string type, int val){
+    string WriteAbilityName(string type, int val)
+    {
         switch (type)
         {
-          case "move":{
-            iconImage.sprite = cardsManager.abilityIcons[0];
-            return "Move "+val;
-            break;
-          }
-              
-          case "attack":{
-            iconImage.sprite = cardsManager.abilityIcons[1];
-            return "Melee Attack "+val;
-            break;
-          }
-         
-          default:
-              print("Ability Type not found");
-              return type+" "+val;
-              break;
+            case "move":
+                {
+                    iconImage.sprite = cardsManager.abilityIcons[0];
+                    return "Move " + val;
+                    break;
+                }
+
+            case "attack":
+                {
+                    iconImage.sprite = cardsManager.abilityIcons[1];
+                    return "Melee Attack " + val;
+                    break;
+                }
+
+            case "heal":
+                {
+                    iconImage.sprite = cardsManager.abilityIcons[2];
+                    return "Heal Self " + val;
+                    break;
+                }
+
+            default:
+                print("Ability Type not found");
+                return type + " " + val;
+                break;
         }
     }
 }

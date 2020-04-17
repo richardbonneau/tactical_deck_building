@@ -59,10 +59,14 @@ public class Attacks : MonoBehaviour
         }
         if (targets.Count == 0)
         {
-            uiManager.DisplayNoTargetsMessage("Your Attack Ability has no targets.");
-            originCard.NextAction();
+            StartCoroutine(NoTargetsToAttack());
         }
-
+    }
+    private IEnumerator NoTargetsToAttack()
+    {
+        uiManager.DisplayNoTargetsMessage("Your Attack Ability has no targets.");
+        yield return new WaitForSeconds(2f);
+        originCard.NextAction();
     }
     void AttackTarget(GameObject target)
     {
