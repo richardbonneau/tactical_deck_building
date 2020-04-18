@@ -31,12 +31,15 @@ public class UiManager : MonoBehaviour
     Transform cardToAddToDeck;
 
     public GameObject cardDropZone;
+    public GameObject loseCardDropZone;
     DropZone dropZone;
 
     public TextMeshProUGUI discardPileUI;
     public TextMeshProUGUI lostPileUI;
     int discardPile = 0;
     int lostPile = 0;
+
+    public GameObject loseCardUI;
 
     void Awake()
     {
@@ -184,6 +187,31 @@ public class UiManager : MonoBehaviour
             DisplayCrafterMessage("Your need to put " + tier + " abilities on this card in order to craft it");
         }
     }
+
+    public void OpenLoseCardUI()
+    {
+        loseCardUI.SetActive(true);
+    }
+    public void CloseLoseCardUI()
+    {
+        loseCardUI.SetActive(false);
+    }
+    public void LoseCard()
+    {
+        GameObject card = loseCardDropZone.transform.GetChild(0).gameObject;
+
+        if (card != null)
+        {
+            // destroy that card
+            Destroy(card);
+            cardsManager.PutDiscardedCardsBackInMainDeck(card);
+            CloseLoseCardUI();
+            // add all the other cards to the main deck
+            // close the losecard window
+        }
+    }
+
+
     public void AddCardToDiscardPile()
     {
         discardPile++;

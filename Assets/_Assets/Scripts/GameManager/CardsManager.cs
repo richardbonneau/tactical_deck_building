@@ -13,12 +13,12 @@ public class CardsManager : MonoBehaviour
     public int cardsPlayed = 0;
     public List<Sprite> abilityIcons = new List<Sprite>();
     public List<GameObject> discardedCards = new List<GameObject>();
-    GameObject deckHolder;
+    public Transform discardedCardsHolder;
+    public GameObject deckHolder;
 
     void Awake()
     {
         rect = deckUI.GetComponent<RectTransform>();
-        deckHolder = GameObject.FindWithTag("DeckHolder");
     }
 
     public void ToggleDeck()
@@ -46,7 +46,7 @@ public class CardsManager : MonoBehaviour
     public void CardUsed(GameObject usedCard)
     {
         discardedCards.Add(usedCard);
-        usedCard.SetActive(false);
+        usedCard.transform.SetParent(discardedCardsHolder);
         uiManager.AddCardToDiscardPile();
 
         cardsPlayed++;
@@ -65,18 +65,15 @@ public class CardsManager : MonoBehaviour
     }
     public void ReShuffleAndLoseOne()
     {
-        GameObject cardToLose = discardedCards[Random.Range(0, discardedCards.Count)];
-        discardedCards.Remove(cardToLose);
-
+        uiManager.OpenLoseCardUI();
+    }
+    public void PutDiscardedCardsBackInMainDeck(GameObject lostCard)
+    {
+        discardedCards.Remove(lostCard);
         foreach (GameObject card in discardedCards)
         {
-            card.SetActive(true);
             card.transform.SetParent(deckHolder.transform);
         }
-        // lose one card
-        uiManager.DisplayReshuffleMessage("Deck Reshuffled! You lost a tier " + cardToLose.GetComponent<CardAbilities>().tier + " card in the process.");
-        Destroy(cardToLose);
-        uiManager.AddCardToLostPile();
     }
     void PlayerTurnDone()
     {
