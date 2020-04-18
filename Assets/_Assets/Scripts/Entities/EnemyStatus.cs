@@ -18,6 +18,10 @@ public class EnemyStatus : MonoBehaviour
     public Node enemyNode;
     public int enemyType = 1;
 
+    public GameObject moveIntent;
+    public GameObject moveAndAttackIntent;
+    public GameObject attackIntent;
+
 
     public string[,] strongMoveAndAttack = new string[2, 2] {
         {"move", "3"},
@@ -31,9 +35,22 @@ public class EnemyStatus : MonoBehaviour
         {"move", "1"},
         {"meleeAttack", "5"}
     };
+    public string[,] bigMove = new string[1, 2]{
+        {"move","5"}
+    };
+    public string[,] normalMove = new string[1, 2]{
+        {"move","4"}
+    };
+
+    public string[,] normalAttack = new string[1, 2]{
+        {"attack","2"}
+    };
+    public string[,] bigAttack = new string[1, 2]{
+        {"attack","5"}
+    };
 
     List<string[,]> listOfActions = new List<string[,]>();
-    // public string[,] actions;
+
     int currentAction = 0;
     int actionType = 0;
 
@@ -48,7 +65,9 @@ public class EnemyStatus : MonoBehaviour
         if (enemyType == 1)
         {
             listOfActions.Add(weakMoveAndAttack);
-
+            listOfActions.Add(normalAttack);
+            listOfActions.Add(normalMove);
+            listOfActions.Add(bigMove);
 
         }
         // Enemy Type 2 : Human
@@ -57,10 +76,15 @@ public class EnemyStatus : MonoBehaviour
             health = 16;
             listOfActions.Add(strongMoveAndAttack);
             listOfActions.Add(oneMoveAndBigAttack);
+            listOfActions.Add(bigAttack);
+            listOfActions.Add(normalMove);
+            listOfActions.Add(bigMove);
             // actionType = Random
             // select model
         }
         actionType = Random.Range(0, listOfActions.Count);
+        ShowEnemyIntent();
+
     }
 
     void Start()
@@ -68,6 +92,22 @@ public class EnemyStatus : MonoBehaviour
         animator = GetComponent<Animator>();
         enemyPathfinder = this.GetComponent<EnemyPathfinder>();
         enemyNode = enemyPathfinder.enemyNode;
+    }
+    void Update()
+    {
+        if (!isDead)
+        {
+            if (health <= 0) EnemyDied();
+            if (currentlyDoingTurn)
+            {
+                if (currentAction > listOfActions[actionType].GetLength(0) - 1) TurnDone();
+                else if (!currentlyDoingAnAction)
+                {
+                    if (listOfActions[actionType][currentAction, 0] == "move") MoveAction();
+                    else if (listOfActions[actionType][currentAction, 0] == "meleeAttack") MeleeAttackAction();
+                }
+            }
+        }
     }
     public void GetHit()
     {
@@ -89,6 +129,7 @@ public class EnemyStatus : MonoBehaviour
         currentlyDoingAnAction = false;
         currentlyDoingTurn = false;
         actionType = Random.Range(0, listOfActions.Count);
+        ShowEnemyIntent();
     }
     void MoveAction()
     {
@@ -126,20 +167,27 @@ public class EnemyStatus : MonoBehaviour
         enemyNode.lootable = true;
         enemiesManager.NewLootable(this.transform.position);
     }
-    void Update()
+    public void ShowEnemyIntent()
     {
-        if (!isDead)
+        print("LGENTH " + listOfActions[actionType].Length);
+        if (listOfActions[actionType].Length > 2)
         {
-            if (health <= 0) EnemyDied();
-            if (currentlyDoingTurn)
-            {
-                if (currentAction > listOfActions[actionType].GetLength(0) - 1) TurnDone();
-                else if (!currentlyDoingAnAction)
-                {
-                    if (listOfActions[actionType][currentAction, 0] == "move") MoveAction();
-                    else if (listOfActions[actionType][currentAction, 0] == "meleeAttack") MeleeAttackAction();
-                }
-            }
+            moveAndAttackIntent.SetActive(true);
+        }
+        else if (listOfActions[actionType][0, 0] == "move")
+        {
+            moveIntent.SetActive(true);
+        }
+        else if (listOfActions[actionType][0, 0] == "attack")
+        {
+            attackIntent.SetActive(true);
         }
     }
+    public void HideEnemyIntent()
+    {
+        moveAndAttackIntent.SetActive(false);
+        moveIntent.SetActive(false);
+        attackIntent.SetActive(false);
+    }
+
 }

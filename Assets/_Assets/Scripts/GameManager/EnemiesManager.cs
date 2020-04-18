@@ -59,6 +59,7 @@ public class EnemiesManager : MonoBehaviour
             activeEnemy = activeEnemies[currentEnemyTurn];
             activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
             activeEnemyStatus.currentlyDoingTurn = true;
+            activeEnemyStatus.HideEnemyIntent();
         }
         else
         {
@@ -111,7 +112,10 @@ public class EnemiesManager : MonoBehaviour
             {
                 if (currentEnemyTurn + 1 > activeEnemies.Count - 1)
                 {
-                    print("all enemies done");
+                    foreach (GameObject enemy in activeEnemies)
+                    {
+                        enemy.GetComponent<EnemyStatus>().ShowEnemyIntent();
+                    }
                     roundManager.NextRound();
                     return;
                 }
