@@ -14,10 +14,12 @@ public class UiManager : MonoBehaviour
     public TextMeshProUGUI cardsPlayed;
     public Button endTurnBtn;
     public Button craftBtn;
+    public Button craftIt;
     public GameObject nextRoundAlert;
     public GameObject noTargetsAlert;
     public GameObject lootedAlert;
     public GameObject reshuffleAlert;
+    public GameObject crafterAlert;
 
     bool displayText = false;
 
@@ -39,7 +41,7 @@ public class UiManager : MonoBehaviour
     void Awake()
     {
         playerAnimator = player.GetComponentInChildren<Animator>();
-
+        LeanTween.moveLocal(crafterAlert, new Vector3(386f, 1000f, 0), 0f);
         LeanTween.moveLocal(nextRoundAlert, new Vector3(0f, 1000f, 0), 0f);
         LeanTween.moveLocal(noTargetsAlert, new Vector3(0f, 1000f, 0), 0f);
         LeanTween.moveLocal(lootedAlert, new Vector3(0f, 1000f, 0), 0f);
@@ -101,29 +103,43 @@ public class UiManager : MonoBehaviour
     public void DisplayNewRoundMessage(string message)
     {
         nextRoundAlert.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
-        StartCoroutine(AlertMessageCooldown(nextRoundAlert, new Vector3(0, 130, 0)));
+        StartCoroutine(AlertMessageCooldown(nextRoundAlert, new Vector3(0, 130, 0), false));
     }
     public void DisplayNoTargetsMessage(string message)
     {
         noTargetsAlert.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
-        StartCoroutine(AlertMessageCooldown(noTargetsAlert, new Vector3(0, 50, 0)));
+        StartCoroutine(AlertMessageCooldown(noTargetsAlert, new Vector3(0, 50, 0), false));
     }
     public void DisplayLootedMessage(string message)
     {
         lootedAlert.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
-        StartCoroutine(AlertMessageCooldown(lootedAlert, new Vector3(0, -30, 0)));
+        StartCoroutine(AlertMessageCooldown(lootedAlert, new Vector3(0, -30, 0), false));
     }
     public void DisplayReshuffleMessage(string message)
     {
         reshuffleAlert.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
-        StartCoroutine(AlertMessageCooldown(reshuffleAlert, new Vector3(0, -110, 0)));
+        StartCoroutine(AlertMessageCooldown(reshuffleAlert, new Vector3(0, -110, 0), false));
     }
-    private IEnumerator AlertMessageCooldown(GameObject container, Vector3 position)
+    public void DisplayCrafterMessage(string message)
+    {
+        crafterAlert.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
+        StartCoroutine(AlertMessageCooldown(crafterAlert, new Vector3(386f, 300f, 0f), true));
+    }
+    private IEnumerator AlertMessageCooldown(GameObject container, Vector3 position, bool isCrafter)
     {
         LeanTween.moveLocal(container, position, .5f);
+        if (isCrafter) craftIt.interactable = false;
         yield return new WaitForSeconds(6f);
-        LeanTween.moveLocal(container, new Vector3(0f, 1000f, 0f), 2f);
+        float x = 0f;
+        if (isCrafter)
+        {
+            x = 386f;
+            craftIt.interactable = true;
+
+        }
+        LeanTween.moveLocal(container, new Vector3(x, 1000f, 0f), 2f);
     }
+
 
 
 
@@ -142,7 +158,10 @@ public class UiManager : MonoBehaviour
     }
     public void CraftCard()
     {
-        if (cardDropZone.transform.GetChild(0).childCount > 0)
+        Transform card = cardDropZone.transform.GetChild(0);
+        int tier = card.GetComponent<CardAbilities>().tier;
+
+        if (card.childCount > 0 && tier == card.childCount)
         {
             dropZone.CardDropZoneIsAvailable();
             cardToAddToDeck = null;
@@ -150,9 +169,6 @@ public class UiManager : MonoBehaviour
             if (cardToAddToDeck == null) return;
             else
             {
-                // check if all card slots have been filled
-
-
                 // Remove the card from the craftcard spot and add it to the deck.
                 foreach (Transform ability in cardToAddToDeck)
                 {
@@ -160,7 +176,12 @@ public class UiManager : MonoBehaviour
                 }
                 cardToAddToDeck.GetComponent<CardAbilities>().PutAbilitiesOnCard();
                 cardToAddToDeck.SetParent(deckHolder.transform);
+                DisplayCrafterMessage("Successfully Crafted a Card!");
             }
+        }
+        else
+        {
+            DisplayCrafterMessage("Your need to put " + tier + " abilities on this card in order to craft it");
         }
     }
     public void AddCardToDiscardPile()

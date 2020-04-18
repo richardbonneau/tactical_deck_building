@@ -72,7 +72,6 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         if (eventData.pointerDrag == null) return;
         if (isCard && (eventData.pointerDrag.CompareTag("Card") || cardAbilities.IsCardFull()))
         {
-            print("2222");
             return;
         }
 
