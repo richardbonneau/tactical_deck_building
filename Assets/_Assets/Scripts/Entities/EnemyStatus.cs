@@ -16,14 +16,27 @@ public class EnemyStatus : MonoBehaviour
     GameObject player;
     GridCreator gridCreator;
     public Node enemyNode;
+    public int enemyType = 1;
 
 
-    public string[,] actions = new string[3, 2] {
-        {"move", "2"},
-        {"move","1"},
+    public string[,] strongMoveAndAttack = new string[2, 2] {
+        {"move", "3"},
+        {"meleeAttack", "4"}
+    };
+    public string[,] weakMoveAndAttack = new string[2, 2] {
+        {"move", "3"},
         {"meleeAttack", "2"}
     };
+    public string[,] oneMoveAndBigAttack = new string[2, 2] {
+        {"move", "1"},
+        {"meleeAttack", "5"}
+    };
+
+    List<string[,]> listOfActions = new List<string[,]>();
+    // public string[,] actions;
     int currentAction = 0;
+    int actionType = 0;
+
 
     void Awake()
     {
@@ -31,7 +44,23 @@ public class EnemyStatus : MonoBehaviour
         gridCreator = GameObject.FindWithTag("GridManager").GetComponent<GridCreator>();
         player = GameObject.FindWithTag("Player");
 
+        // Enemy Type 1 : Robot
+        if (enemyType == 1)
+        {
+            listOfActions.Add(weakMoveAndAttack);
 
+
+        }
+        // Enemy Type 2 : Human
+        else if (enemyType == 2)
+        {
+            health = 16;
+            listOfActions.Add(strongMoveAndAttack);
+            listOfActions.Add(oneMoveAndBigAttack);
+            // actionType = Random
+            // select model
+        }
+        actionType = Random.Range(0, listOfActions.Count);
     }
 
     void Start()
@@ -59,10 +88,11 @@ public class EnemyStatus : MonoBehaviour
         turnDone = true;
         currentlyDoingAnAction = false;
         currentlyDoingTurn = false;
+        actionType = Random.Range(0, listOfActions.Count);
     }
     void MoveAction()
     {
-        int moveSpeed = int.Parse(actions[currentAction, 1]);
+        int moveSpeed = int.Parse(listOfActions[actionType][currentAction, 1]);
         allowedMovement = moveSpeed;
         currentlyDoingAnAction = true;
         enemyPathfinder.isAllowedToMove = true;
@@ -80,7 +110,7 @@ public class EnemyStatus : MonoBehaviour
                 int randomAnimation = Random.Range(1, 5);
                 player.GetComponent<Animator>().SetTrigger("getHit" + randomAnimation);
                 this.transform.LookAt(player.transform.position);
-                player.GetComponent<PlayerStatus>().GetHit(int.Parse(actions[currentAction, 1]));
+                player.GetComponent<PlayerStatus>().GetHit(int.Parse(listOfActions[actionType][currentAction, 1]));
 
             }
         }
@@ -103,12 +133,11 @@ public class EnemyStatus : MonoBehaviour
             if (health <= 0) EnemyDied();
             if (currentlyDoingTurn)
             {
-                if (currentAction > actions.GetLength(0) - 1) TurnDone();
+                if (currentAction > listOfActions[actionType].GetLength(0) - 1) TurnDone();
                 else if (!currentlyDoingAnAction)
                 {
-
-                    if (actions[currentAction, 0] == "move") MoveAction();
-                    else if (actions[currentAction, 0] == "meleeAttack") MeleeAttackAction();
+                    if (listOfActions[actionType][currentAction, 0] == "move") MoveAction();
+                    else if (listOfActions[actionType][currentAction, 0] == "meleeAttack") MeleeAttackAction();
                 }
             }
         }

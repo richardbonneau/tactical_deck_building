@@ -153,20 +153,19 @@ public class UiManager : MonoBehaviour
         LeanTween.moveLocal(container, new Vector3(x, 1000f, 0f), 1f);
     }
 
-
-
-
     public void ToggleCraftMenu()
     {
         if (craftMenuOpened)
         {
             craftMenuOpened = false;
             craftMenu.SetActive(false);
+            cameraMovement.cameraMovementEnabled = false;
         }
         else
         {
             craftMenuOpened = true;
             craftMenu.SetActive(true);
+            cameraMovement.cameraMovementEnabled = true;
         }
     }
     public void CraftCard()
@@ -201,11 +200,14 @@ public class UiManager : MonoBehaviour
     public void OpenLoseCardUI()
     {
         loseCardUI.SetActive(true);
+        cameraMovement.cameraMovementEnabled = false;
     }
     public void CloseLoseCardUI()
     {
         loseCardUI.SetActive(false);
+        cameraMovement.cameraMovementEnabled = true;
     }
+
     public void LoseCard()
     {
         GameObject card = loseCardDropZone.transform.GetChild(0).gameObject;
@@ -221,7 +223,6 @@ public class UiManager : MonoBehaviour
 
         }
     }
-
 
     public void AddCardToDiscardPile()
     {

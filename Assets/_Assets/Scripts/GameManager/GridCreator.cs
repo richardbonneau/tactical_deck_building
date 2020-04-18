@@ -14,14 +14,13 @@ public class GridCreator : MonoBehaviour
     public List<GameObject> rooms = new List<GameObject>();
     int roomIndex = 0;
     List<GameObject> currentRoomDoorTriggers = new List<GameObject>();
-
-
     public static List<Vector2> obstaclesCoordinates = new List<Vector2>();
+    public UiManager uiManager;
+
     void Awake()
     {
         CreateGrid();
     }
-
 
     public void EnterNewRoom(Node doorTriggerNode)
     {
@@ -40,11 +39,10 @@ public class GridCreator : MonoBehaviour
         enemiesManager.FindAllActiveEnemies();
         // activate all new enemies
         CreateGrid();
-
-
+        uiManager.CenterPlayer();
 
         //  put veil over old room, remove veil on new room
-        // Move Camera,
+
     }
     public void EnableDoorTriggers()
     {

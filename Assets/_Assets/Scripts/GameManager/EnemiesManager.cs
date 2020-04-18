@@ -90,7 +90,7 @@ public class EnemiesManager : MonoBehaviour
         GameObject randomItem = randomLootItems[Random.Range(0, randomLootItems.Count)];
         GameObject lootToAdd = Instantiate(randomItem, new Vector3(0, 0, 0), Quaternion.identity);
         lootToAdd.transform.SetParent(inventory.transform, false);
-        uiManager.DisplayLootedMessage(lootToAdd.name + " added to Inventory!");
+        uiManager.DisplayLootedMessage(lootToAdd.tag + " added to Inventory!");
         print("LOOT picked up" + lootables.Count);
     }
 
