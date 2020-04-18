@@ -36,9 +36,9 @@ public class HealthCanvas : MonoBehaviour
     {
         if (enemyStatus == null)
         {
-            rect.sizeDelta = new Vector2(playerStatus.health * 100 / startingHealth, 100);
+            rect.sizeDelta = new Vector2(playerStatus.health * 50 / startingHealth, 100);
         }
-        else rect.sizeDelta = new Vector2(enemyStatus.health * 100 / startingHealth, 100); ;
+        else rect.sizeDelta = new Vector2(enemyStatus.health * 50 / startingHealth, 100); ;
     }
     void LateUpdate()
     {

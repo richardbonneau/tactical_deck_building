@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 public class UiManager : MonoBehaviour
 {
+    public CameraMovement cameraMovement;
     public EnemiesManager enemiesManager;
     public RoundManager roundManager;
     public CardsManager cardsManager;
@@ -35,6 +36,7 @@ public class UiManager : MonoBehaviour
     public GameObject cardDropZone;
     public GameObject loseCardDropZone;
     DropZone dropZone;
+    DropZone loseCardDropZoneScript;
 
     public TextMeshProUGUI discardPileUI;
     public TextMeshProUGUI lostPileUI;
@@ -52,6 +54,7 @@ public class UiManager : MonoBehaviour
         LeanTween.moveLocal(lootedAlert, new Vector3(0f, 1000f, 0), 0f);
         LeanTween.moveLocal(reshuffleAlert, new Vector3(0f, 1000f, 0), 0f);
         dropZone = cardDropZone.GetComponent<DropZone>();
+        loseCardDropZoneScript = loseCardDropZone.GetComponent<DropZone>();
     }
     void Start()
     {
@@ -60,7 +63,11 @@ public class UiManager : MonoBehaviour
 
     void Update()
     {
-        if (mainCam.transform.position == new Vector3(player.transform.position.x, mainCam.transform.position.y, player.transform.position.z - 6)) centeringPlayer = false;
+        if (mainCam.transform.position == new Vector3(player.transform.position.x, mainCam.transform.position.y, player.transform.position.z - 6))
+        {
+            centeringPlayer = false;
+            cameraMovement.cameraMovementEnabled = true;
+        }
         if (centeringPlayer) mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, new Vector3(player.transform.position.x, mainCam.transform.position.y, player.transform.position.z - 6), 40 * Time.deltaTime);
     }
     public void ChangeRoundOnTheUI()
@@ -205,9 +212,11 @@ public class UiManager : MonoBehaviour
 
         if (card != null)
         {
+            card.transform.SetParent(loseCardDropZone.transform.parent);
             Destroy(card);
             cardsManager.PutDiscardedCardsBackInMainDeck(card);
             CloseLoseCardUI();
+            loseCardDropZoneScript.CardDropZoneIsAvailable();
             lostPile++;
 
         }
@@ -229,5 +238,6 @@ public class UiManager : MonoBehaviour
     public void CenterPlayer()
     {
         centeringPlayer = true;
+        cameraMovement.cameraMovementEnabled = false;
     }
 }
