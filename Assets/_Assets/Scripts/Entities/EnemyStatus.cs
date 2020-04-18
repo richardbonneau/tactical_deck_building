@@ -43,10 +43,10 @@ public class EnemyStatus : MonoBehaviour
     };
 
     public string[,] normalAttack = new string[1, 2]{
-        {"attack","2"}
+        {"meleeAttack","2"}
     };
     public string[,] bigAttack = new string[1, 2]{
-        {"attack","5"}
+        {"meleeAttack","5"}
     };
 
     List<string[,]> listOfActions = new List<string[,]>();
@@ -92,6 +92,10 @@ public class EnemyStatus : MonoBehaviour
         animator = GetComponent<Animator>();
         enemyPathfinder = this.GetComponent<EnemyPathfinder>();
         enemyNode = enemyPathfinder.enemyNode;
+        print("action " + this.gameObject.name);
+
+        print(listOfActions[actionType][0, 0]);
+        if (listOfActions[actionType].GetLength(0) > 1) print(listOfActions[actionType][1, 0]);
     }
     void Update()
     {
@@ -124,12 +128,13 @@ public class EnemyStatus : MonoBehaviour
     }
     void TurnDone()
     {
+
         currentAction = 0;
         turnDone = true;
         currentlyDoingAnAction = false;
         currentlyDoingTurn = false;
         actionType = Random.Range(0, listOfActions.Count);
-        ShowEnemyIntent();
+
     }
     void MoveAction()
     {
@@ -169,8 +174,7 @@ public class EnemyStatus : MonoBehaviour
     }
     public void ShowEnemyIntent()
     {
-        print("LGENTH " + listOfActions[actionType].Length);
-        if (listOfActions[actionType].Length > 2)
+        if (listOfActions[actionType].GetLength(0) > 1)
         {
             moveAndAttackIntent.SetActive(true);
         }
@@ -178,13 +182,14 @@ public class EnemyStatus : MonoBehaviour
         {
             moveIntent.SetActive(true);
         }
-        else if (listOfActions[actionType][0, 0] == "attack")
+        else if (listOfActions[actionType][0, 0] == "meleeAttack")
         {
             attackIntent.SetActive(true);
         }
     }
     public void HideEnemyIntent()
     {
+        print(this.gameObject.name + " is turning everyting off");
         moveAndAttackIntent.SetActive(false);
         moveIntent.SetActive(false);
         attackIntent.SetActive(false);

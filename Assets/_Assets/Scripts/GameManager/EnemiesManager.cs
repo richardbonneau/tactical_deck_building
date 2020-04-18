@@ -58,8 +58,8 @@ public class EnemiesManager : MonoBehaviour
             currentEnemyTurn = 0;
             activeEnemy = activeEnemies[currentEnemyTurn];
             activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
-            activeEnemyStatus.currentlyDoingTurn = true;
             activeEnemyStatus.HideEnemyIntent();
+            activeEnemyStatus.currentlyDoingTurn = true;
         }
         else
         {
