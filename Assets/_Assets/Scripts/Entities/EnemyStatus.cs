@@ -41,7 +41,6 @@ public class EnemyStatus : MonoBehaviour
     public string[,] normalMove = new string[1, 2]{
         {"move","4"}
     };
-
     public string[,] normalAttack = new string[1, 2]{
         {"meleeAttack","2"}
     };
@@ -65,9 +64,11 @@ public class EnemyStatus : MonoBehaviour
         if (enemyType == 1)
         {
             listOfActions.Add(weakMoveAndAttack);
+            listOfActions.Add(weakMoveAndAttack);
+            listOfActions.Add(weakMoveAndAttack);
             listOfActions.Add(normalAttack);
             listOfActions.Add(normalMove);
-            listOfActions.Add(bigMove);
+
 
         }
         // Enemy Type 2 : Human
@@ -75,9 +76,10 @@ public class EnemyStatus : MonoBehaviour
         {
             health = 16;
             listOfActions.Add(strongMoveAndAttack);
+            listOfActions.Add(strongMoveAndAttack);
+            listOfActions.Add(oneMoveAndBigAttack);
             listOfActions.Add(oneMoveAndBigAttack);
             listOfActions.Add(bigAttack);
-            listOfActions.Add(normalMove);
             listOfActions.Add(bigMove);
             // actionType = Random
             // select model
