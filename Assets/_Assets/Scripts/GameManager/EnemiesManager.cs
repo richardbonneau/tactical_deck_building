@@ -55,10 +55,13 @@ public class EnemiesManager : MonoBehaviour
     {
         if (activeEnemies.Count > 0)
         {
+            foreach (GameObject enemy in activeEnemies)
+            {
+                enemy.GetComponent<EnemyStatus>().HideEnemyIntent();
+            }
             currentEnemyTurn = 0;
             activeEnemy = activeEnemies[currentEnemyTurn];
             activeEnemyStatus = activeEnemy.GetComponent<EnemyStatus>();
-            activeEnemyStatus.HideEnemyIntent();
             activeEnemyStatus.currentlyDoingTurn = true;
         }
         else
@@ -112,6 +115,7 @@ public class EnemiesManager : MonoBehaviour
             {
                 if (currentEnemyTurn + 1 > activeEnemies.Count - 1)
                 {
+                    print("active enemies: " + activeEnemies.Count);
                     foreach (GameObject enemy in activeEnemies)
                     {
                         enemy.GetComponent<EnemyStatus>().ShowEnemyIntent();

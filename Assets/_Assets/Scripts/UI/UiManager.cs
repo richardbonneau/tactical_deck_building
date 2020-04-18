@@ -47,6 +47,7 @@ public class UiManager : MonoBehaviour
 
     void Awake()
     {
+        player = GameObject.FindWithTag("Player");
         playerAnimator = player.GetComponentInChildren<Animator>();
         LeanTween.moveLocal(crafterAlert, new Vector3(386f, 1000f, 0), 0f);
         LeanTween.moveLocal(nextRoundAlert, new Vector3(0f, 1000f, 0), 0f);

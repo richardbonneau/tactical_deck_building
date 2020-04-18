@@ -167,6 +167,7 @@ public class EnemyStatus : MonoBehaviour
     }
     void EnemyDied()
     {
+        HideEnemyIntent();
         isDead = true;
         animator.SetBool("isDead", true);
         enemiesManager.activeEnemies.Remove(this.gameObject);
@@ -191,7 +192,6 @@ public class EnemyStatus : MonoBehaviour
     }
     public void HideEnemyIntent()
     {
-        print(this.gameObject.name + " is turning everyting off");
         moveAndAttackIntent.SetActive(false);
         moveIntent.SetActive(false);
         attackIntent.SetActive(false);

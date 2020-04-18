@@ -37,6 +37,7 @@ public class Pathfinder : MonoBehaviour
     void Awake()
     {
         grid = GetComponent<GridCreator>();
+        player = GameObject.FindWithTag("Player");
         playerStatus = player.GetComponent<PlayerStatus>();
         animator = player.GetComponent<Animator>();
     }
@@ -46,7 +47,7 @@ public class Pathfinder : MonoBehaviour
         if (destination.Count == 0)
         {
             if (lastNodeOfPath.lootable) enemiesManager.LootablePickedUp(lastNodeOfPath.worldPosition);
-            else if(lastNodeOfPath.isDoor) grid.EnterNewRoom(lastNodeOfPath);
+            else if (lastNodeOfPath.isDoor) grid.EnterNewRoom(lastNodeOfPath);
             playerIsCurrentlyMoving = false;
             animator.SetBool("isMoving", false);
             removeMovementPath();
@@ -108,7 +109,7 @@ public class Pathfinder : MonoBehaviour
                         Node currentNode = grid.NodeFromWorldPoint(new Vector3(x, 0, z));
 
                         List<Node> path = null;
-                        if (currentNode != null) path = grid.FindPath(player.transform.position, currentNode.worldPosition,false);
+                        if (currentNode != null) path = grid.FindPath(player.transform.position, currentNode.worldPosition, false);
 
                         if (path != null && path.Count > 0 && path[path.Count - 1].gCost <= maxMove * 10)
                         {
@@ -140,7 +141,7 @@ public class Pathfinder : MonoBehaviour
                     playerCanMoveToSelectedSpot = false;
                     removeMovementPath();
 
-                    path = grid.FindPath(player.transform.position, mouseSelectWorldPosition,false);
+                    path = grid.FindPath(player.transform.position, mouseSelectWorldPosition, false);
 
                     foreach (GameObject gridSquare in gridView)
                     {

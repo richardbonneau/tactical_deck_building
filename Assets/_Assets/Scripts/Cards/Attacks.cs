@@ -24,6 +24,7 @@ public class Attacks : MonoBehaviour
     public GameObject castingAoe;
     void Awake()
     {
+        player = GameObject.FindWithTag("Player");
         playerAnimator = player.GetComponent<Animator>();
     }
     void Update()

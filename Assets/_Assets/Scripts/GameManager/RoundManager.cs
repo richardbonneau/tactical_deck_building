@@ -13,6 +13,10 @@ public class RoundManager : MonoBehaviour
     public PlayerStatus playerStatus;
 
 
+    void Awake()
+    {
+        playerStatus = GameObject.FindWithTag("Player").GetComponent<PlayerStatus>();
+    }
     void Start()
     {
         uiManager.ChangeRoundOnTheUI();

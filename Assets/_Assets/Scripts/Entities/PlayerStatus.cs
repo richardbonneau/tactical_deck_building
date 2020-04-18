@@ -7,7 +7,7 @@ public class PlayerStatus : MonoBehaviour
     public GridCreator gridCreator;
     public int allowedMovement = 5;
     public Node playerNode;
-    public GameObject player;
+
     int maxHealth = 15;
     public int health = 15;
     public bool isDead = false;
@@ -21,7 +21,7 @@ public class PlayerStatus : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        playerNode = gridCreator.NodeFromWorldPoint(player.transform.position);
+        playerNode = gridCreator.NodeFromWorldPoint(this.transform.position);
         playerNode.walkable = false;
     }
 
