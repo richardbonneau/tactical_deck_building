@@ -33,7 +33,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         parentToReturnTo = this.transform.parent;
         placeholderParent = parentToReturnTo;
         if (isAbility && parentToReturnTo.CompareTag("Card") || parentToReturnTo.CompareTag("Inventory")) this.transform.SetParent(this.transform.parent.parent.parent);
-        if (isPlayableCard && parentToReturnTo.CompareTag("DeckHolder")) this.transform.SetParent(this.transform.parent.parent.parent);
+        if (isPlayableCard && parentToReturnTo.CompareTag("DeckHolder") || parentToReturnTo.CompareTag("LoseCardDeckHolder")) this.transform.SetParent(this.transform.parent.parent.parent);
         else this.transform.SetParent(this.transform.parent.parent);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
     }

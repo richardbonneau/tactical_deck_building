@@ -9,6 +9,8 @@ public class UiManager : MonoBehaviour
     public RoundManager roundManager;
     public CardsManager cardsManager;
     public GameObject player;
+    public GameObject mainCam;
+    public bool centeringPlayer = false;
     Animator playerAnimator;
     public TextMeshProUGUI displayRounds;
     public TextMeshProUGUI cardsPlayed;
@@ -58,7 +60,8 @@ public class UiManager : MonoBehaviour
 
     void Update()
     {
-
+        if (mainCam.transform.position == new Vector3(player.transform.position.x, mainCam.transform.position.y, player.transform.position.z - 6)) centeringPlayer = false;
+        if (centeringPlayer) mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, new Vector3(player.transform.position.x, mainCam.transform.position.y, player.transform.position.z - 6), 40 * Time.deltaTime);
     }
     public void ChangeRoundOnTheUI()
     {
@@ -132,7 +135,7 @@ public class UiManager : MonoBehaviour
     {
         LeanTween.moveLocal(container, position, .5f);
         if (isCrafter) craftIt.interactable = false;
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(3f);
         float x = 0f;
         if (isCrafter)
         {
@@ -140,7 +143,7 @@ public class UiManager : MonoBehaviour
             craftIt.interactable = true;
 
         }
-        LeanTween.moveLocal(container, new Vector3(x, 1000f, 0f), 2f);
+        LeanTween.moveLocal(container, new Vector3(x, 1000f, 0f), 1f);
     }
 
 
@@ -202,12 +205,11 @@ public class UiManager : MonoBehaviour
 
         if (card != null)
         {
-            // destroy that card
             Destroy(card);
             cardsManager.PutDiscardedCardsBackInMainDeck(card);
             CloseLoseCardUI();
-            // add all the other cards to the main deck
-            // close the losecard window
+            lostPile++;
+
         }
     }
 
@@ -221,5 +223,11 @@ public class UiManager : MonoBehaviour
     {
         lostPile++;
         lostPileUI.text = lostPile.ToString();
+    }
+
+
+    public void CenterPlayer()
+    {
+        centeringPlayer = true;
     }
 }
