@@ -133,25 +133,6 @@ public class Attacks : MonoBehaviour
     {
         attackAmount = atkAmount;
         hasToChooseAoeTarget = true;
-        // attackAmount = atkAmount;
-        // List<GameObject> enemies = enemiesManager.activeEnemies;
-        // List<Node> neighboursNodes = gridCreator.GetNeighbours(gridCreator.NodeFromWorldPoint(player.transform.position));
-        // foreach (Node node in neighboursNodes)
-        // {
-        //     GameObject found = enemies.Find(enemy => enemy.transform.position.x == node.worldPosition.x && enemy.transform.position.z == node.worldPosition.z);
-        //     if (found != null)
-        //     {
-        //         GameObject potentialTarget = Instantiate(potentialTargetIndicator, found.transform.position, Quaternion.identity);
-        //         targetIndicators.Add(potentialTarget);
-        //         targets.Add(found);
-        //         hasToChooseMeleetarget = true;
-
-        //     }
-        // }
-        // if (targets.Count == 0)
-        // {
-        //     StartCoroutine(NoTargetsToAttack());
-        // }
     }
     public void FindPotentialTargets(int atkAmount)
     {
@@ -193,7 +174,7 @@ public class Attacks : MonoBehaviour
         player.transform.LookAt(target.transform.position);
 
         target.GetComponent<EnemyStatus>().health = target.GetComponent<EnemyStatus>().health - attackAmount;
-        originCard.NextAction();
+        StartCoroutine(EndOfAttackDelay());
     }
 
 

@@ -80,7 +80,7 @@ public class EnemyStatus : MonoBehaviour
                 int randomAnimation = Random.Range(1, 5);
                 player.GetComponent<Animator>().SetTrigger("getHit" + randomAnimation);
                 this.transform.LookAt(player.transform.position);
-                player.GetComponent<PlayerStatus>().health = player.GetComponent<PlayerStatus>().health - int.Parse(actions[currentAction, 1]);
+                player.GetComponent<PlayerStatus>().GetHit(int.Parse(actions[currentAction, 1]));
 
             }
         }

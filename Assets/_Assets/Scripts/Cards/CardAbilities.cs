@@ -119,6 +119,7 @@ public class CardAbilities : MonoBehaviour
         else if (cardActions[currentActionIndex].actionType == "attack") attacks.FindPotentialTargets(cardActions[currentActionIndex].value);
         else if (cardActions[currentActionIndex].actionType == "heal") playerStatus.Heal(cardActions[currentActionIndex].value);
         else if (cardActions[currentActionIndex].actionType == "area") attacks.AreaAttack(cardActions[currentActionIndex].value);
+        else if (cardActions[currentActionIndex].actionType == "shield") playerStatus.Shield();
 
 
     }

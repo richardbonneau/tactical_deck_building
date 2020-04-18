@@ -326,9 +326,9 @@ MonoBehaviour:
   m_fontSize: 18
   m_fontSizeBase: 18
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 10
+  m_fontSizeMax: 18
   m_fontStyle: 33
   m_textAlignment: 514
   m_characterSpacing: 0
@@ -361,7 +361,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 34.550415, y: 8.912144, z: 32.543285, w: 8.72995}
+  m_margin: {x: 40.016724, y: 8.912144, z: 38.89442, w: 8.72995}
   m_textInfo:
     textComponent: {fileID: 4148853445259759316}
     characterCount: 7

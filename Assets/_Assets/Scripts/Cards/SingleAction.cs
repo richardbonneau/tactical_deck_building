@@ -63,6 +63,12 @@ public class SingleAction : MonoBehaviour
                     return "Ranged AoE Attack " + val;
                     break;
                 }
+            case "shield":
+                {
+                    iconImage.sprite = cardsManager.abilityIcons[4];
+                    return "Ignore Next Source of Damage";
+                    break;
+                }
 
             default:
                 print("Ability Type not found");
