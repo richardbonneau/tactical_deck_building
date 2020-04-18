@@ -21,86 +21,117 @@ public class Attacks : MonoBehaviour
     public ObjectPooler attackIndicatorsPool;
     List<GameObject> attackIndicators = new List<GameObject>();
     public GameObject aoeExplosionEffect;
+    public GameObject castingAoe;
     void Awake()
     {
         playerAnimator = player.GetComponent<Animator>();
     }
     void Update()
     {
-        if (hasToChooseMeleetarget)
+        if (hasToChooseMeleetarget) ChoosingMeleeTarget();
+        else if (hasToChooseAoeTarget) ChoosingAoeTarget();
+    }
+
+    void ChoosingMeleeTarget()
+    {
+        RaycastHit hit;
+        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
         {
-            RaycastHit hit;
-            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit))
+            Vector3 mouseSelectWorldPosition = new Vector3(Mathf.Round(hit.point.x), 0, Mathf.Round(hit.point.z));
+            Transform objectHit = hit.transform;
+            mapSelector.transform.position = mouseSelectWorldPosition;
+            GameObject target = targets.Find(enemy => enemy.transform.position == mouseSelectWorldPosition);
+            if (Input.GetMouseButtonDown(0) && target != null)
             {
-                Vector3 mouseSelectWorldPosition = new Vector3(Mathf.Round(hit.point.x), 0, Mathf.Round(hit.point.z));
-                Transform objectHit = hit.transform;
-                mapSelector.transform.position = mouseSelectWorldPosition;
-                GameObject target = targets.Find(enemy => enemy.transform.position == mouseSelectWorldPosition);
-                if (Input.GetMouseButtonDown(0) && target != null)
-                {
-                    AttackTarget(target);
-                }
+                AttackTarget(target);
             }
         }
-        else if (hasToChooseAoeTarget)
+    }
+    void ChoosingAoeTarget()
+    {
+        RaycastHit hit;
+        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
         {
-            RaycastHit hit;
-            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit))
+            Vector3 mouseSelectWorldPosition = new Vector3(Mathf.Round(hit.point.x), 0, Mathf.Round(hit.point.z));
+
+            if (attackIndicators.Count > 0)
             {
-                Vector3 mouseSelectWorldPosition = new Vector3(Mathf.Round(hit.point.x), 0, Mathf.Round(hit.point.z));
-
-                if (attackIndicators.Count > 0)
+                playerAnimator.SetBool("area", true);
+                castingAoe.SetActive(true);
+                player.transform.LookAt(attackIndicators[attackIndicators.Count - 1].transform);
+                // AOE AREA CHOSEN
+                if (Input.GetMouseButtonDown(0))
                 {
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        print("AOE ATTACK");
-                        aoeExplosionEffect.transform.position = attackIndicators[attackIndicators.Count - 1].transform.position;
-                        StartCoroutine(aoeExplosion());
-
-                        // GameObject target = targets.Find(enemy => enemy.transform.position == mouseSelectWorldPosition);
-                        // AttackTarget(target);
-                    }
-                    if (attackIndicators[attackIndicators.Count - 1].transform.position == mouseSelectWorldPosition) return;
+                    hasToChooseAoeTarget = false;
+                    print("AOE ATTACK");
+                    aoeExplosionEffect.transform.position = attackIndicators[attackIndicators.Count - 1].transform.position;
+                    StartCoroutine(AoeExplosion());
+                    List<GameObject> enemies = enemiesManager.activeEnemies;
+                    List<GameObject> targets = new List<GameObject>();
                     foreach (GameObject indicator in attackIndicators)
                     {
-                        indicator.SetActive(false);
+                        GameObject enemyInZone = enemies.Find(enemy => enemy.transform.position == indicator.transform.position);
+                        if (enemyInZone != null) targets.Add(enemyInZone);
                     }
+
+                    foreach (GameObject indicator in attackIndicators) indicator.SetActive(false);
                     attackIndicators.Clear();
-                }
-                print("hollaa");
-                Transform objectHit = hit.transform;
-                List<Node> mousePositionNeighbours = gridCreator.GetNeighbours(gridCreator.NodeFromWorldPoint(mouseSelectWorldPosition));
-                mousePositionNeighbours.Add(gridCreator.NodeFromWorldPoint(mouseSelectWorldPosition));
-                foreach (Node node in mousePositionNeighbours)
-                {
-                    GameObject p = attackIndicatorsPool.GetPooledObject();
-                    if (p != null)
+
+
+                    foreach (GameObject enemy in targets)
                     {
-                        p.transform.position = node.worldPosition;
-                        p.SetActive(true);
+                        int randomAnimation = Random.Range(1, 5);
+                        enemy.GetComponent<Animator>().SetTrigger("getHit" + randomAnimation);
+                        enemy.GetComponent<EnemyStatus>().health = enemy.GetComponent<EnemyStatus>().health - attackAmount;
                     }
-                    attackIndicators.Add(p);
+                    playerAnimator.SetBool("area", false);
+                    castingAoe.SetActive(false);
+                    StartCoroutine(EndOfAttackDelay());
+                    return;
                 }
-                print("here?");
+                // END OF AOE AREA CHOSEN
 
+                if (attackIndicators[attackIndicators.Count - 1].transform.position == mouseSelectWorldPosition) return;
+                foreach (GameObject indicator in attackIndicators)
+                {
+                    indicator.SetActive(false);
+                }
+                attackIndicators.Clear();
+            }
 
-
-                print("here here hjere?");
+            Transform objectHit = hit.transform;
+            List<Node> mousePositionNeighbours = gridCreator.GetNeighbours(gridCreator.NodeFromWorldPoint(mouseSelectWorldPosition));
+            mousePositionNeighbours.Add(gridCreator.NodeFromWorldPoint(mouseSelectWorldPosition));
+            foreach (Node node in mousePositionNeighbours)
+            {
+                GameObject p = attackIndicatorsPool.GetPooledObject();
+                if (p != null)
+                {
+                    p.transform.position = node.worldPosition;
+                    p.SetActive(true);
+                }
+                attackIndicators.Add(p);
             }
         }
     }
 
-
-    private IEnumerator aoeExplosion()
+    private IEnumerator AoeExplosion()
     {
         aoeExplosionEffect.SetActive(true);
         yield return new WaitForSeconds(3.5f);
         aoeExplosionEffect.SetActive(false);
     }
+    private IEnumerator EndOfAttackDelay()
+    {
+        yield return new WaitForSeconds(1.5f);
+        originCard.NextAction();
+    }
+
     public void AreaAttack(int atkAmount)
     {
+        attackAmount = atkAmount;
         hasToChooseAoeTarget = true;
         // attackAmount = atkAmount;
         // List<GameObject> enemies = enemiesManager.activeEnemies;
