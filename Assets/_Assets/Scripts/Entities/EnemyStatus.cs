@@ -35,27 +35,27 @@ public class EnemyStatus : MonoBehaviour
 
     public string[,] strongMoveAndAttack = new string[2, 2] {
         {"move", "3"},
-        {"meleeAttack", "5"}
+        {"meleeAttack", "4"}
     };
     public string[,] weakMoveAndAttack = new string[2, 2] {
         {"move", "3"},
-        {"meleeAttack", "3"}
+        {"meleeAttack", "2"}
     };
     public string[,] oneMoveAndBigAttack = new string[2, 2] {
         {"move", "2"},
-        {"meleeAttack", "5"}
+        {"meleeAttack", "4"}
     };
     public string[,] bigMove = new string[1, 2]{
-        {"move","5"}
+        {"move","4"}
     };
     public string[,] normalMove = new string[1, 2]{
-        {"move","4"}
+        {"move","3"}
     };
     public string[,] normalAttack = new string[1, 2]{
         {"meleeAttack","3"}
     };
     public string[,] bigAttack = new string[1, 2]{
-        {"meleeAttack","5"}
+        {"meleeAttack","4"}
     };
 
     List<string[,]> listOfActions = new List<string[,]>();
