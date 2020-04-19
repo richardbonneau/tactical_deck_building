@@ -39,5 +39,10 @@ public class intro : MonoBehaviour
 
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
 
 }
