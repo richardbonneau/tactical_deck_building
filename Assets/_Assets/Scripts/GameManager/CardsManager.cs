@@ -16,9 +16,11 @@ public class CardsManager : MonoBehaviour
     public Transform discardedCardsHolder;
     public GameObject deckHolder;
 
+
     void Awake()
     {
         rect = deckUI.GetComponent<RectTransform>();
+
     }
 
     public void ToggleDeck()
@@ -70,14 +72,13 @@ public class CardsManager : MonoBehaviour
     }
     public void PutDiscardedCardsBackInMainDeck(GameObject lostCard)
     {
-
-
         foreach (GameObject card in discardedCards)
         {
             card.transform.SetParent(deckHolder.transform);
         }
         discardedCards.Clear();
         Destroy(lostCard);
+        uiManager.AddCardToLostPile();
     }
     void PlayerTurnDone()
     {

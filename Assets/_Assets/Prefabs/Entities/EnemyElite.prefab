@@ -239,6 +239,10 @@ MonoBehaviour:
   attackIntent: {fileID: 2764341794077229307}
   healthInNumbers: {fileID: 3298882864749842321}
   healthCanvas: {fileID: 2624224978242513667}
+  robotGetsHit: {fileID: 8300000, guid: a11a95b1b39431b4aab41226b22205cb, type: 3}
+  robotDies: {fileID: 8300000, guid: f60e564572458e642835f37a7d6f60fe, type: 3}
+  humanGetsHit: {fileID: 8300000, guid: b1cfe19d8adfde14aba1b1f82bec6d22, type: 3}
+  humanDies: {fileID: 8300000, guid: b1cfe19d8adfde14aba1b1f82bec6d22, type: 3}
 --- !u!114 &365195179
 MonoBehaviour:
   m_ObjectHideFlags: 0

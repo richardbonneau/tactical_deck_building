@@ -80,8 +80,8 @@ public class EnemiesManager : MonoBehaviour
 
     public void LootablePickedUp(Vector3 position)
     {
+        lootPacer++;
         if (lootPacer > 3) lootPacer = 1;
-        else lootPacer++;
         print("PICKING UP LOOT" + lootables.Count);
         foreach (GameObject loot in lootables)
         {
@@ -96,7 +96,7 @@ public class EnemiesManager : MonoBehaviour
         Destroy(lootToRemove);
         lootToRemove = null;
         GameObject randomItem;
-        if (lootPacer == 1) randomItem = randomLootCards[Random.Range(0, randomLootCards.Count)];
+        if (lootPacer == 3) randomItem = randomLootCards[Random.Range(0, randomLootCards.Count)];
         else randomItem = randomLootAbilities[Random.Range(0, randomLootAbilities.Count)];
         GameObject lootToAdd = Instantiate(randomItem, new Vector3(0, 0, 0), Quaternion.identity);
         lootToAdd.transform.SetParent(inventory.transform, false);

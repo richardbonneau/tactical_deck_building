@@ -22,8 +22,15 @@ public class Attacks : MonoBehaviour
     List<GameObject> attackIndicators = new List<GameObject>();
     public GameObject aoeExplosionEffect;
     public GameObject castingAoe;
+    AudioSource audioSource;
+
+    public AudioClip sword;
+    public AudioClip area;
+
+
     void Awake()
     {
+        audioSource = this.GetComponent<AudioSource>();
         player = GameObject.FindWithTag("Player");
         playerAnimator = player.GetComponent<Animator>();
     }
@@ -118,6 +125,8 @@ public class Attacks : MonoBehaviour
 
     private IEnumerator AoeExplosion()
     {
+        audioSource.clip = area;
+        audioSource.Play();
         aoeExplosionEffect.SetActive(true);
         yield return new WaitForSeconds(3.5f);
         aoeExplosionEffect.SetActive(false);
@@ -172,6 +181,8 @@ public class Attacks : MonoBehaviour
 
         target.GetComponent<EnemyStatus>().GetHit(attackAmount);
         StartCoroutine(EndOfAttackDelay());
+        audioSource.clip = sword;
+        audioSource.Play();
     }
 
 

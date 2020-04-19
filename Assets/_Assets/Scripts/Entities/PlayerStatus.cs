@@ -18,7 +18,14 @@ public class PlayerStatus : MonoBehaviour
     public bool isShielded = false;
     public TextMeshProUGUI healthInNumbers;
     public Menus menus;
+    AudioSource audioSource;
+    public AudioClip heal;
+    public AudioClip shield;
 
+    void Awake()
+    {
+        audioSource = this.GetComponent<AudioSource>();
+    }
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -46,6 +53,8 @@ public class PlayerStatus : MonoBehaviour
     }
     private IEnumerator HealWithPause(int amount)
     {
+        audioSource.clip = heal;
+        audioSource.Play();
         healEffect.SetActive(true);
         health += amount;
         if (health > maxHealth) health = maxHealth;
@@ -79,6 +88,8 @@ public class PlayerStatus : MonoBehaviour
     }
     private IEnumerator ShieldWithPause()
     {
+        audioSource.clip = shield;
+        audioSource.Play();
         shieldEffect.SetActive(true);
         isShielded = true;
         yield return new WaitForSeconds(2f);

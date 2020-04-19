@@ -25,7 +25,11 @@ public class EnemyStatus : MonoBehaviour
     public GameObject attackIntent;
     public TextMeshProUGUI healthInNumbers;
     public GameObject healthCanvas;
-
+    AudioSource audioSource;
+    public AudioClip robotGetsHit;
+    public AudioClip robotDies;
+    public AudioClip humanGetsHit;
+    public AudioClip humanDies;
 
     public string[,] strongMoveAndAttack = new string[2, 2] {
         {"move", "3"},
@@ -63,6 +67,7 @@ public class EnemyStatus : MonoBehaviour
         enemiesManager = GameObject.FindWithTag("EnemiesManager").GetComponent<EnemiesManager>();
         gridCreator = GameObject.FindWithTag("GridManager").GetComponent<GridCreator>();
         player = GameObject.FindWithTag("Player");
+        audioSource = this.GetComponent<AudioSource>();
 
 
         // Enemy Type 1 : Robot
@@ -128,6 +133,9 @@ public class EnemyStatus : MonoBehaviour
         animator.SetTrigger("getHit" + randomAnimation);
         health -= damage;
         healthInNumbers.text = health + "/" + maxHealth;
+        if (enemyType == 1) audioSource.clip = robotGetsHit;
+        else audioSource.clip = humanGetsHit;
+        audioSource.Play();
     }
     public void NextAction()
     {
@@ -176,6 +184,9 @@ public class EnemyStatus : MonoBehaviour
     }
     void EnemyDied()
     {
+        if (enemyType == 1) audioSource.clip = robotDies;
+        else audioSource.clip = humanDies;
+        audioSource.Play();
         HideEnemyIntent();
         healthCanvas.SetActive(false);
         isDead = true;
