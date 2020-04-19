@@ -29,14 +29,14 @@ public class EnemyStatus : MonoBehaviour
 
     public string[,] strongMoveAndAttack = new string[2, 2] {
         {"move", "3"},
-        {"meleeAttack", "4"}
+        {"meleeAttack", "5"}
     };
     public string[,] weakMoveAndAttack = new string[2, 2] {
         {"move", "3"},
-        {"meleeAttack", "2"}
+        {"meleeAttack", "3"}
     };
     public string[,] oneMoveAndBigAttack = new string[2, 2] {
-        {"move", "1"},
+        {"move", "2"},
         {"meleeAttack", "5"}
     };
     public string[,] bigMove = new string[1, 2]{
@@ -46,7 +46,7 @@ public class EnemyStatus : MonoBehaviour
         {"move","4"}
     };
     public string[,] normalAttack = new string[1, 2]{
-        {"meleeAttack","2"}
+        {"meleeAttack","3"}
     };
     public string[,] bigAttack = new string[1, 2]{
         {"meleeAttack","5"}
@@ -79,8 +79,8 @@ public class EnemyStatus : MonoBehaviour
         // Enemy Type 2 : Human
         else if (enemyType == 2)
         {
-            health = 16;
-            maxHealth = 16;
+            health = 17;
+            maxHealth = 17;
             listOfActions.Add(strongMoveAndAttack);
             listOfActions.Add(strongMoveAndAttack);
             listOfActions.Add(oneMoveAndBigAttack);

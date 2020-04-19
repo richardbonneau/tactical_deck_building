@@ -169,6 +169,7 @@ public class EnemyPathfinder : MonoBehaviour
                     destination = path;
                     isCurrentlyMoving = true;
                     animator.SetBool("isMoving", true);
+                    animator.SetBool("area", false);
                 }
 
             }
