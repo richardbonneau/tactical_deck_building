@@ -229,6 +229,7 @@ public class UiManager : MonoBehaviour
     public void AddCardToLostPile()
     {
         discardPile = 0;
+        discardPileUI.text = discardPile.ToString();
         lostPile++;
         lostPileUI.text = lostPile.ToString();
     }
