@@ -10,25 +10,25 @@ public class HealthCanvas : MonoBehaviour
     UiManager uiManager;
     PlayerStatus playerStatus;
     EnemyStatus enemyStatus;
-    Image healthBar;
     Transform playerOrEnemy;
     RectTransform rect;
-    int startingHealth = 0;
+
     void Awake()
     {
         playerOrEnemy = this.transform.parent;
         if (this.gameObject.name == "PlayerCanvas")
         {
             playerStatus = playerOrEnemy.GetComponent<PlayerStatus>();
-            startingHealth = playerStatus.health;
+
         }
         else
         {
             enemyStatus = playerOrEnemy.GetComponent<EnemyStatus>();
-            startingHealth = enemyStatus.health;
+
         }
         originalRotation = this.transform.rotation;
         rect = this.transform.GetChild(this.transform.childCount - 1).GetComponent<RectTransform>();
+
 
     }
 
@@ -36,9 +36,9 @@ public class HealthCanvas : MonoBehaviour
     {
         if (enemyStatus == null)
         {
-            rect.sizeDelta = new Vector2(playerStatus.health * 50 / startingHealth, 100);
+            rect.sizeDelta = new Vector2(playerStatus.health * 50 / playerStatus.maxHealth, 100);
         }
-        else rect.sizeDelta = new Vector2(enemyStatus.health * 50 / startingHealth, 100); ;
+        else rect.sizeDelta = new Vector2(enemyStatus.health * 50 / enemyStatus.maxHealth, 100); ;
     }
     void LateUpdate()
     {

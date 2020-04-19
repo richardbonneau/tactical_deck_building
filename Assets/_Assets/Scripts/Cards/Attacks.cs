@@ -83,9 +83,7 @@ public class Attacks : MonoBehaviour
 
                     foreach (GameObject enemy in targets)
                     {
-                        int randomAnimation = Random.Range(1, 5);
-                        enemy.GetComponent<Animator>().SetTrigger("getHit" + randomAnimation);
-                        enemy.GetComponent<EnemyStatus>().health = enemy.GetComponent<EnemyStatus>().health - attackAmount;
+                        enemy.GetComponent<EnemyStatus>().GetHit(attackAmount);
                     }
                     playerAnimator.SetBool("area", false);
                     castingAoe.SetActive(false);
@@ -170,11 +168,9 @@ public class Attacks : MonoBehaviour
         targets.Clear();
         hasToChooseMeleetarget = false;
         playerAnimator.SetTrigger("Attack");
-        int randomAnimation = Random.Range(1, 5);
-        target.GetComponent<Animator>().SetTrigger("getHit" + randomAnimation);
         player.transform.LookAt(target.transform.position);
 
-        target.GetComponent<EnemyStatus>().health = target.GetComponent<EnemyStatus>().health - attackAmount;
+        target.GetComponent<EnemyStatus>().GetHit(attackAmount);
         StartCoroutine(EndOfAttackDelay());
     }
 

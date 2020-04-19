@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class PlayerStatus : MonoBehaviour
 {
     public GridCreator gridCreator;
     public int allowedMovement = 5;
     public Node playerNode;
 
-    int maxHealth = 15;
+    public int maxHealth = 15;
     public int health = 15;
     public bool isDead = false;
     public UiManager uiManager;
@@ -17,12 +17,14 @@ public class PlayerStatus : MonoBehaviour
     public GameObject healEffect;
     public GameObject shieldEffect;
     public bool isShielded = false;
+    public TextMeshProUGUI healthInNumbers;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         playerNode = gridCreator.NodeFromWorldPoint(this.transform.position);
         playerNode.walkable = false;
+        healthInNumbers.text = health + "/" + maxHealth;
     }
 
     void Update()
@@ -63,6 +65,7 @@ public class PlayerStatus : MonoBehaviour
         else
         {
             health -= damage;
+            healthInNumbers.text = health + "/" + maxHealth;
         }
     }
 

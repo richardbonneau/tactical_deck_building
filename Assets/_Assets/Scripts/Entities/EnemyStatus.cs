@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class EnemyStatus : MonoBehaviour
 {
     public int health = 10;
+    public int maxHealth = 10;
     public int allowedMovement = 10;
     public bool isDead = false;
     Animator animator;
@@ -21,6 +23,7 @@ public class EnemyStatus : MonoBehaviour
     public GameObject moveIntent;
     public GameObject moveAndAttackIntent;
     public GameObject attackIntent;
+    public TextMeshProUGUI healthInNumbers;
 
 
     public string[,] strongMoveAndAttack = new string[2, 2] {
@@ -60,6 +63,7 @@ public class EnemyStatus : MonoBehaviour
         gridCreator = GameObject.FindWithTag("GridManager").GetComponent<GridCreator>();
         player = GameObject.FindWithTag("Player");
 
+
         // Enemy Type 1 : Robot
         if (enemyType == 1)
         {
@@ -75,6 +79,7 @@ public class EnemyStatus : MonoBehaviour
         else if (enemyType == 2)
         {
             health = 16;
+            maxHealth = 16;
             listOfActions.Add(strongMoveAndAttack);
             listOfActions.Add(strongMoveAndAttack);
             listOfActions.Add(oneMoveAndBigAttack);
@@ -86,6 +91,7 @@ public class EnemyStatus : MonoBehaviour
         }
         actionType = Random.Range(0, listOfActions.Count);
         ShowEnemyIntent();
+        healthInNumbers.text = health + "/" + maxHealth;
 
     }
 
@@ -115,10 +121,12 @@ public class EnemyStatus : MonoBehaviour
             }
         }
     }
-    public void GetHit()
+    public void GetHit(int damage)
     {
         int randomAnimation = Random.Range(1, 5);
         animator.SetTrigger("getHit" + randomAnimation);
+        health -= damage;
+        healthInNumbers.text = health + "/" + maxHealth;
     }
     public void NextAction()
     {
