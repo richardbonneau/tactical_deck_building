@@ -5,8 +5,8 @@ using TMPro;
 
 public class EnemyStatus : MonoBehaviour
 {
-    public int health = 10;
-    public int maxHealth = 10;
+    public int health = 9;
+    public int maxHealth = 9;
     public int allowedMovement = 10;
     public bool isDead = false;
     Animator animator;

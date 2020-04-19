@@ -132,13 +132,13 @@ MonoBehaviour:
   m_margin: {x: 40.016724, y: 8.912144, z: 38.89442, w: 8.72995}
   m_textInfo:
     textComponent: {fileID: 6777124984271424590}
-    characterCount: 0
+    characterCount: 7
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 0
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -384,7 +384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionType: attack
-  value: 4
+  value: 5
   iconImage: {fileID: 4802714814772216649}
   abilityText: {fileID: 6777124984271424590}
 --- !u!1001 &7517223987992247743

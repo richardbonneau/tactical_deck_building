@@ -132,13 +132,13 @@ MonoBehaviour:
   m_margin: {x: 40.016724, y: 8.912144, z: 38.89442, w: 8.72995}
   m_textInfo:
     textComponent: {fileID: 2121641661623011081}
-    characterCount: 0
+    characterCount: 7
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 0
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -309,8 +309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59cb0f5a10a18ed40919da92805f2f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionType: heal
-  value: 2
+  actionType: move
+  value: 9
   iconImage: {fileID: 133438036889880590}
   abilityText: {fileID: 2121641661623011081}
 --- !u!1 &2121641661623011293
