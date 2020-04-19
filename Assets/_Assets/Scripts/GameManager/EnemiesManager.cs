@@ -19,7 +19,14 @@ public class EnemiesManager : MonoBehaviour
     List<GameObject> lootables = new List<GameObject>();
     GameObject lootToRemove;
     int lootPacer = 1;
+    AudioSource audioSource;
+    public AudioClip loot;
 
+    void Awake()
+    {
+        audioSource = this.GetComponent<AudioSource>();
+        audioSource.clip = loot;
+    }
     void Start()
     {
         FindAllActiveEnemies();
@@ -80,6 +87,7 @@ public class EnemiesManager : MonoBehaviour
 
     public void LootablePickedUp(Vector3 position)
     {
+        audioSource.Play();
         lootPacer++;
         if (lootPacer > 3) lootPacer = 1;
         print("PICKING UP LOOT" + lootables.Count);

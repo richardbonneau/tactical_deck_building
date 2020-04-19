@@ -30,6 +30,8 @@ public class EnemyStatus : MonoBehaviour
     public AudioClip robotDies;
     public AudioClip humanGetsHit;
     public AudioClip humanDies;
+    public AudioClip robotAttack;
+    public AudioClip humanAttack;
 
     public string[,] strongMoveAndAttack = new string[2, 2] {
         {"move", "3"},
@@ -165,12 +167,16 @@ public class EnemyStatus : MonoBehaviour
 
     void MeleeAttackAction()
     {
+
         currentlyDoingAnAction = true;
         List<Node> neighboursNodes = gridCreator.GetNeighbours(gridCreator.NodeFromWorldPoint(this.transform.position));
         foreach (Node node in neighboursNodes)
         {
             if (node.worldPosition == player.transform.position)
             {
+                if (enemyType == 1) audioSource.clip = robotAttack;
+                else audioSource.clip = humanAttack;
+                audioSource.Play();
                 animator.SetTrigger("Attack");
                 int randomAnimation = Random.Range(1, 5);
                 player.GetComponent<Animator>().SetTrigger("getHit" + randomAnimation);

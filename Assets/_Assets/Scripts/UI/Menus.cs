@@ -17,6 +17,16 @@ public class Menus : MonoBehaviour
     public GameObject deckCanvas;
     bool podLaunched;
     public GameObject helpMenu;
+    public AudioSource audioSource;
+    public AudioSource spaceShipAudioSource;
+    public AudioClip spaceship;
+    public AudioClip win;
+
+    void Awake()
+    {
+        audioSource.clip = win;
+        spaceShipAudioSource.clip = spaceship;
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -77,7 +87,9 @@ public class Menus : MonoBehaviour
     }
     private IEnumerator ShowEndScreen()
     {
+        spaceShipAudioSource.Play();
         yield return new WaitForSeconds(4f);
+        audioSource.Play();
         cameraMovement.cameraMovementEnabled = false;
         winState.SetActive(true);
         LeanTween.alphaCanvas(winState.GetComponent<CanvasGroup>(), 1f, 2f).setEase(LeanTweenType.easeInCirc);

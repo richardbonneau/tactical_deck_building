@@ -44,6 +44,9 @@ public class UiManager : MonoBehaviour
     int lostPile = 0;
 
     public GameObject loseCardUI;
+    public AudioSource audioSource;
+    public AudioClip losecard;
+    public AudioClip craft;
 
     void Awake()
     {
@@ -169,6 +172,8 @@ public class UiManager : MonoBehaviour
     }
     public void CraftCard()
     {
+        audioSource.clip = craft;
+        audioSource.Play();
         Transform card = cardDropZone.transform.GetChild(0);
         int tier = card.GetComponent<CardAbilities>().tier;
 
@@ -198,6 +203,8 @@ public class UiManager : MonoBehaviour
 
     public void OpenLoseCardUI()
     {
+        audioSource.clip = losecard;
+        audioSource.Play();
         loseCardUI.SetActive(true);
         cameraMovement.cameraMovementEnabled = false;
     }

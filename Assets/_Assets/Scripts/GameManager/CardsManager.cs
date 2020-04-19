@@ -68,6 +68,7 @@ public class CardsManager : MonoBehaviour
     }
     public void ReShuffleAndLoseOne()
     {
+
         uiManager.OpenLoseCardUI();
     }
     public void PutDiscardedCardsBackInMainDeck(GameObject lostCard)
