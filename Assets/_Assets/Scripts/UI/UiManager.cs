@@ -158,13 +158,13 @@ public class UiManager : MonoBehaviour
         {
             craftMenuOpened = false;
             craftMenu.SetActive(false);
-            cameraMovement.cameraMovementEnabled = false;
+            cameraMovement.cameraMovementEnabled = true;
         }
         else
         {
             craftMenuOpened = true;
             craftMenu.SetActive(true);
-            cameraMovement.cameraMovementEnabled = true;
+            cameraMovement.cameraMovementEnabled = false;
         }
     }
     public void CraftCard()
@@ -228,6 +228,7 @@ public class UiManager : MonoBehaviour
     }
     public void AddCardToLostPile()
     {
+        discardPile = 0;
         lostPile++;
         lostPileUI.text = lostPile.ToString();
     }
