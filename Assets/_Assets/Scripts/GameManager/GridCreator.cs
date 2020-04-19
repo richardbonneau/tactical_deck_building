@@ -16,32 +16,42 @@ public class GridCreator : MonoBehaviour
     List<GameObject> currentRoomDoorTriggers = new List<GameObject>();
     public static List<Vector2> obstaclesCoordinates = new List<Vector2>();
     public UiManager uiManager;
+    public Menus menus;
 
     void Awake()
     {
+
         CreateGrid();
     }
 
     public void EnterNewRoom(Node doorTriggerNode)
     {
-        gridSpawnPoint = doorTriggerNode.nextRoomVector;
-        grid = new Node[gridSizeX, gridSizeZ];
-        // Change player location / make player move to new room\
-        player.transform.position = doorTriggerNode.nextRoomPlayerSpawn;
-        // set new obstacle list / Activate all obstacles
-        // Deactive old obstacles
-        enemiesManager.ClearAllEnemies();
-        rooms[doorTriggerNode.nextRoomIndex].SetActive(true);
-        rooms[roomIndex].SetActive(false);
-        roomIndex = doorTriggerNode.nextRoomIndex;
-        // clear the list of active enemies
+        if (doorTriggerNode.nextRoomIndex == 5)
+        {
+            menus.WinState();
+        }
+        else
+        {
+            gridSpawnPoint = doorTriggerNode.nextRoomVector;
+            grid = new Node[gridSizeX, gridSizeZ];
+            // Change player location / make player move to new room\
+            player.transform.position = doorTriggerNode.nextRoomPlayerSpawn;
+            // set new obstacle list / Activate all obstacles
+            // Deactive old obstacles
+            enemiesManager.ClearAllEnemies();
+            rooms[doorTriggerNode.nextRoomIndex].SetActive(true);
+            rooms[roomIndex].SetActive(false);
+            roomIndex = doorTriggerNode.nextRoomIndex;
+            // clear the list of active enemies
 
-        enemiesManager.FindAllActiveEnemies();
-        // activate all new enemies
-        CreateGrid();
-        uiManager.CenterPlayer();
+            enemiesManager.FindAllActiveEnemies();
+            // activate all new enemies
+            CreateGrid();
+            uiManager.CenterPlayer();
 
-        //  put veil over old room, remove veil on new room
+            //  put veil over old room, remove veil on new room
+        }
+
 
     }
     public void EnableDoorTriggers()
