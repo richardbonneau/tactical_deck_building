@@ -146,7 +146,7 @@ MonoBehaviour:
   actionsTypes: []
   actionsValues: 
   cardImage: {fileID: 0}
-  tier: 1
+  tier: 2
   currentActionIndex: 0
   currentlyDoingAnAction: 0
 --- !u!114 &2506750053764878125

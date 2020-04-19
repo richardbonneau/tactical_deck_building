@@ -48,6 +48,7 @@ public class PlayerStatus : MonoBehaviour
         healEffect.SetActive(true);
         health += amount;
         if (health > maxHealth) health = maxHealth;
+        healthInNumbers.text = health + "/" + maxHealth;
         uiManager.DisplayNewRoundMessage("You healed " + amount + " HP!");
         yield return new WaitForSeconds(2f);
         healEffect.SetActive(false);

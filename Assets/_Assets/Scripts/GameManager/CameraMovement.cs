@@ -17,28 +17,36 @@ public class CameraMovement : MonoBehaviour
         Quaternion rot = this.transform.rotation;
         if (
             cameraMovementEnabled &&
-            Input.GetKey("w") || Input.GetKey("up") || Input.mousePosition.y > Screen.height - edgeSize && sideScrollingIsActive
+            Input.GetKey("w")
+            || Input.GetKey("up")
+            || (Input.mousePosition.y > Screen.height - edgeSize && sideScrollingIsActive)
         )
         {
             pos.z += panSpeed * Time.deltaTime;
         }
         if (
             cameraMovementEnabled &&
-            Input.GetKey("s") || Input.GetKey("down") || Input.mousePosition.y < edgeSize && sideScrollingIsActive
+            Input.GetKey("s")
+            || Input.GetKey("down")
+            || (Input.mousePosition.y < edgeSize && sideScrollingIsActive)
         )
         {
             pos.z -= panSpeed * Time.deltaTime;
         }
         if (
             cameraMovementEnabled &&
-            Input.GetKey("a") || Input.GetKey("left") || Input.mousePosition.x < edgeSize && sideScrollingIsActive
+            Input.GetKey("a")
+            || Input.GetKey("left")
+            || (Input.mousePosition.x < edgeSize && sideScrollingIsActive)
         )
         {
             pos.x -= panSpeed * Time.deltaTime;
         }
         if (
             cameraMovementEnabled &&
-            Input.GetKey("d") || Input.GetKey("right") || Input.mousePosition.x > Screen.width - edgeSize && sideScrollingIsActive
+            Input.GetKey("d")
+            || Input.GetKey("right")
+            || (Input.mousePosition.x > Screen.width - edgeSize && sideScrollingIsActive)
         )
         {
             pos.x += panSpeed * Time.deltaTime;

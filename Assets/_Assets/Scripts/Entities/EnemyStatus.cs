@@ -24,6 +24,7 @@ public class EnemyStatus : MonoBehaviour
     public GameObject moveAndAttackIntent;
     public GameObject attackIntent;
     public TextMeshProUGUI healthInNumbers;
+    public GameObject healthCanvas;
 
 
     public string[,] strongMoveAndAttack = new string[2, 2] {
@@ -176,6 +177,7 @@ public class EnemyStatus : MonoBehaviour
     void EnemyDied()
     {
         HideEnemyIntent();
+        healthCanvas.SetActive(false);
         isDead = true;
         animator.SetBool("isDead", true);
         enemiesManager.activeEnemies.Remove(this.gameObject);

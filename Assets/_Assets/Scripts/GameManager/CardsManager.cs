@@ -40,6 +40,7 @@ public class CardsManager : MonoBehaviour
     public void NextRound()
     {
         cardsPlayed = 0;
+        uiManager.ChangeCardsPlayedOnTheUI();
         ToggleDeckOn();
 
     }
@@ -69,11 +70,14 @@ public class CardsManager : MonoBehaviour
     }
     public void PutDiscardedCardsBackInMainDeck(GameObject lostCard)
     {
-        discardedCards.Remove(lostCard);
+
+
         foreach (GameObject card in discardedCards)
         {
             card.transform.SetParent(deckHolder.transform);
         }
+        discardedCards.Clear();
+        Destroy(lostCard);
     }
     void PlayerTurnDone()
     {

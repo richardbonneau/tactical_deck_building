@@ -112,8 +112,6 @@ public class UiManager : MonoBehaviour
         craftBtn.interactable = true;
     }
 
-
-
     public void DisplayNewRoundMessage(string message)
     {
         nextRoundAlert.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
@@ -216,12 +214,10 @@ public class UiManager : MonoBehaviour
         if (card != null)
         {
             card.transform.SetParent(loseCardDropZone.transform.parent);
-            Destroy(card);
             cardsManager.PutDiscardedCardsBackInMainDeck(card);
             CloseLoseCardUI();
             loseCardDropZoneScript.CardDropZoneIsAvailable();
             lostPile++;
-
         }
     }
 
