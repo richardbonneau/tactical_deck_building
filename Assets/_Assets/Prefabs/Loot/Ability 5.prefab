@@ -384,7 +384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionType: attack
-  value: 5
+  value: 12
   iconImage: {fileID: 4802714814772216649}
   abilityText: {fileID: 6777124984271424590}
 --- !u!1001 &7517223987992247743

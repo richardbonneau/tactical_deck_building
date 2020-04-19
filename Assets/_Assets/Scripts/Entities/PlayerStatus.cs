@@ -7,7 +7,6 @@ public class PlayerStatus : MonoBehaviour
     public GridCreator gridCreator;
     public int allowedMovement = 5;
     public Node playerNode;
-
     public int maxHealth = 15;
     public int health = 15;
     public bool isDead = false;
@@ -18,6 +17,7 @@ public class PlayerStatus : MonoBehaviour
     public GameObject shieldEffect;
     public bool isShielded = false;
     public TextMeshProUGUI healthInNumbers;
+    public Menus menus;
 
     void Start()
     {
@@ -35,6 +35,7 @@ public class PlayerStatus : MonoBehaviour
             {
                 isDead = true;
                 animator.SetBool("isDead", true);
+                menus.FailState();
             }
         }
     }
@@ -57,6 +58,7 @@ public class PlayerStatus : MonoBehaviour
 
     public void GetHit(int damage)
     {
+        print("player gets hit for " + damage);
         if (isShielded)
         {
             shieldEffect.SetActive(false);

@@ -236,8 +236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59cb0f5a10a18ed40919da92805f2f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionType: shield
-  value: 0
+  actionType: move
+  value: 10
   iconImage: {fileID: 1666466026848834852}
   abilityText: {fileID: 832038845770471971}
 --- !u!1 &832038845770472183

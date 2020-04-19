@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionType: move
-  value: 4
+  value: 6
   iconImage: {fileID: 3477274567343303133}
   abilityText: {fileID: 3236476394147030746}
 --- !u!1 &3236476394147030542
