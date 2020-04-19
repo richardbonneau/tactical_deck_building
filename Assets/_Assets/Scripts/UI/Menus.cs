@@ -16,6 +16,7 @@ public class Menus : MonoBehaviour
     public GameObject topCanvas;
     public GameObject deckCanvas;
     bool podLaunched;
+    public GameObject helpMenu;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -80,5 +81,13 @@ public class Menus : MonoBehaviour
         cameraMovement.cameraMovementEnabled = false;
         winState.SetActive(true);
         LeanTween.alphaCanvas(winState.GetComponent<CanvasGroup>(), 1f, 2f).setEase(LeanTweenType.easeInCirc);
+    }
+    public void OpenHelpMenu()
+    {
+        helpMenu.SetActive(true);
+    }
+    public void CloseHelpMenu()
+    {
+        helpMenu.SetActive(false);
     }
 }
