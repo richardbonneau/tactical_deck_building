@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class intro : MonoBehaviour
 {
@@ -28,8 +29,15 @@ public class intro : MonoBehaviour
     }
     void OpenMenu()
     {
+        menuOpened = true;
         mainMenu.SetActive(true);
-        LeanTween.alphaCanvas(mainMenu.GetComponent<CanvasGroup>(), 1f, 2f).setEase(LeanTweenType.easeInCirc);
+        LeanTween.alphaCanvas(mainMenu.GetComponent<CanvasGroup>(), 1f, 1f).setEase(LeanTweenType.easeInCirc);
     }
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Prototype");
+
+    }
+
 
 }

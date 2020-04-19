@@ -37,6 +37,7 @@ public class Menus : MonoBehaviour
         gameMenu.SetActive(false);
         isOpen = false;
     }
+
     public void RestartGame()
     {
         Application.LoadLevel(Application.loadedLevel);
