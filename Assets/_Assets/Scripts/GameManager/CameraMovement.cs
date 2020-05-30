@@ -6,7 +6,6 @@ public class CameraMovement : MonoBehaviour
 {
     public float panSpeed = 8f;
     public float rotateSpeed = 100f;
-    public float rotationSpeed = 10f;
     public float edgeSize = 30f;
     public bool sideScrollingIsActive = false;
     public bool cameraMovementEnabled = true;
@@ -60,21 +59,21 @@ public class CameraMovement : MonoBehaviour
         if (Input.GetKeyDown("e") && !currentlyRotating)
         {
             currentlyRotating = true;
-            rotationDirection = "left";
+            rotationDirection = "right";
             newYValue = rot + rotationAmount;
             if (newYValue >= 360) newYValue = 0;
         }
         if (Input.GetKeyDown("q") && !currentlyRotating)
         {
             currentlyRotating = true;
-            rotationDirection = "right";
+            rotationDirection = "left";
             newYValue = rot - rotationAmount;
-            if (newYValue >= 360) newYValue = 0;
+            if (newYValue < 0) newYValue = 360 - rotationAmount;
         }
         this.transform.position = pos;
 
 
-        if (currentlyRotating && rotationDirection == "left")
+        if (currentlyRotating && rotationDirection == "right")
         {
             if (rot < newYValue || newYValue == 0 && rot > 0 && rot > 5)
             {
@@ -89,11 +88,14 @@ public class CameraMovement : MonoBehaviour
                 currentlyRotating = false;
             }
         }
-        else if (currentlyRotating && rotationDirection == "right")
+        else if (currentlyRotating && rotationDirection == "left")
         {
-            if (rot > newYValue || newYValue == 0 && rot > 0 && rot < 355)
+            // print("rot > newYValue " + (rot > newYValue).ToString() + " rot " + rot + " newYValue " + newYValue);
+            // print("first IF " + (rot > newYValue && newYValue != 0 || newYValue == 0 && rot > 0 && rot < 355).ToString() + " elseIf " + (rot < newYValue || (newYValue == 0 && rot > 355)).ToString());
+            if (rot > newYValue && newYValue != 0 || newYValue == 0 && rot > 0 && rot < 355 || rot == 0)
             {
-
+                print("rotating");
+                // print("newYValue " + newYValue + " rot " + rot + " (rot > 355).ToString() " + (rot > 355).ToString());
                 this.transform.Rotate(Vector3.down * Time.deltaTime * rotateSpeed);
             }
             else if (rot < newYValue || (newYValue == 0 && rot > 355))
