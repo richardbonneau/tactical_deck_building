@@ -6,6 +6,7 @@ public class CameraMovement : MonoBehaviour
 {
     public float panSpeed = 8f;
     public float rotateSpeed = 100f;
+
     public float edgeSize = 30f;
     public bool sideScrollingIsActive = false;
     public bool cameraMovementEnabled = true;
@@ -14,6 +15,7 @@ public class CameraMovement : MonoBehaviour
     string rotationDirection = "left";
     float newYValue = 0f;
     public float rotationAmount = 45;
+    int cameraPosition = 0;
 
     void Update()
     {
@@ -26,7 +28,10 @@ public class CameraMovement : MonoBehaviour
             || (Input.mousePosition.y > Screen.height - edgeSize && sideScrollingIsActive)
         )
         {
-            pos.z += panSpeed * Time.deltaTime;
+            if (cameraPosition == 0) pos.z += panSpeed * Time.deltaTime;
+            else if (cameraPosition == 1) pos.x += panSpeed * Time.deltaTime;
+            else if (cameraPosition == 2) pos.z -= panSpeed * Time.deltaTime;
+            else if (cameraPosition == 3) pos.x -= panSpeed * Time.deltaTime;
         }
         if (
             cameraMovementEnabled &&
@@ -35,7 +40,12 @@ public class CameraMovement : MonoBehaviour
             || (Input.mousePosition.y < edgeSize && sideScrollingIsActive)
         )
         {
-            pos.z -= panSpeed * Time.deltaTime;
+
+
+            if (cameraPosition == 0) pos.z -= panSpeed * Time.deltaTime;
+            else if (cameraPosition == 1) pos.x -= panSpeed * Time.deltaTime;
+            else if (cameraPosition == 2) pos.z += panSpeed * Time.deltaTime;
+            else if (cameraPosition == 3) pos.x += panSpeed * Time.deltaTime;
         }
         if (
             cameraMovementEnabled &&
@@ -44,7 +54,11 @@ public class CameraMovement : MonoBehaviour
             || (Input.mousePosition.x < edgeSize && sideScrollingIsActive)
         )
         {
-            pos.x -= panSpeed * Time.deltaTime;
+
+            if (cameraPosition == 0) pos.x -= panSpeed * Time.deltaTime;
+            else if (cameraPosition == 1) pos.z += panSpeed * Time.deltaTime;
+            else if (cameraPosition == 2) pos.x += panSpeed * Time.deltaTime;
+            else if (cameraPosition == 3) pos.z -= panSpeed * Time.deltaTime;
         }
         if (
             cameraMovementEnabled &&
@@ -53,7 +67,12 @@ public class CameraMovement : MonoBehaviour
             || (Input.mousePosition.x > Screen.width - edgeSize && sideScrollingIsActive)
         )
         {
-            pos.x += panSpeed * Time.deltaTime;
+
+
+            if (cameraPosition == 0) pos.x += panSpeed * Time.deltaTime;
+            else if (cameraPosition == 1) pos.z -= panSpeed * Time.deltaTime;
+            else if (cameraPosition == 2) pos.x -= panSpeed * Time.deltaTime;
+            else if (cameraPosition == 3) pos.z += panSpeed * Time.deltaTime;
         }
 
         if (Input.GetKeyDown("e") && !currentlyRotating)
@@ -86,6 +105,8 @@ public class CameraMovement : MonoBehaviour
                 eulerAngles.y = newYValue;
                 this.transform.eulerAngles = eulerAngles;
                 currentlyRotating = false;
+                cameraPosition++;
+                if (cameraPosition > 3) cameraPosition = 0;
             }
         }
         else if (currentlyRotating && rotationDirection == "left")
@@ -104,6 +125,8 @@ public class CameraMovement : MonoBehaviour
                 eulerAngles.y = newYValue;
                 this.transform.eulerAngles = eulerAngles;
                 currentlyRotating = false;
+                cameraPosition--;
+                if (cameraPosition < 0) cameraPosition = 3;
             }
         }
 
