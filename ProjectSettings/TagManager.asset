@@ -23,6 +23,7 @@ TagManager:
   - DeckHolder
   - DoorTrigger
   - LoseCardDeckHolder
+  - LC-Obstacles
   layers:
   - Default
   - TransparentFX

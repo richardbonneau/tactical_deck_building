@@ -20,37 +20,36 @@ public class GridCreator : MonoBehaviour
 
     void Awake()
     {
-
         CreateGrid();
     }
 
-    public void EnterNewRoom(Node doorTriggerNode)
+    public void EnterNewRoom(Vector3 nextRoomGridStart, Vector3 newPlayerPositionInNewRoom, int roomSizeX, int roomSizeZ)
     {
-        if (doorTriggerNode.nextRoomIndex == 5)
-        {
-            menus.WinState();
-        }
-        else
-        {
-            gridSpawnPoint = doorTriggerNode.nextRoomVector;
-            grid = new Node[gridSizeX, gridSizeZ];
-            // Change player location / make player move to new room\
-            player.transform.position = doorTriggerNode.nextRoomPlayerSpawn;
-            // set new obstacle list / Activate all obstacles
-            // Deactive old obstacles
-            enemiesManager.ClearAllEnemies();
-            rooms[doorTriggerNode.nextRoomIndex].SetActive(true);
-            rooms[roomIndex].SetActive(false);
-            roomIndex = doorTriggerNode.nextRoomIndex;
-            // clear the list of active enemies
 
-            enemiesManager.FindAllActiveEnemies();
-            // activate all new enemies
-            CreateGrid();
-            uiManager.CenterPlayer();
+        // PROTOTYPE-CODE:
+        // if (doorTriggerNode.nextRoomIndex == 5)
+        // {
+        //     menus.WinState();
+        // }
+        // else
+        // {
+        gridSpawnPoint = nextRoomGridStart;
+        grid = new Node[roomSizeX, roomSizeZ];
+        player.transform.position = newPlayerPositionInNewRoom;
 
-            //  put veil over old room, remove veil on new room
-        }
+        // PROTOTYPE-CODE:
+        // clear the list of active enemies
+        // enemiesManager.ClearAllEnemies();
+        // rooms[doorTriggerNode.nextRoomIndex].SetActive(true);
+        // rooms[roomIndex].SetActive(false);
+        // roomIndex = doorTriggerNode.nextRoomIndex;
+        // // activate all new enemies
+        // enemiesManager.FindAllActiveEnemies();
+
+        CreateGrid();
+        uiManager.CenterPlayer();
+
+        // }
 
 
     }
