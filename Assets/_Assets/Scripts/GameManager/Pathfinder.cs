@@ -14,7 +14,7 @@ public class Pathfinder : MonoBehaviour
     public GameObject player;
     int moveSpeed = 4;
 
-    public int maxMove = 10;
+    [System.NonSerialized] public int maxMove = 10;
     GridCreator grid;
     List<GameObject> gridView = new List<GameObject>();
     List<GameObject> pathView = new List<GameObject>();

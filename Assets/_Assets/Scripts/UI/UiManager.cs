@@ -11,7 +11,7 @@ public class UiManager : MonoBehaviour
     public CardsManager cardsManager;
     public GameObject player;
     public GameObject mainCam;
-    public bool centeringPlayer = false;
+
     Animator playerAnimator;
     public TextMeshProUGUI displayRounds;
     public TextMeshProUGUI cardsPlayed;
@@ -24,6 +24,7 @@ public class UiManager : MonoBehaviour
     public GameObject reshuffleAlert;
     public GameObject crafterAlert;
 
+    bool centeringPlayer = false;
     bool displayText = false;
 
     public Quaternion healthBarsRotation;
@@ -50,8 +51,7 @@ public class UiManager : MonoBehaviour
 
     void Awake()
     {
-        player = GameObject.FindWithTag("Player");
-        playerAnimator = player.GetComponentInChildren<Animator>();
+        playerAnimator = player.GetComponent<Animator>();
         LeanTween.moveLocal(crafterAlert, new Vector3(386f, 1000f, 0), 0f);
         LeanTween.moveLocal(nextRoundAlert, new Vector3(0f, 1000f, 0), 0f);
         LeanTween.moveLocal(noTargetsAlert, new Vector3(0f, 1000f, 0), 0f);

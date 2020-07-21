@@ -29,7 +29,7 @@ public class ObstacleCreator : MonoBehaviour
             GameObject newObstacle = Instantiate(randomObstacles[Random.Range(0, randomObstacles.Length)], new Vector3(obstacle.position.x, 0, obstacle.position.z), Quaternion.identity);
             newObstacle.transform.SetParent(obstaclesParent);
         }
-        gridCreator.EnterNewRoom(new Vector3(18, 0, -10), new Vector3(10, 0, -5), 18, 10);
+        gridCreator.EnterNewRoom(new Vector3(-12, 0, -10), new Vector3(-5, 0, 5), 18, 10);
     }
 
     public void destroyLevel()

@@ -1527,7 +1527,7 @@ GameObject:
   - component: {fileID: 166642505}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1594,6 +1594,9 @@ MonoBehaviour:
   shieldEffect: {fileID: 5817350077992250713}
   isShielded: 0
   healthInNumbers: {fileID: 6846055176084372029}
+  menus: {fileID: 0}
+  heal: {fileID: 0}
+  shield: {fileID: 0}
 --- !u!1 &2738335533654981033
 GameObject:
   m_ObjectHideFlags: 0

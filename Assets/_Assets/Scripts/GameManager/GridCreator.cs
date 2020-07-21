@@ -7,6 +7,7 @@ public class GridCreator : MonoBehaviour
     public Vector3 gridSpawnPoint = new Vector3(-10, 0, -10);
     public int gridSizeX = 20;
     public int gridSizeZ = 40;
+    public GameObject showNodePosition;
     public Node[,] grid;
     public List<Node> path;
     public EnemiesManager enemiesManager;
@@ -20,11 +21,13 @@ public class GridCreator : MonoBehaviour
 
     void Awake()
     {
-        CreateGrid();
+        // PROTOTYPE-CODE:
+        // CreateGrid();
     }
 
     public void EnterNewRoom(Vector3 nextRoomGridStart, Vector3 newPlayerPositionInNewRoom, int roomSizeX, int roomSizeZ)
     {
+        print("Enter New Room");
 
         // PROTOTYPE-CODE:
         // if (doorTriggerNode.nextRoomIndex == 5)
@@ -140,6 +143,9 @@ public class GridCreator : MonoBehaviour
             for (int z = 0; z < gridSizeZ; z++)
             {
                 bool walkable = true;
+                Vector3 nodePosition = new Vector3(gridSpawnPoint.x + x, 0, gridSpawnPoint.z + z);
+                //DEBUG: Creates a cube wherever a node is spawned.
+                //Instantiate(showNodePosition, nodePosition, Quaternion.identity);
                 grid[x, z] = new Node(x, z, new Vector3(gridSpawnPoint.x + x, 0, gridSpawnPoint.z + z), walkable);
             }
         }
