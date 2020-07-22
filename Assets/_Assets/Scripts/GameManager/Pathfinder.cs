@@ -39,6 +39,7 @@ public class Pathfinder : MonoBehaviour
         grid = GetComponent<GridCreator>();
         player = GameObject.FindWithTag("Player");
         playerStatus = player.GetComponent<PlayerStatus>();
+        print(playerStatus);
         animator = player.GetComponent<Animator>();
     }
 
