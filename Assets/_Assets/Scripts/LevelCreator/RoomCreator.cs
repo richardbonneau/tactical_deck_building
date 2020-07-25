@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleCreator : MonoBehaviour
+public class RoomCreator : MonoBehaviour
 {
     public GridCreator gridCreator;
     public GameObject[] bases;
     public GameObject[] randomObstacles;
+    public PlayerStatus playerStatus;
 
     List<GameObject> createdObstacles = new List<GameObject>();
     GameObject createdBase;
@@ -29,7 +30,9 @@ public class ObstacleCreator : MonoBehaviour
             GameObject newObstacle = Instantiate(randomObstacles[Random.Range(0, randomObstacles.Length)], new Vector3(obstacle.position.x, 0, obstacle.position.z), Quaternion.identity);
             newObstacle.transform.SetParent(obstaclesParent);
         }
-        gridCreator.EnterNewRoom(new Vector3(-12, 0, -10), new Vector3(-5, 0, 5), 18, 10);
+        Vector3 newRoomFirstNodeLocation = new Vector3(-12, 0, -10);
+        gridCreator.EnterNewRoom(newRoomFirstNodeLocation, new Vector3(-5, 0, 5), baseScript.size);
+        playerStatus.playerNode = gridCreator.NodeFromWorldPoint(newRoomFirstNodeLocation);
     }
 
     public void destroyLevel()

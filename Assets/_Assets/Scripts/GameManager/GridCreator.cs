@@ -5,8 +5,8 @@ using UnityEngine;
 public class GridCreator : MonoBehaviour
 {
     public Vector3 gridSpawnPoint = new Vector3(-10, 0, -10);
-    public int gridSizeX = 20;
-    public int gridSizeZ = 40;
+    public int gridSizeX = 0;
+    public int gridSizeZ = 0;
     public GameObject showNodePosition;
     public Node[,] grid;
     public List<Node> path;
@@ -19,15 +19,9 @@ public class GridCreator : MonoBehaviour
     public UiManager uiManager;
     public Menus menus;
 
-    void Awake()
+    public void EnterNewRoom(Vector3 nextRoomGridStart, Vector3 newPlayerPositionInNewRoom, Vector2 roomSize)
     {
-        // PROTOTYPE-CODE:
-        // CreateGrid();
-    }
-
-    public void EnterNewRoom(Vector3 nextRoomGridStart, Vector3 newPlayerPositionInNewRoom, int roomSizeX, int roomSizeZ)
-    {
-        print("Enter New Room");
+        print("Enter New Room " + roomSize);
 
         // PROTOTYPE-CODE:
         // if (doorTriggerNode.nextRoomIndex == 5)
@@ -37,7 +31,8 @@ public class GridCreator : MonoBehaviour
         // else
         // {
         gridSpawnPoint = nextRoomGridStart;
-        grid = new Node[roomSizeX, roomSizeZ];
+        gridSizeX = Mathf.RoundToInt(roomSize.x);
+        gridSizeZ = Mathf.RoundToInt(roomSize.y);
         player.transform.position = newPlayerPositionInNewRoom;
 
         // PROTOTYPE-CODE:
@@ -51,10 +46,6 @@ public class GridCreator : MonoBehaviour
 
         CreateGrid();
         uiManager.CenterPlayer();
-
-        // }
-
-
     }
     public void EnableDoorTriggers()
     {
@@ -144,8 +135,10 @@ public class GridCreator : MonoBehaviour
             {
                 bool walkable = true;
                 Vector3 nodePosition = new Vector3(gridSpawnPoint.x + x, 0, gridSpawnPoint.z + z);
+
                 //DEBUG: Creates a cube wherever a node is spawned.
-                //Instantiate(showNodePosition, nodePosition, Quaternion.identity);
+                Instantiate(showNodePosition, nodePosition, Quaternion.identity);
+
                 grid[x, z] = new Node(x, z, new Vector3(gridSpawnPoint.x + x, 0, gridSpawnPoint.z + z), walkable);
             }
         }
