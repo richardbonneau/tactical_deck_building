@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Base : MonoBehaviour
 {
-    public Transform obstaclesPositions;
-    public Transform obstacles;
+    public Transform obstaclesSpawnPoints;
+    public Transform visualObstaclesParent;
+    public GameObject[] possibleRandomObstacles;
     public Vector2 size;
 }

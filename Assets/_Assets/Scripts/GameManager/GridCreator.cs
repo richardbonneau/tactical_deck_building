@@ -137,7 +137,7 @@ public class GridCreator : MonoBehaviour
                 Vector3 nodePosition = new Vector3(gridSpawnPoint.x + x, 0, gridSpawnPoint.z + z);
 
                 //DEBUG: Creates a cube wherever a node is spawned.
-                Instantiate(showNodePosition, nodePosition, Quaternion.identity);
+                // Instantiate(showNodePosition, nodePosition, Quaternion.identity);
 
                 grid[x, z] = new Node(x, z, new Vector3(gridSpawnPoint.x + x, 0, gridSpawnPoint.z + z), walkable);
             }

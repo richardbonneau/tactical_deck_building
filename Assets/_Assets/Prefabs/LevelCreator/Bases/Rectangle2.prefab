@@ -11551,8 +11551,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b4f84a5b119d74eb56fd57a3d85845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclesPositions: {fileID: 8646795853204600274}
-  obstacles: {fileID: 3360580376522179315}
+  obstaclesSpawnPoints: {fileID: 8646795853204600274}
+  visualObstaclesParent: {fileID: 3360580376522179315}
+  possibleRandomObstacles:
+  - {fileID: 6704799830928180959, guid: 0598859d760a00b4bad500e285da9bb4, type: 3}
+  - {fileID: 8827839718770385352, guid: 526eb506bbb51c349940c4e35e95b344, type: 3}
   size: {x: 28, y: 19}
 --- !u!1 &8646795853163772719
 GameObject:
@@ -11690,7 +11693,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8646795853204600274}
   m_Layer: 0
-  m_Name: ObstaclesPosition
+  m_Name: ObstaclesSpawnPoints
   m_TagString: LC-Obstacles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

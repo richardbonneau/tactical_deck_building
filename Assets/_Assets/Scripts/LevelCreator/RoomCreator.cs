@@ -6,15 +6,14 @@ public class RoomCreator : MonoBehaviour
 {
     public GridCreator gridCreator;
     public GameObject[] bases;
-    public GameObject[] randomObstacles;
     public PlayerStatus playerStatus;
 
     List<GameObject> createdObstacles = new List<GameObject>();
     GameObject createdBase;
 
     Base baseScript;
-    Transform obstaclesParent;
-    Transform obstaclesPositionsParent;
+    Transform visualObstaclesParent;
+    Transform obstaclesSpawnPoints;
 
 
     public void createLevel()
@@ -22,16 +21,16 @@ public class RoomCreator : MonoBehaviour
         GameObject chosenBase = bases[Random.Range(0, bases.Length)];
         createdBase = Instantiate(chosenBase, new Vector3(0, 0, 0), Quaternion.identity);
         baseScript = createdBase.GetComponent<Base>();
-        obstaclesPositionsParent = baseScript.obstaclesPositions;
-        obstaclesParent = baseScript.obstacles;
+        obstaclesSpawnPoints = baseScript.obstaclesSpawnPoints;
+        visualObstaclesParent = baseScript.visualObstaclesParent;
 
-        foreach (Transform obstacle in obstaclesPositionsParent)
+        foreach (Transform obstacle in obstaclesSpawnPoints)
         {
-            GameObject newObstacle = Instantiate(randomObstacles[Random.Range(0, randomObstacles.Length)], new Vector3(obstacle.position.x, 0, obstacle.position.z), Quaternion.identity);
-            newObstacle.transform.SetParent(obstaclesParent);
+            GameObject newObstacle = Instantiate(baseScript.possibleRandomObstacles[Random.Range(0, baseScript.possibleRandomObstacles.Length)], new Vector3(obstacle.position.x, 0, obstacle.position.z), Quaternion.identity);
+            newObstacle.transform.SetParent(visualObstaclesParent);
         }
         Vector3 newRoomFirstNodeLocation = new Vector3(-11, 0, -9);
-        gridCreator.EnterNewRoom(newRoomFirstNodeLocation, new Vector3(-5, 0, 5), baseScript.size);
+        gridCreator.EnterNewRoom(newRoomFirstNodeLocation, new Vector3(0, 0, 0), baseScript.size);
         playerStatus.playerNode = gridCreator.NodeFromWorldPoint(newRoomFirstNodeLocation);
     }
 
