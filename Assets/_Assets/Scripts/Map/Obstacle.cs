@@ -5,15 +5,13 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     GridCreator gridCreator;
-    void Awake()
-    {
-        gridCreator = GameObject.FindWithTag("GridManager").GetComponent<GridCreator>();
-    }
+
     void Start()
     {
+        gridCreator = GameObject.FindWithTag("GridManager").GetComponent<GridCreator>();
         Node node = gridCreator.NodeFromWorldPoint(this.transform.position);
-        if(node != null) node.walkable = false;
-      
+        if (node != null) node.walkable = false;
+
     }
 
 
