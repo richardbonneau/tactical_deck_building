@@ -20152,7 +20152,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1815945675}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 617f2d57f40bb3849b16aaabe9d2c7da, type: 3}
+  m_Script: {fileID: 11500000, guid: 3200faa186339f24a97935f50a4299ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gridCreator: {fileID: 696832967}
@@ -20162,6 +20162,7 @@ MonoBehaviour:
   randomObstacles:
   - {fileID: 6704799830928180959, guid: 0598859d760a00b4bad500e285da9bb4, type: 3}
   - {fileID: 8827839718770385352, guid: 526eb506bbb51c349940c4e35e95b344, type: 3}
+  playerStatus: {fileID: 2088796479}
 --- !u!4 &1815945677
 Transform:
   m_ObjectHideFlags: 0
@@ -23467,6 +23468,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 257294773}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2088796479 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 166642505, guid: 528a6f790d240cd4184313a8371ab908,
+    type: 3}
+  m_PrefabInstance: {fileID: 257294773}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088796478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce94ab34384adf742b1753faddf1528c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2101786437
 GameObject:
   m_ObjectHideFlags: 0

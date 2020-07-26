@@ -30,7 +30,7 @@ public class RoomCreator : MonoBehaviour
             GameObject newObstacle = Instantiate(randomObstacles[Random.Range(0, randomObstacles.Length)], new Vector3(obstacle.position.x, 0, obstacle.position.z), Quaternion.identity);
             newObstacle.transform.SetParent(obstaclesParent);
         }
-        Vector3 newRoomFirstNodeLocation = new Vector3(-12, 0, -10);
+        Vector3 newRoomFirstNodeLocation = new Vector3(-11, 0, -9);
         gridCreator.EnterNewRoom(newRoomFirstNodeLocation, new Vector3(-5, 0, 5), baseScript.size);
         playerStatus.playerNode = gridCreator.NodeFromWorldPoint(newRoomFirstNodeLocation);
     }

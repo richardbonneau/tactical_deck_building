@@ -11553,6 +11553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclesPositions: {fileID: 8646795853204600274}
   obstacles: {fileID: 3360580376522179315}
+  size: {x: 28, y: 19}
 --- !u!1 &8646795853163772719
 GameObject:
   m_ObjectHideFlags: 0
