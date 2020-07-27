@@ -34,6 +34,7 @@ public class GridCreator : MonoBehaviour
         gridSizeX = Mathf.RoundToInt(roomSize.x);
         gridSizeZ = Mathf.RoundToInt(roomSize.y);
         player.transform.position = newPlayerPositionInNewRoom;
+        enemiesManager.FindAllActiveEnemies();
 
         // PROTOTYPE-CODE:
         // clear the list of active enemies
@@ -42,7 +43,7 @@ public class GridCreator : MonoBehaviour
         // rooms[roomIndex].SetActive(false);
         // roomIndex = doorTriggerNode.nextRoomIndex;
         // // activate all new enemies
-        // enemiesManager.FindAllActiveEnemies();
+        // /// enemiesManager.FindAllActiveEnemies();
 
         CreateGrid();
         uiManager.CenterPlayer();

@@ -27,10 +27,7 @@ public class EnemiesManager : MonoBehaviour
         audioSource = this.GetComponent<AudioSource>();
         audioSource.clip = loot;
     }
-    void Start()
-    {
-        FindAllActiveEnemies();
-    }
+
     public void FindAllActiveEnemies()
     {
         GameObject[] allEnemiesInScene = GameObject.FindGameObjectsWithTag("Enemy");
