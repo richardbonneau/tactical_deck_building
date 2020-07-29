@@ -156,7 +156,6 @@ public class Attacks : MonoBehaviour
                 targetIndicators.Add(potentialTarget);
                 targets.Add(found);
                 hasToChooseMeleetarget = true;
-
             }
         }
         if (targets.Count == 0)
