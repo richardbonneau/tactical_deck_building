@@ -15,7 +15,7 @@ public class CameraMovement : MonoBehaviour
     string rotationDirection = "left";
     float newYValue = 0f;
     public float rotationAmount = 45;
-    int cameraPosition = 0;
+    public int cameraPosition = 0;
 
     void Update()
     {
@@ -111,12 +111,8 @@ public class CameraMovement : MonoBehaviour
         }
         else if (currentlyRotating && rotationDirection == "left")
         {
-            // print("rot > newYValue " + (rot > newYValue).ToString() + " rot " + rot + " newYValue " + newYValue);
-            // print("first IF " + (rot > newYValue && newYValue != 0 || newYValue == 0 && rot > 0 && rot < 355).ToString() + " elseIf " + (rot < newYValue || (newYValue == 0 && rot > 355)).ToString());
             if (rot > newYValue && newYValue != 0 || newYValue == 0 && rot > 0 && rot < 355 || rot == 0)
             {
-                print("rotating");
-                // print("newYValue " + newYValue + " rot " + rot + " (rot > 355).ToString() " + (rot > 355).ToString());
                 this.transform.Rotate(Vector3.down * Time.deltaTime * rotateSpeed);
             }
             else if (rot < newYValue || (newYValue == 0 && rot > 355))
